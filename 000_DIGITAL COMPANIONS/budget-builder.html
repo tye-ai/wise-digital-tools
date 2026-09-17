@@ -534,8 +534,15 @@ function exploreThisPlan(){
   var E=window._explorePlan;
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
-   '<div class="q-count">Explore This Plan</div>'+
-   coach("Devon","Want to see what else could\'ve changed the month? Try moving these — this is just for you to try out. It won\'t change Devon\'s actual ending.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🔓 Explore This Plan</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Want to see what else could\'ve changed the month? Try moving these — this is just for you to try out. It won\'t change Devon\'s actual ending."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+
     moneyRow("💰 Income",E.income)+moneyRow("🏠 Housing",-E.rent)+moneyRow("📱 Phone",-E.phone)+
     '<div id="exploreSliders" style="margin-top:10px"></div>'+
