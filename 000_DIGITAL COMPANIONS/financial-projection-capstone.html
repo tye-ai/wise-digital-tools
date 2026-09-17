@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Financial Future: Stress Test — WISE Digital Tools</title>
+<style>
+:root{
+  --navy:#001943; --midnight:#0A111F; --blue:#426EFF; --green:#78BE21;
+  --orange:#FF6B00; --red:#D9262C; --slate:#1E293B; --gray:#64748B;
+  --line:#E2E8F0; --bg:#F4F6FA; --white:#FFFFFF;
+  --accent:#FFB000; --accent-light:#FFF6E0;
+  --accent-deep:#8C6100; --orange-deep:#B34A00;
+  --cap:#FFB000; --cap-light:#FFF6E0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--slate);min-height:100vh;display:flex;flex-direction:column;font-size:16px;line-height:1.5}
+.mono{font-family:ui-monospace,Consolas,monospace;font-weight:500}
+
+header{background:linear-gradient(135deg,var(--navy),var(--midnight));color:#fff;padding:22px 20px 18px}
+.hd-inner{max-width:820px;margin:0 auto}
+.hd-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.wise-mark{font-weight:800;letter-spacing:.12em;font-size:13px;opacity:.9}
+.hub-link{color:#fff;opacity:.85;text-decoration:none;font-size:13px;border:1px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:99px;transition:opacity .15s;background:transparent;font-family:inherit;cursor:pointer}
+.hd-links{display:flex;gap:8px;flex-wrap:wrap}
+.hub-link:hover{opacity:1}
+.hd-title{display:flex;align-items:center;gap:12px}
+.hd-title .icon{font-size:32px;line-height:1}
+h1{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.hd-sub{font-size:13px;font-weight:700;opacity:.82;margin-top:2px}
+.hd-desc{opacity:.85;font-size:14.5px;margin-top:6px;max-width:620px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:99px}
+.chip.acc{background:var(--accent-deep);border-color:var(--accent-deep);color:#fff}
+.accent-bar{height:5px;background:linear-gradient(90deg,var(--accent),var(--navy))}
+@media(max-width:520px){
+  header{padding:14px 16px 12px}
+  h1{font-size:19px}
+  .hd-title .icon{font-size:26px}
+  .hd-desc{display:none}
+  .chips{margin-top:8px}
+  .chip{font-size:11px;padding:3px 10px}
+  .chip.hide-mobile{display:none}
+}
+
+main{flex:1;width:100%;max-width:680px;margin:0 auto;padding:26px 20px 40px}
+.screen{animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+[hidden]{display:none!important}
+.stepfade{animation:fadein .3s ease}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 1px 3px rgba(10,17,31,.05)}
+.card h2{font-size:17px;color:var(--midnight);margin-bottom:12px;font-weight:700}
+.card h3{font-size:15px;color:var(--midnight);margin-bottom:8px;font-weight:700}
+.card.accent{border-top:4px solid var(--accent)}
+.card.soft{background:var(--accent-light);border-color:transparent}
+.subtle{color:var(--gray);font-size:13.5px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .1s,background .15s;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#2f56db}
+.btn-accent{background:var(--accent-deep);color:#fff}
+.btn-accent:hover{filter:brightness(1.15)}
+.btn-cta{background:var(--orange-deep);color:#fff}
+.btn-cta:hover{background:#8f3b00}
+.btn-secondary{background:var(--white);color:var(--navy);border:1.5px solid var(--line)}
+.btn-secondary:hover{border-color:var(--navy)}
+.btn-lg{padding:14px 30px;font-size:16.5px;border-radius:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+label.fld{display:block;font-size:13.5px;font-weight:700;color:var(--midnight);margin:12px 0 5px}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.range-val{font-family:ui-monospace,Consolas,monospace;font-weight:700;color:var(--navy)}
+textarea{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:var(--white);color:var(--slate)}
+textarea:focus{outline:2.5px solid var(--blue);outline-offset:0;border-color:transparent}
+
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opt{text-align:left;background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;font-size:15px;font-family:inherit;cursor:pointer;transition:border-color .12s,background .12s;color:var(--slate)}
+.opt:hover{border-color:var(--blue);background:#f7f9ff}
+.opt .opt-sub{display:block;color:var(--gray);font-size:13px;margin-top:2px}
+.q-count{font-size:12.5px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.quad-cell{background:var(--cap-light);border-radius:12px;padding:12px 14px}
+.quad-cell h4{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--cap);font-weight:800;margin-bottom:6px}
+.quad-cell p{font-size:13.5px;color:var(--slate)}
+@media(max-width:520px){.quad{grid-template-columns:1fr}}
+
+.money-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.money-row:last-child{border-bottom:none}
+.money-row .amt{font-family:ui-monospace,Consolas,monospace;font-weight:700}
+.money-row.total{font-weight:800;border-top:2px solid var(--slate);border-bottom:none;margin-top:4px;padding-top:10px}
+.money-row.sub{padding-left:10px;color:var(--gray);font-size:14px}
+
+.result-banner{border-radius:16px;padding:20px 22px;color:#fff;margin-bottom:16px}
+.result-banner.state-available{background:linear-gradient(135deg,#426EFF,#2B52CD)}
+.result-banner.state-assigned{background:linear-gradient(135deg,#003366,#0A111F)}
+.result-banner.state-shortfall{background:linear-gradient(135deg,#92400E,#7A350B)}
+.result-banner.cap{background:linear-gradient(135deg,#4338CA,#312693)}
+.result-banner h2{font-size:20px;margin-bottom:6px}
+.result-banner p{opacity:.93;font-size:14.5px}
+
+.entry-opt{background:var(--white);border:2px solid var(--line);border-radius:16px;padding:20px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s}
+.entry-opt:hover{border-color:var(--blue);background:#F7F9FF}
+.entry-icon{font-size:30px;display:block;margin-bottom:8px}
+.entry-title{font-size:16px;font-weight:800;color:var(--midnight)}
+.entry-desc{font-size:13.5px;color:var(--gray);margin-top:4px}
+
+footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5px}
+.ft-inner{max-width:820px;margin:0 auto}
+.ft-inner a{color:#cbd5e1}
+.ft-brand{color:#fff;font-weight:700;margin-bottom:4px;font-size:13px}
+
+@media(max-width:520px){
+  main{padding:18px 14px 32px}
+  .card{padding:16px}
+  .btn{width:100%}
+  .action-row .btn{width:auto;flex:1}
+}
+@media print{
+  header .hub-link,.action-row,.btn,footer,.overlay,.print-hide{display:none!important}
+  header{padding:8px 20px}
+  .hd-desc,.chips{display:none!important}
+  body{background:#fff}
+  .card{box-shadow:none;break-inside:avoid}
+  main{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){.screen,.stepfade{animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-inner">
+    <div class="hd-top">
+      <span class="wise-mark">WISE · WEALTH · INCOME · SAVING · EMPOWERMENT</span>
+      <div class="hd-links">
+        <button class="hub-link" onclick="resetAll()" type="button">↺ Start Over</button>
+        <a class="hub-link" href="index.html">← All WISE Tools</a>
+      </div>
+    </div>
+    <div class="hd-title"><span class="icon">🧩</span><div><h1>My Financial Future: Stress Test</h1><div class="hd-sub">You've built the pieces. Now test them together.</div></div></div>
+    <div class="hd-desc">Load a first-year plan that already combines mindset, income, budgeting, and a long-term goal — then see what happens when real life pushes on all of it at once.</div>
+    <div class="chips">
+      <span class="chip acc">Capstone I</span>
+      <span class="chip hide-mobile">Integrated Simulation</span>
+      <span class="chip">⏱ 10 min</span>
+      <span class="chip hide-mobile">Optional digital companion</span>
+    </div>
+  </div>
+</header>
+<div class="accent-bar"></div>
+
+<main id="app">
+<section class="screen" id="s-intro">
+  <div class="card accent">
+    <h2>A strong plan isn't one that never changes. It's one you know how to adjust. 🧩</h2>
+    <p style="font-size:14.5px;margin-top:6px">This sample plan already combines a money-mindset reframe, a career and income estimate, a Needs → Savings → Wants budget, and a long-term goal with an inflation-adjusted future cost. If you already built your own plan on paper, use these same steps to test yours instead.</p>
+  </div>
+  <button class="entry-opt" onclick="chooseStart()" type="button" style="width:100%;max-width:360px;margin:14px auto 0;display:block">
+    <span class="entry-icon">🧩</span>
+    <div class="entry-title">Load the Plan</div>
+    <div class="entry-desc">Nothing to fill out — a complete sample first-year plan is already built. You'll decide how it holds up.</div>
+  </button>
+  <p class="subtle" style="text-align:center;margin-top:10px">🔒 Fictional/sample scenario. No grade. Nothing is saved. No workbook required.</p>
+</section>
+
+<section class="screen" id="s-build" hidden><div id="buildSteps"></div></section>
+<section class="screen" id="s-end" hidden><div id="endMount"></div></section>
+</main>
+
+
+<footer>
+  <div class="ft-inner">
+    <div class="ft-brand">WISE Financial Literacy — A BEAC Initiative</div>
+    <p><strong>Optional digital companion:</strong> This digital tool is an optional enhancement. The Capstone workbook and rubric remain the assessed activity — this tool never grades or replaces it.</p>
+    <p style="margin-top:6px">Privacy: Uses fictional/sample scenarios. No login. No account. Nothing is saved.</p>
+    <p style="margin-top:6px"><a href="index.html">← All WISE Tools</a></p>
+  </div>
+</footer>
+
+<script>
+function $(id){return document.getElementById(id)}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function fmt0(n){var neg=n<0;n=Math.abs(n);var s="$"+Math.round(n).toLocaleString("en-US");return neg?"−"+s:s}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function num(id){var v=parseFloat($(id).value);return isNaN(v)?0:v}
+function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
+var REDUCED_MOTION=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function moneyRow(label,amt,cls){return '<div class="money-row'+(cls==="total"?" total":cls==="sub"?" sub":"")+'"><span>'+label+'</span><span class="amt">'+fmt0(amt)+'</span></div>'}
+function factRow(label,value,cls){return '<div class="money-row'+(cls==="total"?" total":"")+'"><span>'+label+'</span><span class="amt">'+value+'</span></div>'}
+function stateClass(bal){return bal>0?"state-available":bal===0?"state-assigned":"state-shortfall"}
+function verdictText(bal){return bal>0?"There's still money to assign.":bal===0?"Every dollar has a job.":"The plan needs another change — it's short."}
+
+
+/* ================= My Financial Future: Stress Test (Capstone I) ================= */
+var BASE={
+  value:"Independence", belief:"I'm still learning how to manage a full paycheck, and I can build the skill with practice.",
+  career:"Workforce path — full-time entry-level work",
+  grossAnnual:36000, deductionRate:0.25,
+  needs:1200, housing:600, savings:225, wants:590,
+  goalName:"Apartment security deposit + moving costs", goalCost:1500, goalYears:1
+};
+var P=null, log=[];
+
+function resetAll(){log=[];show("s-intro")}
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function grossMonthly(p){return p.grossAnnual/12}
+function takeHome(p){return grossMonthly(p)*(1-p.deductionRate)}
+function balance(p){return takeHome(p)-p.needs-p.savings-p.wants}
+function goalMultiplier(years){return Math.round(Math.pow(1.03,years)*1000)/1000}
+function goalFutureCost(p){return p.goalCost*goalMultiplier(p.goalYears)}
+function goalMonthly(p){return goalFutureCost(p)/(p.goalYears*12)}
+
+function chooseStart(){P=clone(BASE);log=[];show("s-build");renderOverview()}
+
+/* ---------- Beat 1: Load the integrated plan ---------- */
+function renderOverview(){
+  var m=$("buildSteps");
+  var gm=grossMonthly(P),th=takeHome(P),bal=balance(P),fc=goalFutureCost(P),gmo=goalMonthly(P);
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:20%"></div></div>'+
+   '<div class="q-count">Sample Plan, All Four Parts</div>'+
+   '<div class="card"><div class="quad">'+
+    '<div class="quad-cell"><h4>Mindset &amp; Values</h4><p><strong>Guiding value:</strong> '+P.value+'<br>"'+P.belief+'"</p></div>'+
+    '<div class="quad-cell"><h4>Career &amp; Income</h4><p><strong>'+P.career+'</strong><br>'+fmt0(P.grossAnnual)+' gross/year</p></div>'+
+    '<div class="quad-cell"><h4>Spending Plan</h4><p>Needs '+fmt0(P.needs)+' · Savings '+fmt0(P.savings)+' · Wants '+fmt0(P.wants)+'</p></div>'+
+    '<div class="quad-cell"><h4>Long-Term Goal</h4><p>'+P.goalName+'<br>'+fmt0(P.goalCost)+' today, in '+P.goalYears+' year</p></div>'+
+   '</div></div>'+
+   '<div class="card"><h2>Income</h2>'+
+    moneyRow("Gross Annual Income",P.grossAnnual)+
+    moneyRow("Gross Monthly Income",gm,"sub")+
+    moneyRow("Estimated Deductions (25%)",-Math.round(gm*P.deductionRate),"sub")+
+    moneyRow("Estimated Monthly Take-Home",th,"total")+
+   '</div>'+
+   '<div class="card"><h2>Budget Check</h2>'+
+    moneyRow("Take-Home Pay",th)+moneyRow("Needs",-P.needs)+moneyRow("Savings",-P.savings)+moneyRow("Wants",-P.wants)+
+    moneyRow("Final Balance",bal,"total")+
+   '</div>'+
+   '<div class="card"><h2>Long-Term Goal</h2>'+
+    factRow("Estimated Future Cost",fmt0(fc)+" (using the 3% annual planning assumption over "+P.goalYears+" yr)")+
+    factRow("Monthly Savings Target",fmt0(gmo))+
+    factRow("Does it fit inside the Savings line?",P.savings>=gmo?"Yes — "+fmt0(P.savings-gmo)+" to spare":"Not yet")+
+   '</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="renderStress()" type="button">Then, life happens →</button>'+
+  '</div>';
+}
+
+/* ---------- Beat 2: The stress event ---------- */
+function renderStress(){
+  P.grossAnnual=30000; P.needs=P.needs-P.housing+700; P.housing=700;
+  log.push({text:"Hours were cut — gross annual income dropped from $36,000 to $30,000."});
+  log.push({text:"Rent rose from $600 to $700 a month, raising total needs to "+fmt0(P.needs)+"."});
+  var m=$("buildSteps");
+  var th=takeHome(P),bal=balance(P);
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:50%"></div></div>'+
+   '<div class="q-count">Then, Life Happens</div>'+
+   '<div class="card"><h3>Two things hit at once</h3>'+
+    '<p style="font-size:14.5px;margin:6px 0">• Hours got cut — gross annual income drops to '+fmt0(P.grossAnnual)+'.</p>'+
+    '<p style="font-size:14.5px;margin:6px 0">• Rent rises to '+fmt0(P.housing)+', so total needs are now '+fmt0(P.needs)+'.</p>'+
+   '</div>'+
+   '<div class="card">'+moneyRow("New Take-Home Pay",th)+moneyRow("Needs",-P.needs)+moneyRow("Savings (unchanged)",-P.savings)+moneyRow("Wants (unchanged)",-P.wants)+moneyRow("Final Balance",bal,"total")+'</div>'+
+   '<div class="result-banner '+stateClass(bal)+'"><h2>'+verdictText(bal)+'</h2><p>The old Savings and Wants amounts no longer fit the new take-home pay. Something in the plan needs to change.</p></div>'+
+   '<button class="btn btn-accent btn-lg" onclick="renderRebalance()" type="button">Rebalance the plan →</button>'+
+  '</div>';
+}
+
+/* ---------- Beat 3: Rebalance ---------- */
+function renderRebalance(){
+  var th=takeHome(P);
+  var pool=th-P.needs;
+  window._pool=pool;
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:75%"></div></div>'+
+   '<div class="q-count">Rebalance the Plan</div>'+
+   '<div class="card"><p style="font-size:14.5px">After the new needs of '+fmt0(P.needs)+', there\'s '+fmt0(pool)+' left for Savings and Wants combined. Decide how to split it.</p>'+
+    '<label class="fld" for="saveR">Savings: <span class="range-val" id="saveVal">'+fmt0(Math.min(P.savings,pool))+'</span></label>'+
+    '<input type="range" id="saveR" min="0" max="'+Math.max(0,Math.round(pool))+'" step="5" value="'+Math.max(0,Math.min(P.savings,pool))+'" oninput="rebalanceSlide()" aria-label="Monthly savings amount">'+
+    '<div id="rebalanceBox" style="margin-top:12px" aria-live="polite"></div>'+
+   '</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="finishRebalance()" type="button">Check the long-term goal →</button>'+
+  '</div>';
+  rebalanceSlide();
+}
+function rebalanceSlide(){
+  var pool=window._pool;
+  var s=num("saveR"),w=pool-s;
+  $("saveVal").textContent=fmt0(s);
+  window._newSave=s;window._newWants=w;
+  $("rebalanceBox").innerHTML=moneyRow("Savings",s)+moneyRow("Wants",w)+moneyRow("Combined (always balanced)",s+w,"total");
+}
+function finishRebalance(){
+  P.savings=window._newSave;P.wants=window._newWants;
+  log.push({text:"Rebalanced the plan: Savings "+fmt0(P.savings)+", Wants "+fmt0(P.wants)+"."});
+  renderGoalCheck();
+}
+
+/* ---------- Beat 4: Does the goal still fit? ---------- */
+function renderGoalCheck(){
+  var gmo=goalMonthly(P);
+  var fits=P.savings>=gmo;
+  log.push({text:"Long-term goal target is "+fmt0(gmo)+" a month. The new Savings line "+(fits?"still covers it.":"no longer covers it.")});
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:90%"></div></div>'+
+   '<div class="q-count">Does the Goal Still Fit?</div>'+
+   '<div class="card">'+factRow("Long-term goal target",fmt0(gmo)+" a month")+factRow("New Savings line",fmt0(P.savings)+" a month")+'</div>'+
+   '<div class="result-banner '+(fits?"state-available":"state-shortfall")+'"><h2>'+(fits?"Yes — the goal still fits":"Not yet")+'</h2><p>'+(fits?"Even after the hit, the rebalanced Savings line still covers the "+fmt0(gmo)+" the goal needs each month.":"The rebalanced Savings line is "+fmt0(gmo-P.savings)+" short of what the goal needs each month.")+'</p></div>'+
+   (fits?'':'<div class="card"><h3>What would you change?</h3><div class="opts">'+
+    '<button class="opt" onclick="goalChoice(\'timeline\')">🗓 Extend the goal\'s timeline</button>'+
+    '<button class="opt" onclick="goalChoice(\'goal\')">🎯 Choose a smaller version of the goal</button>'+
+    '<button class="opt" onclick="goalChoice(\'budget\')">⚖️ Revisit the budget again</button>'+
+   '</div></div>')+
+   (fits?'<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Finish →</button>':'')+
+  '</div>';
+}
+function goalChoice(which){
+  if(which==="timeline"){
+    P.goalYears=P.goalYears+1;
+    log.push({text:"Extended the goal's timeline to "+P.goalYears+" year"+(P.goalYears===1?"":"s")+" — the monthly target recalculates."});
+    renderGoalCheck();
+  } else if(which==="goal"){
+    var newCost=Math.max(100,Math.round(P.goalCost*0.8/10)*10);
+    log.push({text:"Chose a smaller version of the goal — cost dropped from "+fmt0(P.goalCost)+" to "+fmt0(newCost)+" — the future cost and monthly target recalculate."});
+    P.goalCost=newCost;
+    renderGoalCheck();
+  } else {
+    log.push({text:"Went back to revisit the budget rather than change the goal."});
+    renderRebalance();
+  }
+}
+
+/* ---------- Ending ---------- */
+function showEnding(){
+  show("s-end");
+  var th=takeHome(P),bal=balance(P);
+  $("endMount").innerHTML='<div class="stepfade">'+
+   '<div class="card"><h2>📋 What happened to the plan</h2>'+
+   log.map(function(l){return '<p style="font-size:14px;margin:6px 0">• '+esc(l.text)+'</p>'}).join("")+
+   '</div>'+
+   '<div class="card"><h2>🧾 Final Plan Status</h2>'+
+    moneyRow("Take-Home Pay",th)+moneyRow("Needs",-P.needs)+moneyRow("Savings",-P.savings)+moneyRow("Wants",-P.wants)+moneyRow("Final Balance",bal,"total")+
+   '</div>'+
+   '<div class="result-banner cap"><h2>A strong plan is one you know how to adjust</h2><p>Every part of this plan — mindset, income, budget, and goal — connects to the others. When one piece changes, it can ripple through all four.</p></div>'+
+   '<div class="card soft"><h3>🎒 Take It With You</h3>'+
+   '<p style="font-size:14px;margin-bottom:8px">Using your own plan, the sample plan here, or a fictional one — which part would be hardest to adjust if income dropped: needs, savings, wants, or the long-term goal? Why? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
+   '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on adjusting a financial plan"></textarea></div>'+
+   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Return to your own Capstone plan on pp. 93–98. On paper, apply the same checks: income, spending balance, monthly savings, and goal fit. The tool uses a fixed sample; your workbook and rubric remain the assessed work.</p></div>'+
+   '<div class="action-row print-hide">'+
+    '<button class="btn btn-secondary" onclick="replay()" type="button">🔄 Try It Again</button>'+
+    '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
+   '</div>'+
+  '</div>';
+}
+function replay(){log=[];chooseStart()}
+</script>
+</body>
+</html>

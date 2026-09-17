@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mindset Paths — WISE Digital Tools</title>
+<style>
+:root{
+  --navy:#001943; --midnight:#0A111F; --blue:#426EFF; --green:#78BE21;
+  --orange:#FF6B00; --red:#D9262C; --slate:#1E293B; --gray:#64748B;
+  --line:#E2E8F0; --bg:#F4F6FA; --white:#FFFFFF;
+  --accent:#F0751A; --accent-light:#FDEEE4;
+  --accent-deep:#84400E; --orange-deep:#B34A00;
+  --elijah:#1E3A8A; --elijah-light:#EFF4FF;
+  --fixed:#57534E; --fixed-light:#F5F5F4;
+  --growth:#4C7A15; --growth-light:#EDF7DE;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--slate);min-height:100vh;display:flex;flex-direction:column;font-size:16px;line-height:1.5}
+.mono{font-family:ui-monospace,Consolas,monospace;font-weight:500}
+
+header{background:linear-gradient(135deg,var(--navy),var(--midnight));color:#fff;padding:22px 20px 18px}
+.hd-inner{max-width:820px;margin:0 auto}
+.hd-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.wise-mark{font-weight:800;letter-spacing:.12em;font-size:13px;opacity:.9}
+.hub-link{color:#fff;opacity:.85;text-decoration:none;font-size:13px;border:1px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:99px;transition:opacity .15s;background:transparent;font-family:inherit;cursor:pointer}
+.hd-links{display:flex;gap:8px;flex-wrap:wrap}
+.hub-link:hover{opacity:1}
+.hd-title{display:flex;align-items:center;gap:12px}
+.hd-title .icon{font-size:32px;line-height:1}
+h1{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.hd-sub{font-size:13px;font-weight:700;opacity:.82;margin-top:2px}
+.hd-desc{opacity:.85;font-size:14.5px;margin-top:6px;max-width:620px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:99px}
+.chip.acc{background:var(--accent-deep);border-color:var(--accent-deep);color:#fff}
+.accent-bar{height:5px;background:linear-gradient(90deg,var(--accent),var(--navy))}
+@media(max-width:520px){
+  header{padding:14px 16px 12px}
+  h1{font-size:19px}
+  .hd-title .icon{font-size:26px}
+  .hd-desc{display:none}
+  .chips{margin-top:8px}
+  .chip{font-size:11px;padding:3px 10px}
+  .chip.hide-mobile{display:none}
+}
+
+main{flex:1;width:100%;max-width:680px;margin:0 auto;padding:26px 20px 40px}
+.screen{animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+[hidden]{display:none!important}
+.stepfade{animation:fadein .3s ease}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 1px 3px rgba(10,17,31,.05)}
+.card h2{font-size:17px;color:var(--midnight);margin-bottom:12px;font-weight:700}
+.card h3{font-size:15px;color:var(--midnight);margin-bottom:8px;font-weight:700}
+.card.accent{border-top:4px solid var(--accent)}
+.card.soft{background:var(--accent-light);border-color:transparent}
+.subtle{color:var(--gray);font-size:13.5px}
+
+.coach{display:flex;gap:12px;align-items:flex-start;margin:14px 0}
+.avatar{width:44px;height:44px;min-width:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px;box-shadow:0 2px 6px rgba(10,17,31,.18)}
+.bubble{background:var(--white);border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:12px 16px;font-size:15px;box-shadow:0 1px 3px rgba(10,17,31,.06)}
+.bubble .who{font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .1s,background .15s;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#2f56db}
+.btn-accent{background:var(--accent-deep);color:#fff}
+.btn-accent:hover{filter:brightness(1.15)}
+.btn-cta{background:var(--orange-deep);color:#fff}
+.btn-cta:hover{background:#8f3b00}
+.btn-secondary{background:var(--white);color:var(--navy);border:1.5px solid var(--line)}
+.btn-secondary:hover{border-color:var(--navy)}
+.btn-lg{padding:14px 30px;font-size:16.5px;border-radius:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opt{text-align:left;background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;font-size:15px;font-family:inherit;cursor:pointer;transition:border-color .12s,background .12s;color:var(--slate)}
+.opt:hover{border-color:var(--blue);background:#f7f9ff}
+.opt:disabled{opacity:.5;cursor:not-allowed}
+.opt .opt-sub{display:block;color:var(--gray);font-size:13px;margin-top:2px}
+.q-count{font-size:12.5px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
+
+.path-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.path-card{border-radius:16px;padding:20px 16px;text-align:left;cursor:pointer;font-family:inherit;border:2px solid transparent}
+.path-card.fixed{background:var(--fixed-light);color:var(--fixed)}
+.path-card.growth{background:var(--growth-light);color:var(--growth)}
+.path-card .path-icon{font-size:26px;display:block;margin-bottom:8px}
+.path-card .path-title{font-size:15.5px;font-weight:800}
+.path-card .path-sub{font-size:13px;margin-top:4px;opacity:.85}
+.path-card:hover{border-color:currentColor}
+@media(max-width:520px){.path-grid{grid-template-columns:1fr}}
+
+.step-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.step-item{border-left:3px solid var(--elijah);padding:6px 0 6px 14px;font-size:14.5px}
+.step-item b{color:var(--elijah);display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+
+.result-banner{border-radius:16px;padding:20px 22px;color:#fff;margin-bottom:16px}
+.result-banner.state-available{background:linear-gradient(135deg,#426EFF,#2B52CD)}
+.result-banner.path-fixed{background:linear-gradient(135deg,#57534E,#292524)}
+.result-banner.path-growth{background:linear-gradient(135deg,#4C7A15,#365710)}
+.result-banner h2{font-size:20px;margin-bottom:6px}
+.result-banner p{opacity:.93;font-size:14.5px}
+
+.note{border-radius:12px;padding:12px 16px;font-size:13.5px;margin:14px 0;border:1px solid}
+.note.wb{background:#EFF6FF;border-color:#BFDBFE;color:#1E3A8A}
+
+label.fld{display:block;font-size:13.5px;font-weight:700;color:var(--midnight);margin:12px 0 5px}
+textarea{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:var(--white);color:var(--slate)}
+textarea:focus{outline:2.5px solid var(--blue);outline-offset:0;border-color:transparent}
+
+.entry-opt{background:var(--white);border:2px solid var(--line);border-radius:16px;padding:20px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s}
+.entry-opt:hover{border-color:var(--blue);background:#F7F9FF}
+.entry-icon{font-size:30px;display:block;margin-bottom:8px}
+.entry-title{font-size:16px;font-weight:800;color:var(--midnight)}
+.entry-desc{font-size:13.5px;color:var(--gray);margin-top:4px}
+
+footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5px}
+.ft-inner{max-width:820px;margin:0 auto}
+.ft-inner a{color:#cbd5e1}
+.ft-brand{color:#fff;font-weight:700;margin-bottom:4px;font-size:13px}
+
+@media(max-width:520px){
+  main{padding:18px 14px 32px}
+  .card{padding:16px}
+  .btn{width:100%}
+  .action-row .btn{width:auto;flex:1}
+}
+@media print{
+  header .hub-link,.action-row,.btn,footer,.overlay,.print-hide{display:none!important}
+  header{padding:8px 20px}
+  .hd-desc,.chips{display:none!important}
+  body{background:#fff}
+  .card{box-shadow:none;break-inside:avoid}
+  main{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){.screen,.stepfade{animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-inner">
+    <div class="hd-top">
+      <span class="wise-mark">WISE · WEALTH · INCOME · SAVING · EMPOWERMENT</span>
+      <div class="hd-links">
+        <button class="hub-link" onclick="resetAll()" type="button">↺ Start Over</button>
+        <a class="hub-link" href="index.html">← All WISE Tools</a>
+      </div>
+    </div>
+    <div class="hd-title"><span class="icon">🧠</span><div><h1>Mindset Paths</h1><div class="hd-sub">A belief isn't just a feeling. It's a fork in the road.</div></div></div>
+    <div class="hd-desc">Follow Elijah's thoughts after a money mistake. Choose which belief he runs with, and watch where it actually leads. No workbook required.</div>
+    <div class="chips">
+      <span class="chip acc">Lesson 2.1</span>
+      <span class="chip hide-mobile">Branching Story</span>
+      <span class="chip">⏱ 6 min</span>
+      <span class="chip hide-mobile">Optional digital companion</span>
+    </div>
+  </div>
+</header>
+<div class="accent-bar"></div>
+
+<main id="app">
+<section class="screen" id="s-intro">
+  <div class="card accent">
+    <h2>Same mistake. Two different next thoughts. 🧠</h2>
+    <div id="introCoach"></div>
+  </div>
+  <button class="entry-opt" onclick="chooseStart()" type="button" style="width:100%;max-width:360px;margin:14px auto 0;display:block">
+    <span class="entry-icon">🧠</span>
+    <div class="entry-title">Start Mindset Paths</div>
+    <div class="entry-desc">Nothing to fill out — just follow Elijah's thoughts and see where each one leads.</div>
+  </button>
+  <p class="subtle" style="text-align:center;margin-top:10px">🔒 Fictional scenario. No grade. Nothing is saved. No workbook required.</p>
+</section>
+
+<section class="screen" id="s-build" hidden><div id="buildSteps"></div></section>
+<section class="screen" id="s-end" hidden><div id="endMount"></div></section>
+</main>
+
+
+<footer>
+  <div class="ft-inner">
+    <div class="ft-brand">WISE Financial Literacy — A BEAC Initiative</div>
+    <p><strong>Optional digital companion:</strong> This digital tool is an optional enhancement. The lesson and workbook activity remain complete without it.</p>
+    <p style="margin-top:6px">Privacy: Uses fictional/sample scenarios. No login. No account. Nothing is saved.</p>
+    <p style="margin-top:6px"><a href="index.html">← All WISE Tools</a></p>
+  </div>
+</footer>
+
+<script>
+function $(id){return document.getElementById(id)}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
+var REDUCED_MOTION=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var CHAR={Elijah:"#1E3A8A"};
+function coach(name,text){var c=CHAR[name]||"#003366";return '<div class="coach"><div class="avatar" style="background:'+c+'">'+esc(name[0])+'</div><div class="bubble"><div class="who" style="color:'+c+'">'+esc(name)+'</div>'+text+'</div></div>'}
+
+
+/* ================= Mindset Paths (Elijah, Lesson 2.1) ================= */
+var log=[], pathsSeen={}, currentPath=null;
+
+function resetAll(){log=[];pathsSeen={};currentPath=null;show("s-intro")}
+
+(function(){
+  $("introCoach").innerHTML=coach("Elijah","This week I overspent by $25 I hadn't planned for. Right after it happened, a thought popped into my head: <em>“I always mess this up.”</em> What I do with that thought changes what happens next.");
+})();
+
+function chooseStart(){log=[];pathsSeen={};show("s-build");renderFork()}
+
+/* ---------- The Fork ---------- */
+function renderFork(){
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:25%"></div></div>'+
+   '<div class="q-count">The Moment</div>'+
+   coach("Elijah","I overspent by $25 this week. The thought “I always mess this up” is right there. Which way does it go?")+
+   '<div class="path-grid">'+
+    '<button class="path-card fixed" onclick="pickPath(\'fixed\')"><span class="path-icon">🔒</span><span class="path-title">"This is just who I am with money."</span><span class="path-sub">Treat it as fixed — nothing to do about it.</span></button>'+
+    '<button class="path-card growth" onclick="pickPath(\'growth\')"><span class="path-icon">🌱</span><span class="path-title">"I haven\'t figured this out yet, but I can."</span><span class="path-sub">Treat it as something to work with.</span></button>'+
+   '</div>'+
+  '</div>';
+}
+
+var PATH_CONTENT={
+  fixed:{
+    label:"Fixed Path",
+    reaction:"If that's true, there's not much point tracking it closely. I'll just wing it for the rest of the month.",
+    consequence:"Elijah doesn't look at the category again, so he still doesn't know what caused the overage.",
+    bannerClass:"path-fixed",
+    bannerTitle:"The path stayed closed."
+  },
+  growth:{
+    label:"Growth Path",
+    reaction:"Let me look at this differently before I decide what it means.",
+    consequence:"Elijah checks the category, sees what changed, and decides what he wants to try next week.",
+    bannerClass:"path-growth",
+    bannerTitle:"The path stayed open."
+  }
+};
+
+function pickPath(which){
+  show("s-build");
+  currentPath=which;
+  pathsSeen[which]=true;
+  log.push({text:"Followed the "+PATH_CONTENT[which].label.toLowerCase()+": “"+(which==="fixed"?"This is just who I am with money.":"I haven't figured this out yet, but I can.")+"”"});
+  if(which==="fixed"){renderFixedPath();}else{renderGrowthPath();}
+}
+
+function renderFixedPath(){
+  var p=PATH_CONTENT.fixed;
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:55%"></div></div>'+
+   '<div class="q-count">Fixed Path</div>'+
+   coach("Elijah",p.reaction)+
+   '<button class="btn btn-accent btn-lg" onclick="renderPathConsequence(\'fixed\')" type="button">See what happens →</button>'+
+  '</div>';
+}
+
+function renderGrowthPath(){
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:55%"></div></div>'+
+   '<div class="q-count">Growth Path</div>'+
+   coach("Elijah","Let me look at this differently before I decide what it means.")+
+   '<div class="card"><div class="step-list">'+
+    '<div class="step-item"><b>1. Name the Belief</b>“I always mess this up.”</div>'+
+    '<div class="step-item"><b>2. Question It</b>Is that completely true, or is this one week?</div>'+
+    '<div class="step-item"><b>3. Find Evidence</b>I stuck to the plan the last three weeks. I know how to track this — this week just went off script.</div>'+
+    '<div class="step-item"><b>4. Write the Reframe</b>I haven\'t nailed this every week yet, but I know how to look at what happened and adjust.</div>'+
+   '</div></div>'+
+   '<button class="btn btn-accent btn-lg" onclick="renderPathConsequence(\'growth\')" type="button">See what happens →</button>'+
+  '</div>';
+}
+
+function renderPathConsequence(which){
+  var p=PATH_CONTENT[which];
+  log.push({text:p.consequence});
+  var otherKey=which==="fixed"?"growth":"fixed";
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:80%"></div></div>'+
+   '<div class="result-banner '+p.bannerClass+'"><h2>'+p.bannerTitle+'</h2><p>'+p.consequence+'</p></div>'+
+   '<div class="action-row">'+
+    (pathsSeen[otherKey]?"":'<button class="btn btn-secondary" onclick="pickPath(\''+otherKey+'\')" type="button">↺ See the Other Path</button>')+
+    '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Continue →</button>'+
+   '</div>'+
+  '</div>';
+}
+
+/* ---------- Ending ---------- */
+function showEnding(){
+  show("s-end");
+  $("endMount").innerHTML='<div class="stepfade">'+
+   '<div class="card"><h2>📋 What happened</h2>'+
+   log.map(function(l){return '<p style="font-size:14px;margin:6px 0">• '+esc(l.text)+'</p>'}).join("")+
+   '</div>'+
+   '<div class="card"><h3>The Power of "Yet"</h3>'+
+   '<p style="font-size:14.5px">Compare <strong>"I always mess this up."</strong> with <strong>"I always mess this up — so far."</strong> The situation hasn\'t magically changed. The second version just leaves room for a next step.</p>'+
+   '</div>'+
+   coach("Elijah","Same mistake, same $25. The only thing that changed between the two paths was which belief I kept running with.")+
+   '<div class="card soft"><h3>🎒 Take It With You</h3>'+
+   '<p style="font-size:14px;margin-bottom:8px">Thinking of your own, a sample, or a fictional belief — what is one clue that helps you recognize when it\'s a growth money belief? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
+   '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on growth money beliefs"></textarea></div>'+
+   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Turn to the Apply page (p. 42) and reframe a belief of your own using the same four steps: Name it → Question it → Find evidence → Reframe it.</p></div>'+
+   '<div class="action-row print-hide">'+
+    (pathsSeen.fixed&&pathsSeen.growth?'':'<button class="btn btn-secondary" onclick="pickPath(\''+(pathsSeen.fixed?"growth":"fixed")+'\')" type="button">↺ See the Other Path</button>')+
+    '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try It Again</button>'+
+    '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
+   '</div>'+
+  '</div>';
+}
+function replayStory(){log=[];pathsSeen={};currentPath=null;show("s-build");renderFork()}
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Same Choice, Different Story — WISE Digital Tools</title>
+<style>
+:root{
+  --navy:#001943; --midnight:#0A111F; --blue:#426EFF; --green:#78BE21;
+  --orange:#FF6B00; --red:#D9262C; --slate:#1E293B; --gray:#64748B;
+  --line:#E2E8F0; --bg:#F4F6FA; --white:#FFFFFF;
+  --accent:#F0751A; --accent-light:#FDEEE4;
+  --accent-deep:#84400E; --orange-deep:#B34A00;
+  --riley:#0369A1; --riley-light:#EAF4FC;
+  --theo:#C2410C; --theo-light:#FDF1EA;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--slate);min-height:100vh;display:flex;flex-direction:column;font-size:16px;line-height:1.5}
+.mono{font-family:ui-monospace,Consolas,monospace;font-weight:500}
+
+header{background:linear-gradient(135deg,var(--navy),var(--midnight));color:#fff;padding:22px 20px 18px}
+.hd-inner{max-width:820px;margin:0 auto}
+.hd-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.wise-mark{font-weight:800;letter-spacing:.12em;font-size:13px;opacity:.9}
+.hub-link{color:#fff;opacity:.85;text-decoration:none;font-size:13px;border:1px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:99px;transition:opacity .15s;background:transparent;font-family:inherit;cursor:pointer}
+.hd-links{display:flex;gap:8px;flex-wrap:wrap}
+.hub-link:hover{opacity:1}
+.hd-title{display:flex;align-items:center;gap:12px}
+.hd-title .icon{font-size:32px;line-height:1}
+h1{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.hd-sub{font-size:13px;font-weight:700;opacity:.82;margin-top:2px}
+.hd-desc{opacity:.85;font-size:14.5px;margin-top:6px;max-width:620px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:99px}
+.chip.acc{background:var(--accent-deep);border-color:var(--accent-deep);color:#fff}
+.accent-bar{height:5px;background:linear-gradient(90deg,var(--accent),var(--navy))}
+@media(max-width:520px){
+  header{padding:14px 16px 12px}
+  h1{font-size:19px}
+  .hd-title .icon{font-size:26px}
+  .hd-desc{display:none}
+  .chips{margin-top:8px}
+  .chip{font-size:11px;padding:3px 10px}
+  .chip.hide-mobile{display:none}
+}
+
+main{flex:1;width:100%;max-width:680px;margin:0 auto;padding:26px 20px 40px}
+.screen{animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+[hidden]{display:none!important}
+.stepfade{animation:fadein .3s ease}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 1px 3px rgba(10,17,31,.05)}
+.card h2{font-size:17px;color:var(--midnight);margin-bottom:12px;font-weight:700}
+.card h3{font-size:15px;color:var(--midnight);margin-bottom:8px;font-weight:700}
+.card.accent{border-top:4px solid var(--accent)}
+.card.soft{background:var(--accent-light);border-color:transparent}
+.subtle{color:var(--gray);font-size:13.5px}
+
+.coach{display:flex;gap:12px;align-items:flex-start;margin:14px 0}
+.avatar{width:44px;height:44px;min-width:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px;box-shadow:0 2px 6px rgba(10,17,31,.18)}
+.bubble{background:var(--white);border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:12px 16px;font-size:15px;box-shadow:0 1px 3px rgba(10,17,31,.06)}
+.bubble .who{font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .1s,background .15s;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#2f56db}
+.btn-accent{background:var(--accent-deep);color:#fff}
+.btn-accent:hover{filter:brightness(1.15)}
+.btn-cta{background:var(--orange-deep);color:#fff}
+.btn-cta:hover{background:#8f3b00}
+.btn-secondary{background:var(--white);color:var(--navy);border:1.5px solid var(--line)}
+.btn-secondary:hover{border-color:var(--navy)}
+.btn-lg{padding:14px 30px;font-size:16.5px;border-radius:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opt{text-align:left;background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;font-size:15px;font-family:inherit;cursor:pointer;transition:border-color .12s,background .12s;color:var(--slate)}
+.opt:hover{border-color:var(--blue);background:#f7f9ff}
+.opt:disabled{opacity:.5;cursor:not-allowed}
+.opt .opt-sub{display:block;color:var(--gray);font-size:13px;margin-top:2px}
+.q-count{font-size:12.5px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
+
+.people-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.person-card{border-radius:16px;padding:18px 16px;text-align:left}
+.person-card.riley{background:var(--riley-light)}
+.person-card.theo{background:var(--theo-light)}
+.person-card h3{margin-bottom:4px}
+.person-card .choice{font-size:14px;font-weight:700;margin-top:6px}
+.person-card.riley .choice{color:var(--riley)}
+.person-card.theo .choice{color:var(--theo)}
+@media(max-width:520px){.people-grid{grid-template-columns:1fr}}
+
+.influence-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.influence-card{border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;cursor:pointer;background:var(--white);display:block;width:100%;text-align:left;font:inherit;color:inherit}
+.influence-card:focus-visible{outline:2.5px solid var(--blue);outline-offset:2px}
+.influence-card .inf-head{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--gray)}
+.influence-card .inf-body{font-size:14.5px;margin-top:6px;display:none}
+.influence-card.open .inf-body{display:block}
+.influence-card.open{border-color:currentColor}
+.influence-card.riley.open{color:var(--riley)}
+.influence-card.theo.open{color:var(--theo)}
+
+.step-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.step-item{border-left:3px solid var(--navy);padding:6px 0 6px 14px;font-size:14.5px}
+.step-item b{color:var(--navy);display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+
+.result-banner{border-radius:16px;padding:20px 22px;color:#fff;margin-bottom:16px}
+.result-banner.state-available{background:linear-gradient(135deg,#426EFF,#2B52CD)}
+.result-banner.investigate{background:linear-gradient(135deg,#003366,#0A111F)}
+.result-banner h2{font-size:20px;margin-bottom:6px}
+.result-banner p{opacity:.93;font-size:14.5px}
+
+label.fld{display:block;font-size:13.5px;font-weight:700;color:var(--midnight);margin:12px 0 5px}
+textarea{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:var(--white);color:var(--slate)}
+textarea:focus{outline:2.5px solid var(--blue);outline-offset:0;border-color:transparent}
+select{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:var(--white);color:var(--slate)}
+
+.entry-opt{background:var(--white);border:2px solid var(--line);border-radius:16px;padding:20px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s}
+.entry-opt:hover{border-color:var(--blue);background:#F7F9FF}
+.entry-icon{font-size:30px;display:block;margin-bottom:8px}
+.entry-title{font-size:16px;font-weight:800;color:var(--midnight)}
+.entry-desc{font-size:13.5px;color:var(--gray);margin-top:4px}
+
+footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5px}
+.ft-inner{max-width:820px;margin:0 auto}
+.ft-inner a{color:#cbd5e1}
+.ft-brand{color:#fff;font-weight:700;margin-bottom:4px;font-size:13px}
+
+@media(max-width:520px){
+  main{padding:18px 14px 32px}
+  .card{padding:16px}
+  .btn{width:100%}
+  .action-row .btn{width:auto;flex:1}
+}
+@media print{
+  header .hub-link,.action-row,.btn,footer,.overlay,.print-hide{display:none!important}
+  header{padding:8px 20px}
+  .hd-desc,.chips{display:none!important}
+  body{background:#fff}
+  .card{box-shadow:none;break-inside:avoid}
+  main{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){.screen,.stepfade{animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-inner">
+    <div class="hd-top">
+      <span class="wise-mark">WISE · WEALTH · INCOME · SAVING · EMPOWERMENT</span>
+      <div class="hd-links">
+        <button class="hub-link" onclick="resetAll()" type="button">↺ Start Over</button>
+        <a class="hub-link" href="index.html">← All WISE Tools</a>
+      </div>
+    </div>
+    <div class="hd-title"><span class="icon">🔍</span><div><h1>Same Choice, Different Story</h1><div class="hd-sub">Same $200. Same moment. Two very different choices.</div></div></div>
+    <div class="hd-desc">Two fictional students receive the same $200 gift and make different choices. Investigate the influences behind each choice. No workbook required.</div>
+    <div class="chips">
+      <span class="chip acc">Lesson 2.2</span>
+      <span class="chip hide-mobile">Influence Investigation</span>
+      <span class="chip">⏱ 8 min</span>
+      <span class="chip hide-mobile">Optional digital companion</span>
+    </div>
+  </div>
+</header>
+<div class="accent-bar"></div>
+
+<main id="app">
+<section class="screen" id="s-intro">
+  <div class="card accent">
+    <h2>Two people. One shape of choice. Very different reasons. 🔍</h2>
+    <p style="font-size:14.5px;margin-top:6px">Riley and Theo each received an unexpected $200 gift this month. Riley saved all of it. Theo spent all of it on a trip with friends. Neither choice is the "right" one — your job is to figure out what shaped each of them.</p>
+  </div>
+  <button class="entry-opt" onclick="chooseStart()" type="button" style="width:100%;max-width:360px;margin:14px auto 0;display:block">
+    <span class="entry-icon">🔍</span>
+    <div class="entry-title">Start the Investigation</div>
+    <div class="entry-desc">Nothing to fill out — both choices are already made. You'll uncover why.</div>
+  </button>
+  <p class="subtle" style="text-align:center;margin-top:10px">🔒 Fictional people. No grade. Nothing is saved. No workbook required.</p>
+</section>
+
+<section class="screen" id="s-build" hidden><div id="buildSteps"></div></section>
+<section class="screen" id="s-end" hidden><div id="endMount"></div></section>
+</main>
+
+
+<footer>
+  <div class="ft-inner">
+    <div class="ft-brand">WISE Financial Literacy — A BEAC Initiative</div>
+    <p><strong>Optional digital companion:</strong> This digital tool is an optional enhancement. The lesson and workbook activity remain complete without it.</p>
+    <p style="margin-top:6px">Privacy: Uses fictional/sample scenarios. No login. No account. Nothing is saved.</p>
+    <p style="margin-top:6px"><a href="index.html">← All WISE Tools</a></p>
+  </div>
+</footer>
+
+<script>
+function $(id){return document.getElementById(id)}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
+var REDUCED_MOTION=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var CHAR={Riley:"#0369A1",Theo:"#C2410C"};
+function coach(name,text){var c=CHAR[name]||"#003366";return '<div class="coach"><div class="avatar" style="background:'+c+'">'+esc(name[0])+'</div><div class="bubble"><div class="who" style="color:'+c+'">'+esc(name)+'</div>'+text+'</div></div>'}
+
+
+/* ================= Same Choice, Different Story (Riley & Theo, Lesson 2.2) ================= */
+var INFLUENCES={
+  riley:[
+    {cat:"Family & Home",text:"“Put something away before you spend it” is something Riley heard constantly growing up — it wasn't a suggestion, it was just how money worked at home."},
+    {cat:"Friends & Peers",text:"Riley's friend group doesn't really do big group trips or expensive plans together, so there's no social pull toward spending it that way."},
+    {cat:"Media & Social Media",text:"A lot of what shows up in Riley's feed is budgeting and saving content — it's just the kind of financial content Riley ends up watching."},
+    {cat:"Circumstances", text:"Riley is trying to move into their own place next year, so any extra money already feels like it belongs to that goal."}
+  ],
+  theo:[
+    {cat:"Family & Home",text:"Theo's family always prioritized being together over saving for \"someday\" — experiences got talked about as the thing that actually mattered."},
+    {cat:"Friends & Peers",text:"This particular trip is something Theo's whole friend group is doing together — a rare chance for everyone to be in the same place at once."},
+    {cat:"Media & Social Media",text:"A lot of what Theo sees online is about not putting off experiences — the idea that there are only so many summers to spend with the same people."},
+    {cat:"Circumstances", text:"Theo's living situation is stable right now, so there's less pressure to build a cushion immediately."}
+  ]
+};
+var seenInfluences={riley:0,theo:0}, log=[];
+
+function resetAll(){log=[];seenInfluences={riley:0,theo:0};show("s-intro")}
+function chooseStart(){log=[];seenInfluences={riley:0,theo:0};show("s-build");renderMoment()}
+
+/* ---------- The shared moment ---------- */
+function renderMoment(){
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:20%"></div></div>'+
+   '<div class="q-count">The Same Moment</div>'+
+   '<div class="card"><h2>Two people. Same $200 gift.</h2><div class="people-grid">'+
+    '<div class="person-card riley"><h3>Riley</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Saved all $200.</p></div>'+
+    '<div class="person-card theo"><h3>Theo</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Spent all $200 on a trip with friends.</p></div>'+
+   '</div></div>'+
+   '<button class="btn btn-accent btn-lg" onclick="renderPickInvestigate()" type="button">Investigate why →</button>'+
+  '</div>';
+}
+function renderPickInvestigate(){
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:35%"></div></div>'+
+   '<div class="q-count">Pick Someone to Investigate</div>'+
+   '<div class="card"><h3>Neither choice is "the right one." Start uncovering what shaped each of them.</h3><div class="opts">'+
+    '<button class="opt" onclick="renderInvestigate(\'riley\')">🔎 Investigate Riley\'s choice</button>'+
+    '<button class="opt" onclick="renderInvestigate(\'theo\')">🔎 Investigate Theo\'s choice</button>'+
+   '</div></div>'+
+  '</div>';
+}
+
+/* ---------- Investigate influences (click to reveal) ---------- */
+function renderInvestigate(who){
+  var person=who==="riley"?"Riley":"Theo";
+  var m=$("buildSteps");
+  var cards=INFLUENCES[who].map(function(inf,idx){
+    return '<button type="button" class="influence-card '+who+'" id="inf_'+who+'_'+idx+'" aria-expanded="false" onclick="toggleInfluence(\''+who+'\','+idx+')">'+
+     '<div class="inf-head">'+inf.cat+'</div><div class="inf-body">'+inf.text+'</div>'+
+    '</button>';
+  }).join("");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:50%"></div></div>'+
+   '<div class="q-count">Investigating '+person+'</div>'+
+   coach(person,"Click each card below to see one piece of what shaped my choice.")+
+   '<div class="influence-list">'+cards+'</div>'+
+   '<div class="action-row" id="investigateActions"></div>'+
+  '</div>';
+  window._investigating=who;
+  updateInvestigateActions();
+}
+function toggleInfluence(who,idx){
+  var elm=$("inf_"+who+"_"+idx);
+  var wasOpen=elm.classList.contains("open");
+  elm.classList.toggle("open");
+  elm.setAttribute("aria-expanded",wasOpen?"false":"true");
+  if(!wasOpen){
+    seenInfluences[who]=Math.min(INFLUENCES[who].length,seenInfluences[who]+1);
+    log.push({text:(who==="riley"?"Riley":"Theo")+" — "+INFLUENCES[who][idx].cat+": "+INFLUENCES[who][idx].text});
+  }
+  updateInvestigateActions();
+}
+function updateInvestigateActions(){
+  var who=window._investigating;
+  var allSeen=seenInfluences.riley>=INFLUENCES.riley.length&&seenInfluences.theo>=INFLUENCES.theo.length;
+  var otherWho=who==="riley"?"theo":"riley";
+  var otherPerson=otherWho==="riley"?"Riley":"Theo";
+  var actions="";
+  if(seenInfluences[who]>=INFLUENCES[who].length&&seenInfluences[otherWho]<INFLUENCES[otherWho].length){
+    actions+='<button class="btn btn-secondary" onclick="renderInvestigate(\''+otherWho+'\')" type="button">🔎 Now investigate '+otherPerson+'</button>';
+  }
+  if(allSeen){
+    actions+='<button class="btn btn-accent btn-lg" onclick="renderTraceMessage()" type="button">Trace one of their money messages →</button>';
+  }
+  $("investigateActions").innerHTML=actions;
+}
+
+/* ---------- Trace a money message (Name -> Trace -> Notice -> Decide) ---------- */
+var MESSAGES={
+  riley:{name:"“Put something away before you spend it.”",trace:"This message likely came from Riley's family managing money carefully, possibly through a period when income wasn't always steady.",notice:"That caution shows up now as an instinct to protect any unplanned money by default, before deciding what else it could do.",decide:"Riley could keep the instinct to protect unplanned money, while also asking sometimes whether a small planned exception fits too."},
+  theo:{name:"“There are only so many summers to spend with these people.”",trace:"This likely comes from Theo's family treating shared time and experiences as something you don't postpone indefinitely.",notice:"That value shows up now as a pull toward saying yes to time with friends, even when it costs something real.",decide:"Theo could keep valuing shared experiences, while also asking sometimes whether a lower-cost version could protect the same relationship."}
+};
+function renderTraceMessage(){
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:75%"></div></div>'+
+   '<div class="q-count">Trace a Money Message</div>'+
+   '<div class="card"><h3>Pick one underlying message to trace, step by step.</h3><div class="opts">'+
+    '<button class="opt" onclick="traceMessage(\'riley\')">💬 Riley\'s: "Put something away before you spend it."</button>'+
+    '<button class="opt" onclick="traceMessage(\'theo\')">💬 Theo\'s: "There are only so many summers with these people."</button>'+
+   '</div></div>'+
+  '</div>';
+}
+function traceMessage(who){
+  var msg=MESSAGES[who];
+  log.push({text:"Traced "+(who==="riley"?"Riley's":"Theo's")+" money message: "+msg.name});
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:85%"></div></div>'+
+   '<div class="q-count">Tracing the Message</div>'+
+   '<div class="card"><div class="step-list">'+
+    '<div class="step-item"><b>1. Name the Message</b>'+msg.name+'</div>'+
+    '<div class="step-item"><b>2. Trace Where It Came From</b>'+msg.trace+'</div>'+
+    '<div class="step-item"><b>3. Notice the Pattern</b>'+msg.notice+'</div>'+
+    '<div class="step-item"><b>4. Decide What to Keep or Add</b>'+msg.decide+'</div>'+
+   '</div></div>'+
+   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Finish →</button>'+
+  '</div>';
+}
+
+/* ---------- Ending ---------- */
+function showEnding(){
+  show("s-end");
+  $("endMount").innerHTML='<div class="stepfade">'+
+   '<div class="card"><h2>📋 What you uncovered</h2>'+
+   log.map(function(l){return '<p style="font-size:14px;margin:6px 0">• '+esc(l.text)+'</p>'}).join("")+
+   '</div>'+
+   '<div class="result-banner investigate" aria-live="polite"><h2>Same shape of choice. Different reasonable reasons.</h2><p>Riley and Theo faced the same kind of moment and reached opposite decisions — and both had real, explainable reasons behind them.</p></div>'+
+   '<div class="card soft"><h3>🎒 Take It With You</h3>'+
+   '<p style="font-size:14px;margin-bottom:8px">Why can two reasonable people make opposite financial choices with the same amount of unplanned money? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
+   '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on influence and financial choices"></textarea></div>'+
+   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Revisit Mapping Your Money Influences on p. 49: Family & Home, Friends & Peers, Media & Social Media, and School & Community. Compare those categories with the fictional profiles, including the additional Circumstances information.</p></div>'+
+   '<div class="action-row print-hide">'+
+    '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try It Again</button>'+
+    '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
+   '</div>'+
+  '</div>';
+}
+function replayStory(){log=[];seenInfluences={riley:0,theo:0};chooseStart()}
+</script>
+</body>
+</html>

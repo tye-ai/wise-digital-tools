@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goal in Motion — WISE Digital Tools</title>
+<style>
+:root{
+  --navy:#001943; --midnight:#0A111F; --blue:#426EFF; --green:#78BE21;
+  --orange:#FF6B00; --red:#D9262C; --slate:#1E293B; --gray:#64748B;
+  --line:#E2E8F0; --bg:#F4F6FA; --white:#FFFFFF;
+  --accent:#82BB3F; --accent-light:#F0F7E8;
+  --accent-deep:#486723; --orange-deep:#B34A00;
+  --marcus:#0F766E; --marcus-light:#EDFAF8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--slate);min-height:100vh;display:flex;flex-direction:column;font-size:16px;line-height:1.5}
+.mono{font-family:ui-monospace,Consolas,monospace;font-weight:500}
+
+header{background:linear-gradient(135deg,var(--navy),var(--midnight));color:#fff;padding:22px 20px 18px}
+.hd-inner{max-width:820px;margin:0 auto}
+.hd-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.wise-mark{font-weight:800;letter-spacing:.12em;font-size:13px;opacity:.9}
+.hub-link{color:#fff;opacity:.85;text-decoration:none;font-size:13px;border:1px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:99px;transition:opacity .15s;background:transparent;font-family:inherit;cursor:pointer}
+.hd-links{display:flex;gap:8px;flex-wrap:wrap}
+.hub-link:hover{opacity:1}
+.hd-title{display:flex;align-items:center;gap:12px}
+.hd-title .icon{font-size:32px;line-height:1}
+h1{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.hd-sub{font-size:13px;font-weight:700;opacity:.82;margin-top:2px}
+.hd-desc{opacity:.85;font-size:14.5px;margin-top:6px;max-width:620px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:99px}
+.chip.acc{background:var(--accent-deep);border-color:var(--accent-deep);color:#fff}
+.accent-bar{height:5px;background:linear-gradient(90deg,var(--accent),var(--navy))}
+@media(max-width:520px){
+  header{padding:14px 16px 12px}
+  h1{font-size:19px}
+  .hd-title .icon{font-size:26px}
+  .hd-desc{display:none}
+  .chips{margin-top:8px}
+  .chip{font-size:11px;padding:3px 10px}
+  .chip.hide-mobile{display:none}
+}
+
+main{flex:1;width:100%;max-width:680px;margin:0 auto;padding:26px 20px 40px}
+.screen{animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+[hidden]{display:none!important}
+.stepfade{animation:fadein .3s ease}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 1px 3px rgba(10,17,31,.05)}
+.card h2{font-size:17px;color:var(--midnight);margin-bottom:12px;font-weight:700}
+.card h3{font-size:15px;color:var(--midnight);margin-bottom:8px;font-weight:700}
+.card.accent{border-top:4px solid var(--accent)}
+.card.soft{background:var(--accent-light);border-color:transparent}
+.subtle{color:var(--gray);font-size:13.5px}
+
+.coach{display:flex;gap:12px;align-items:flex-start;margin:14px 0}
+.avatar{width:44px;height:44px;min-width:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px;box-shadow:0 2px 6px rgba(10,17,31,.18)}
+.bubble{background:var(--white);border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:12px 16px;font-size:15px;box-shadow:0 1px 3px rgba(10,17,31,.06)}
+.bubble .who{font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .1s,background .15s;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#2f56db}
+.btn-accent{background:var(--accent-deep);color:#fff}
+.btn-accent:hover{filter:brightness(1.15)}
+.btn-cta{background:var(--orange-deep);color:#fff}
+.btn-cta:hover{background:#8f3b00}
+.btn-secondary{background:var(--white);color:var(--navy);border:1.5px solid var(--line)}
+.btn-secondary:hover{border-color:var(--navy)}
+.btn-lg{padding:14px 30px;font-size:16.5px;border-radius:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+label.fld{display:block;font-size:13.5px;font-weight:700;color:var(--midnight);margin:12px 0 5px}
+label.fld .hint{display:block;font-weight:400;color:var(--gray);font-size:12.5px;margin-top:1px}
+input[type=number],textarea{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:var(--white);color:var(--slate)}
+input:focus,textarea:focus{outline:2.5px solid var(--blue);outline-offset:0;border-color:transparent}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+.range-val{font-family:ui-monospace,Consolas,monospace;font-weight:700;color:var(--navy)}
+
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opt{text-align:left;background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;font-size:15px;font-family:inherit;cursor:pointer;transition:border-color .12s,background .12s;color:var(--slate)}
+.opt:hover{border-color:var(--blue);background:#f7f9ff}
+.opt:disabled{opacity:.5;cursor:not-allowed}
+.opt .opt-sub{display:block;color:var(--gray);font-size:13px;margin-top:2px}
+.q-count{font-size:12.5px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
+
+.money-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.money-row:last-child{border-bottom:none}
+.money-row .amt{font-family:ui-monospace,Consolas,monospace;font-weight:700}
+.money-row.total{font-weight:800;border-top:2px solid var(--slate);border-bottom:none;margin-top:4px;padding-top:10px}
+.pos{color:#4c8a10}.neg{color:var(--red)}
+.result-banner{border-radius:16px;padding:20px 22px;color:#fff;margin-bottom:16px}
+.result-banner.state-available{background:linear-gradient(135deg,#426EFF,#2B52CD)}
+.result-banner.state-assigned{background:linear-gradient(135deg,#003366,#0A111F)}
+.result-banner.state-shortfall{background:linear-gradient(135deg,#92400E,#7A350B)}
+.result-banner h2{font-size:20px;margin-bottom:6px}
+.result-banner p{opacity:.93;font-size:14.5px}
+
+.note{border-radius:12px;padding:12px 16px;font-size:13.5px;margin:14px 0;border:1px solid}
+.note.wb{background:#EFF6FF;border-color:#BFDBFE;color:#1E3A8A}
+
+.goal-track{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.month-chip{flex:1;min-width:52px;text-align:center;border-radius:12px;padding:10px 4px;border:1.5px solid var(--line);background:var(--white)}
+.month-chip .mo{font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase}
+.month-chip .amt{display:block;font-family:ui-monospace,Consolas,monospace;font-weight:700;font-size:13.5px;margin-top:3px;color:var(--gray)}
+.month-chip.done{background:var(--marcus-light);border-color:var(--marcus)}
+.month-chip.done .amt{color:var(--marcus)}
+.month-chip.partial{background:#FFF7ED;border-color:var(--orange-deep)}
+.month-chip.partial .amt{color:var(--orange-deep)}
+.goal-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.goal-total .num{font-size:26px;font-weight:800;color:var(--midnight);font-family:ui-monospace,Consolas,monospace}
+.goal-total .of{font-size:14px;color:var(--gray)}
+
+.entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.entry-opt{background:var(--white);border:2px solid var(--line);border-radius:16px;padding:20px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s}
+.entry-opt:hover{border-color:var(--blue);background:#F7F9FF}
+.entry-icon{font-size:30px;display:block;margin-bottom:8px}
+.entry-title{font-size:16px;font-weight:800;color:var(--midnight)}
+.entry-desc{font-size:13.5px;color:var(--gray);margin-top:4px}
+@media(max-width:520px){.entry-grid{grid-template-columns:1fr}}
+
+footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5px}
+.ft-inner{max-width:820px;margin:0 auto}
+.ft-inner a{color:#cbd5e1}
+.ft-brand{color:#fff;font-weight:700;margin-bottom:4px;font-size:13px}
+
+@media(max-width:520px){
+  main{padding:18px 14px 32px}
+  .card{padding:16px}
+  .btn{width:100%}
+  .action-row .btn{width:auto;flex:1}
+  .month-chip{min-width:44px}
+}
+@media print{
+  header .hub-link,.action-row,.btn,footer,.overlay,.print-hide{display:none!important}
+  header{padding:8px 20px}
+  .hd-desc,.chips{display:none!important}
+  body{background:#fff}
+  .card{box-shadow:none;break-inside:avoid}
+  main{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){.screen,.stepfade{animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-inner">
+    <div class="hd-top">
+      <span class="wise-mark">WISE · WEALTH · INCOME · SAVING · EMPOWERMENT</span>
+      <div class="hd-links">
+        <button class="hub-link" onclick="resetAll()" type="button">↺ Start Over</button>
+        <a class="hub-link" href="index.html">← All WISE Tools</a>
+      </div>
+    </div>
+    <div class="hd-title"><span class="icon">📈</span><div><h1>Goal in Motion</h1><div class="hd-sub">Watch a savings goal play out, month by month.</div></div></div>
+    <div class="hd-desc">Follow Marcus's savings goal as time actually passes. Stress-test the amount, the timeline, or the monthly number — then watch what changes. No workbook required.</div>
+    <div class="chips">
+      <span class="chip acc">Lesson 1.3</span>
+      <span class="chip hide-mobile">Time-Based Simulator</span>
+      <span class="chip">⏱ 8 min</span>
+      <span class="chip hide-mobile">Optional digital companion</span>
+    </div>
+  </div>
+</header>
+<div class="accent-bar"></div>
+
+<main id="app">
+<section class="screen" id="s-intro">
+  <div class="card accent">
+    <h2>A goal is a number. A plan is a number moving through time. 📈</h2>
+    <div id="introCoach"></div>
+  </div>
+  <button class="entry-opt" onclick="chooseStart()" type="button" style="width:100%;max-width:360px;margin:14px auto 0;display:block">
+    <span class="entry-icon">📈</span>
+    <div class="entry-title">Start Goal in Motion</div>
+    <div class="entry-desc">Nothing to fill out — Marcus's goal is already set. You'll decide what happens when the plan gets tested.</div>
+  </button>
+  <p class="subtle" style="text-align:center;margin-top:10px">🔒 Fictional numbers. No grade. Nothing is saved. No workbook required.</p>
+</section>
+
+<section class="screen" id="s-build" hidden><div id="buildSteps"></div></section>
+<section class="screen" id="s-end" hidden><div id="endMount"></div></section>
+</main>
+
+
+<footer>
+  <div class="ft-inner">
+    <div class="ft-brand">WISE Financial Literacy — A BEAC Initiative</div>
+    <p><strong>Optional digital companion:</strong> This digital tool is an optional enhancement. The lesson and workbook activity remain complete without it.</p>
+    <p style="margin-top:6px">Privacy: Uses fictional/sample scenarios. No login. No account. Nothing is saved.</p>
+    <p style="margin-top:6px"><a href="index.html">← All WISE Tools</a></p>
+  </div>
+</footer>
+
+<script>
+function $(id){return document.getElementById(id)}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function fmt0(n){var neg=n<0;n=Math.abs(n);var s="$"+Math.round(n).toLocaleString("en-US");return neg?"−"+s:s}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function num(id){var v=parseFloat($(id).value);return isNaN(v)?0:v}
+function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
+var REDUCED_MOTION=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function animateNumber(elm,from,to,dur,formatter){
+  formatter=formatter||fmt0;
+  if(REDUCED_MOTION){elm.textContent=formatter(to);return}
+  var start=null,done=false;
+  function finish(){if(done)return;done=true;elm.textContent=formatter(to)}
+  function step(ts){if(done)return;if(!start)start=ts;var t=Math.min(1,(ts-start)/dur);var eased=1-Math.pow(1-t,3);elm.textContent=formatter(from+(to-from)*eased);if(t<1)requestAnimationFrame(step);else finish()}
+  requestAnimationFrame(step);setTimeout(finish,dur+150);
+}
+var CHAR={Marcus:"#0F766E"};
+function coach(name,text){var c=CHAR[name]||"#003366";return '<div class="coach"><div class="avatar" style="background:'+c+'">'+esc(name[0])+'</div><div class="bubble"><div class="who" style="color:'+c+'">'+esc(name)+'</div>'+text+'</div></div>'}
+function moneyRow(label,amt,cls){return '<div class="money-row'+(cls==="total"?" total":"")+'"><span>'+label+'</span><span class="amt '+(cls&&cls!=="total"?cls:(amt<0?"neg":""))+'">'+fmt0(amt)+'</span></div>'}
+function factRow(label,value,cls){return '<div class="money-row'+(cls==="total"?" total":"")+'"><span>'+label+'</span><span class="amt">'+value+'</span></div>'}
+
+
+/* ================= Goal in Motion (Marcus, Lesson 1.3) ================= */
+var MARCUS_BASE={income:400,goal:240,totalMonths:6,monthlyPlanned:40,saved:0,monthsElapsed:0,monthlyActual:[]};
+var G=null, log=[], storyFinalPlan=null;
+
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function stateClass(bal){return bal>0?"state-available":bal===0?"state-assigned":"state-shortfall"}
+function resetAll(){G=null;log=[];storyFinalPlan=null;show("s-intro")}
+
+(function(){
+  $("introCoach").innerHTML=coach("Marcus","I earn $400 a month from part-time work. I want to save $240 for recording equipment in 6 months. Here's my plan — let's see how it holds up.");
+})();
+
+function chooseStart(){G=clone(MARCUS_BASE);log=[];show("s-build");renderScene1()}
+
+function stepAmounts(remaining,rate){var arr=[];remaining=Math.round(remaining);rate=Math.round(rate);while(remaining>0){var amt=Math.min(rate,remaining);arr.push(amt);remaining-=amt}return arr}
+
+function renderTrack(g){
+  var chips="";
+  for(var i=1;i<=g.totalMonths;i++){
+    var done=i<=g.monthsElapsed;
+    var amt=done?g.monthlyActual[i-1]:g.monthlyPlanned;
+    var isPartial=done&&amt<g.monthlyPlanned;
+    chips+='<div class="month-chip'+(done?(isPartial?" partial":" done"):"")+'"><span class="mo">Mo '+i+'</span><span class="amt">'+fmt0(amt)+'</span></div>';
+  }
+  return '<div class="goal-total"><span class="num" id="savedNum">'+fmt0(g.saved)+'</span><span class="of">of '+fmt0(g.goal)+' goal</span></div>'+
+   '<div class="goal-track">'+chips+'</div>';
+}
+
+/* ---------- Scene 1: Original situation — Marcus's SMART goal ---------- */
+function renderScene1(){
+  var m=$("buildSteps");
+  var rate=Math.round(G.monthlyPlanned/G.income*100);
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:15%"></div></div>'+
+   '<div class="q-count">Marcus\'s Goal</div>'+
+   coach("Marcus","Here\'s the plan: $240 for recording equipment, in 6 months, at $400 a month income.")+
+   '<div class="card">'+
+    moneyRow("🎯 Goal Amount",G.goal)+factRow("🗓 Timeline",G.totalMonths+" months")+moneyRow("💵 Monthly Savings",G.monthlyPlanned)+
+    factRow("📊 Savings Rate",rate+"%")+
+    '<p class="subtle" style="margin-top:8px">'+fmt0(G.income)+' income − '+fmt0(G.monthlyPlanned)+' toward this goal = '+fmt0(G.income-G.monthlyPlanned)+' for needs and everything else.</p>'+
+   '</div>'+
+   '<div class="card">'+renderTrack(G)+'</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="renderScene2()" type="button">Start Saving →</button>'+
+  '</div>';
+}
+
+/* ---------- Scene 2: New information — a difficult month ---------- */
+function renderScene2(){
+  G.monthsElapsed=1;G.monthlyActual=[20];G.saved=20;
+  log.push({text:"Month 1: planned to save $40, but an unexpected necessary expense meant only $20 went to savings."});
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:40%"></div></div>'+
+   '<div class="q-count">A Difficult Month</div>'+
+   coach("Marcus","Month 1: I planned to save $40, but an unexpected necessary expense came up. I could only save $20 this time.")+
+   '<div class="card">'+renderTrack(G)+
+    '<p class="subtle" style="margin-top:8px">Goal remaining: '+fmt0(G.goal-G.saved)+', with '+(G.totalMonths-G.monthsElapsed)+' months left in the original plan.</p>'+
+   '</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="renderScene3()" type="button">See the options →</button>'+
+  '</div>';
+}
+
+/* ---------- Scene 3: Revised plan — raise the rate or extend the timeline ---------- */
+function renderScene3(){
+  var remaining=G.goal-G.saved,monthsLeft=G.totalMonths-G.monthsElapsed;
+  var raiseRate=Math.round(remaining/monthsLeft);
+  var extendMonths=stepAmounts(remaining,G.monthlyPlanned).length;
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:55%"></div></div>'+
+   '<div class="q-count">Revised Plan</div>'+
+   coach("Marcus","Now I have to decide: raise the future months, or take more time to finish?")+
+   '<div class="card"><div class="opts">'+
+    '<button class="opt" onclick="scene3Choice(\'raise\')">🔺 Raise future months<span class="opt-sub">Keep the '+monthsLeft+'-month timeline: '+fmt0(remaining)+' ÷ '+monthsLeft+' = '+fmt0(raiseRate)+' per month.</span></button>'+
+    '<button class="opt" onclick="scene3Choice(\'extend\')">🗓 Extend the timeline<span class="opt-sub">Keep saving '+fmt0(G.monthlyPlanned)+' per month: takes '+extendMonths+' more months to finish.</span></button>'+
+   '</div></div>'+
+  '</div>';
+}
+function scene3Choice(which){
+  var remaining=G.goal-G.saved,monthsLeft=G.totalMonths-G.monthsElapsed,amounts,rateLabel;
+  if(which==="raise"){
+    var rate=Math.round(remaining/monthsLeft);
+    amounts=stepAmounts(remaining,rate);
+    G.monthlyPlanned=rate;
+    G.totalMonths=G.monthsElapsed+amounts.length;
+    log.push({text:"Chose to raise future months to "+fmt0(rate)+" to keep the original "+ (G.monthsElapsed+monthsLeft) +"-month timeline."});
+    rateLabel="Raised future months to "+fmt0(rate)+" each so the goal still finishes on the original timeline.";
+    G.finalMonthlyRate=rate;
+  } else {
+    amounts=stepAmounts(remaining,G.monthlyPlanned);
+    G.totalMonths=G.monthsElapsed+amounts.length;
+    log.push({text:"Chose to keep saving "+fmt0(G.monthlyPlanned)+" per month and extend the timeline instead."});
+    rateLabel="Kept saving "+fmt0(G.monthlyPlanned)+" per month and let the timeline stretch to "+G.totalMonths+" months.";
+    G.finalMonthlyRate=G.monthlyPlanned;
+  }
+  G._finishLine=rateLabel;
+  playOutMonths(amounts,0);
+}
+function playOutMonths(amounts,i){
+  if(i>=amounts.length){
+    log.push({text:"Reached the "+fmt0(G.goal)+" goal after "+G.totalMonths+" months total, ending with "+fmt0(G.saved)+" saved."});
+    storyFinalPlan=clone(G);
+    setTimeout(showEnding,REDUCED_MOTION?0:250);
+    return;
+  }
+  if(i===2&&!G._birthdayShown){
+    G._birthdayShown=true;
+    window._pendingAmounts=amounts;window._pendingIndex=i;
+    renderBirthdayEvent();
+    return;
+  }
+  G.monthsElapsed++;G.saved+=amounts[i];G.monthlyActual.push(amounts[i]);
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:'+(55+Math.round(30*(i+1)/amounts.length))+'%"></div></div>'+
+   '<div class="q-count">Time Passing…</div>'+
+   coach("Marcus","Month "+G.monthsElapsed+": saved "+fmt0(amounts[i])+". Total so far: "+fmt0(G.saved)+".")+
+   '<div class="card">'+renderTrack(G)+'</div>'+
+  '</div>';
+  var savedElm=$("savedNum");
+  if(savedElm)animateNumber(savedElm,G.saved-amounts[i],G.saved,REDUCED_MOTION?0:450);
+  setTimeout(function(){playOutMonths(amounts,i+1)},REDUCED_MOTION?0:650);
+}
+
+/* ---------- A second, smaller change later in the journey (original — not a workbook problem) ---------- */
+function renderBirthdayEvent(){
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="q-count">A Small Surprise</div>'+
+   coach("Marcus","A few months into the new plan, I got $15 as a birthday gift. It wasn\'t part of the plan at all. What should I do with it?")+
+   '<div class="card">'+renderTrack(G)+'</div>'+
+   '<div class="card"><div class="opts">'+
+    '<button class="opt" onclick="birthdayChoice(15)">🎯 Add all $15 to the goal<span class="opt-sub">Moves the goal forward by $15.</span></button>'+
+    '<button class="opt" onclick="birthdayChoice(8)">🤝 Split it — some to the goal, some to spend<span class="opt-sub">A little progress, a little fun.</span></button>'+
+    '<button class="opt" onclick="birthdayChoice(0)">🎈 Keep it separate — spend it, don\'t count it<span class="opt-sub">The goal stays exactly on its planned pace.</span></button>'+
+   '</div></div>'+
+  '</div>';
+}
+function birthdayChoice(bonus){
+  var amounts=window._pendingAmounts,i=window._pendingIndex;
+  var label=bonus===15?"A $15 birthday gift showed up — added all of it to the goal.":bonus===8?"A $15 birthday gift showed up — split it, $8 to the goal and $7 spent separately.":"A $15 birthday gift showed up — kept it separate from the goal entirely.";
+  log.push({text:label});
+  amounts[i]=amounts[i]+bonus;
+  playOutMonths(amounts,i);
+}
+
+/* ---------- Ending ---------- */
+function showEnding(){
+  show("s-end");
+  var P=storyFinalPlan;
+  var surplus=P.saved-P.goal;
+  $("endMount").innerHTML='<div class="stepfade">'+
+   '<div class="card"><h2>📋 What happened with this goal</h2>'+
+   log.map(function(l){return '<p style="font-size:14px;margin:6px 0">• '+esc(l.text)+'</p>'}).join("")+
+   '</div>'+
+   '<div class="result-banner state-available" aria-live="polite"><h2>Ended with '+fmt0(P.saved)+' saved</h2><p>'+esc(P._finishLine)+(surplus>0?" The birthday gift left "+fmt0(surplus)+" more than the original $240 goal.":"")+'</p></div>'+
+   '<div class="card"><h2>🧾 Marcus\'s Final Plan</h2>'+renderTrack(P)+'</div>'+
+   '<div class="card"><h2>What This Plan Shows</h2>'+
+    factRow("Was the goal reached?","Yes — "+fmt0(P.saved)+(surplus>0?" (" +fmt0(surplus)+" over the $240 goal)":""))+
+    factRow("How many months did it take?",P.totalMonths+" (started at 6)")+
+    factRow("Final monthly rate",fmt0(P.finalMonthlyRate))+
+   '</div>'+
+   coach("Marcus","So that\'s how the plan finished. <strong>Why is adjusting a savings plan different from giving up on a goal?</strong>")+
+   '<div class="card soft"><h3>🎒 Take It With You</h3>'+
+   '<p style="font-size:14px;margin-bottom:8px">Why is adjusting a savings plan different from giving up on a goal? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
+   '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on Marcus\'s savings goal"></textarea></div>'+
+   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Month 1 of this plan matches Challenge 3 in your workbook (Practice, page 28) — compare your monthly numbers there. Everything after that — the extra months and the birthday gift — is unique to this tool, showing what a savings habit looks like over a longer stretch of time.</p></div>'+
+   '<div class="action-row print-hide">'+
+    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Explore This Plan</button>'+
+    '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try It Again</button>'+
+    '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
+   '</div>'+
+  '</div>';
+}
+function replayStory(){log=[];chooseStart()}
+
+/* ---------- Explore This Plan (sandbox — stress-test amount & timeline, never touches storyFinalPlan) ---------- */
+function exploreThisPlan(){
+  show("s-build");
+  window._explorePlan={goal:storyFinalPlan.goal,months:storyFinalPlan.totalMonths,income:storyFinalPlan.income};
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="q-count">Explore This Plan</div>'+
+   coach("Marcus","Want to stress-test a goal of your own? Change the amount or the timeline and watch the monthly number move. This won\'t change my actual ending.")+
+   '<div class="card">'+
+    '<label class="fld" for="ex_goal">🎯 Goal Amount: <span class="range-val" id="ex_goalVal">'+fmt0(window._explorePlan.goal)+'</span></label>'+
+    '<input type="range" id="ex_goal" min="20" max="600" step="10" value="'+window._explorePlan.goal+'" oninput="exploreSlide()" aria-label="Goal amount dollars">'+
+    '<label class="fld" for="ex_months">🗓 Timeline (months): <span class="range-val" id="ex_monthsVal">'+window._explorePlan.months+'</span></label>'+
+    '<input type="range" id="ex_months" min="1" max="24" step="1" value="'+window._explorePlan.months+'" oninput="exploreSlide()" aria-label="Timeline in months">'+
+    '<div id="exploreBox" style="margin-top:12px" aria-live="polite"></div>'+
+   '</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Done exploring →</button>'+
+  '</div>';
+  exploreSlide();
+}
+function exploreSlide(){
+  var Ep=window._explorePlan;
+  Ep.goal=num("ex_goal");Ep.months=num("ex_months");
+  $("ex_goalVal").textContent=fmt0(Ep.goal);$("ex_monthsVal").textContent=Ep.months;
+  var monthly=Ep.goal/Ep.months;
+  var rate=Math.round(monthly/Ep.income*100);
+  $("exploreBox").innerHTML='<div class="result-banner state-available" style="margin:0"><h2>'+fmt0(monthly)+' per month</h2><p>'+fmt0(Ep.goal)+' ÷ '+Ep.months+' months = '+fmt0(monthly)+' a month — about '+rate+'% of '+fmt0(Ep.income)+' income.</p></div>';
+}
+</script>
+</body>
+</html>
