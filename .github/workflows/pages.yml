@@ -1,4 +1,5 @@
 name: Deploy WISE Digital Tools to Pages
+# Retriggered after enabling the "GitHub Actions" Pages source
 
 on:
   push:
