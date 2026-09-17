@@ -92,6 +92,41 @@ input[type=range]{width:100%;accent-color:var(--accent);height:32px}
 .q-count{font-size:12.5px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
 
 .progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.week-badge{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.moment-scene{position:relative;border-radius:18px;border:1px solid var(--line);padding:22px 20px 20px;margin:14px 0;overflow:hidden;background-color:#fbfcff;background-image:linear-gradient(rgba(30,41,59,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,41,59,.05) 1px,transparent 1px);background-size:22px 22px}
+.moment-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-deep);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:99px;margin-bottom:16px}
+.moment-body{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.moment-char{width:100px;height:auto;flex:none;filter:drop-shadow(0 6px 10px rgba(10,17,31,.15))}
+.moment-content{flex:1;min-width:220px}
+.moment-bubble{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14.5px;font-weight:600;color:var(--midnight);margin-bottom:18px;box-shadow:0 2px 6px rgba(10,17,31,.06)}
+.moment-bubble:after{content:"";position:absolute;left:28px;bottom:-8px;width:16px;height:16px;background:#fff;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);transform:rotate(45deg)}
+.flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.flow-card{background:#fff;border-radius:10px;border:1px solid var(--line);padding:10px 14px;min-width:92px;text-align:center;box-shadow:0 2px 5px rgba(10,17,31,.08);position:relative}
+.flow-card:before{content:"";position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 14px 14px 0;border-color:transparent var(--bg) transparent transparent}
+.flow-card-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--gray);margin-bottom:3px}
+.flow-card-amt{font-family:ui-monospace,Consolas,monospace;font-weight:800;font-size:19px;color:var(--midnight)}
+.flow-start{border-top:3px solid var(--gray)}
+.flow-drop{border-top:3px solid var(--red)}
+.flow-drop .flow-card-amt{color:var(--red)}
+.flow-result{border-top:3px solid var(--accent-deep)}
+.flow-result .flow-card-amt{color:var(--accent-deep)}
+.flow-arrow{font-size:18px;color:var(--gray);font-weight:700}
+.flow-row>*{opacity:0;animation:flowin .4s ease forwards}
+.flow-row>*:nth-child(1){animation-delay:.05s}
+.flow-row>*:nth-child(2){animation-delay:.25s}
+.flow-row>*:nth-child(3){animation-delay:.35s}
+.flow-row>*:nth-child(4){animation-delay:.55s}
+.flow-row>*:nth-child(5){animation-delay:.65s}
+@keyframes flowin{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+@media(max-width:520px){.moment-char{width:76px}.flow-card{min-width:78px;padding:8px 10px}.flow-card-amt{font-size:16px}}
+.week-num{width:32px;height:32px;min-width:32px;border-radius:50%;background:var(--accent-deep);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(10,17,31,.15)}
+.week-text{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--gray)}
+.impact-chip{display:flex;align-items:center;flex-wrap:wrap;gap:9px;background:var(--accent-light);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:14px 0}
+.impact-amt{font-family:ui-monospace,Consolas,monospace;font-weight:800;font-size:19px}
+.impact-before{color:var(--gray);text-decoration:line-through;font-size:15px}
+.impact-after{color:var(--red)}
+.impact-arrow{color:var(--gray);font-size:15px}
+.impact-label{font-size:12px;color:var(--gray)}
 .progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
 
 .money-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
@@ -233,8 +268,15 @@ function renderScene0(){
   window._startAvail=avail;
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:5%"></div></div>'+
-   '<div class="q-count">Start of the Month</div>'+
-   coach("Devon","Here\'s my plan. After the required costs and savings, there\'s "+fmt0(avail)+" left. Looks okay on paper — let\'s see what actually happens.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">👋 Meet Devon · Start of the Month</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Here\'s my plan. After the required costs and savings, there\'s '+fmt0(avail)+' left. Looks okay on paper — let\'s see what actually happens."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+
     moneyRow("💰 Income",M.income)+moneyRow("🏠 Housing",-M.rent)+moneyRow("📱 Phone",-M.phone)+
     moneyRow("🛒 Groceries",-M.groceries)+moneyRow("🚌 Transportation",-M.transportation)+
@@ -256,8 +298,22 @@ function renderScene1(){
   var afterAvail=available(afterIncome);
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:25%"></div></div>'+
-   '<div class="q-count">Week 2</div>'+
-   coach("Devon","This month, my income came in "+fmt0(drop)+" lower than I planned. That drops what\'s available from "+fmt0(before)+" to "+fmt0(afterAvail)+". Would you change anything?")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🧮 Money Moment · Week 2</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"My income came in '+fmt0(drop)+' lower than I planned. Would you change anything?"</div>'+
+         '<div class="flow-row">'+
+           '<div class="flow-card flow-start"><div class="flow-card-label">Planned</div><div class="flow-card-amt">'+fmt0(before)+'</div></div>'+
+           '<div class="flow-arrow">→</div>'+
+           '<div class="flow-card flow-drop"><div class="flow-card-label">Income drop</div><div class="flow-card-amt">−'+fmt0(drop)+'</div></div>'+
+           '<div class="flow-arrow">→</div>'+
+           '<div class="flow-card flow-result"><div class="flow-card-label">Available now</div><div class="flow-card-amt">'+fmt0(afterAvail)+'</div></div>'+
+         '</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card"><h3>What would you do?</h3><div class="opts" id="scene1opts">'+
     '<button class="opt" onclick="scene1Choice(\'cut\')">🔄 Cut back on one category<span class="opt-sub">Free up room by lowering one expense.</span></button>'+
     '<button class="opt" onclick="scene1Choice(\'save-less\')">🎯 Save less this month<span class="opt-sub">Put aside a smaller amount toward the goal.</span></button>'+
@@ -276,12 +332,14 @@ function scene1Choice(which){
   }
   if(which==="save-less"){
     var cur=M.save;
+    var suggested=Math.max(0,Math.round(cur*0.7/5)*5);
+    if(suggested===cur)suggested=Math.max(0,cur-5);
     follow.innerHTML='<div class="card soft" style="margin-top:10px"><h3>How much should I save this month?</h3>'+
-     '<label class="fld" for="save1R">Savings this month: <span class="range-val" id="save1Val">'+fmt0(cur)+'</span></label>'+
-     '<input type="range" id="save1R" min="0" max="'+cur+'" step="5" value="'+cur+'" oninput="scene1SaveSlide()" aria-label="Savings this month">'+
+     '<label class="fld" for="save1R">Savings this month: <span class="range-val" id="save1Val">'+fmt0(suggested)+'</span><span class="hint">Drag to adjust, or use the suggested amount.</span></label>'+
+     '<input type="range" id="save1R" min="0" max="'+cur+'" step="5" value="'+suggested+'" oninput="scene1SaveSlide()" aria-label="Savings this month">'+
      '<div class="action-row">'+
       '<button class="btn btn-secondary" onclick="scene1BackToChoices()" type="button">← Keep the plan instead</button>'+
-      '<button class="btn btn-primary" id="save1Confirm" style="margin-top:0" onclick="confirmScene1Save()" type="button" disabled>Use this amount</button>'+
+      '<button class="btn btn-primary" id="save1Confirm" style="margin-top:0" onclick="confirmScene1Save()" type="button">Use this amount</button>'+
      '</div></div>';
     return;
   }
@@ -296,20 +354,20 @@ function scene1BackToChoices(){
   $("scene1follow").innerHTML="";
 }
 function scene1SaveSlide(){
-  var cur=window._saveCur||M.save;
   var v=num("save1R");
   $("save1Val").textContent=fmt0(v);
-  $("save1Confirm").disabled=(v===cur);
 }
 function scene1Cut(cat){
   var cur=M[cat];
+  var suggested=Math.max(0,Math.round(cur*0.8/5)*5);
+  if(suggested===cur)suggested=Math.max(0,cur-5);
   window._cutCat=cat;window._cutCur=cur;
   $("cutOpts").parentElement.outerHTML='<div class="card soft" style="margin-top:10px"><h3>How much lower?</h3>'+
-   '<label class="fld" for="cutR">New amount: <span class="range-val" id="cutVal">'+fmt0(cur)+'</span></label>'+
-   '<input type="range" id="cutR" min="0" max="'+cur+'" step="5" value="'+cur+'" oninput="scene1CutSlide()" aria-label="New amount for this category">'+
+   '<label class="fld" for="cutR">New amount: <span class="range-val" id="cutVal">'+fmt0(suggested)+'</span><span class="hint">Drag to adjust, or use the suggested amount.</span></label>'+
+   '<input type="range" id="cutR" min="0" max="'+cur+'" step="5" value="'+suggested+'" oninput="scene1CutSlide()" aria-label="New amount for this category">'+
    '<div class="action-row">'+
     '<button class="btn btn-secondary" onclick="scene1BackToChoices()" type="button">← Keep the plan instead</button>'+
-    '<button class="btn btn-primary" id="cutConfirm" style="margin-top:0" onclick="confirmScene1Cut(\''+cat+'\')" type="button" disabled>Use this amount</button>'+
+    '<button class="btn btn-primary" id="cutConfirm" style="margin-top:0" onclick="confirmScene1Cut(\''+cat+'\')" type="button">Use this amount</button>'+
    '</div></div>';
 }
 function scene1CutSlide(){
@@ -346,8 +404,15 @@ function renderScene2(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:55%"></div></div>'+
-   '<div class="q-count">Weekend</div>'+
-   coach("Devon","Friends invited me out this weekend — about $15, or we could do something free instead. What should I do?")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🎉 Weekend Plans</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Friends invited me out this weekend — about $15, or we could do something free instead. What should I do?"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card"><div class="opts">'+
     '<button class="opt" onclick="scene2Choice(\'existing\')" '+(M.entertainment>=15?"":"disabled")+'>📋 Use $15 already planned for entertainment<span class="opt-sub">'+(M.entertainment>=15?"Fits inside the entertainment money already planned.":"Not enough entertainment budget left.")+'</span></button>'+
     '<button class="opt" onclick="scene2Choice(\'add\')">➕ Add $15 to this month\'s plan<span class="opt-sub">Keep the rest of entertainment as planned.</span></button>'+
@@ -375,8 +440,15 @@ function renderScene3(){
   var avail=available(M);
   var html='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:85%"></div></div>'+
-   '<div class="q-count">End of Month</div>'+
-   coach("Devon","Let\'s take one last look. Here\'s what the plan can cover now.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">📋 End of Month</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Let\'s take one last look. Here\'s what the plan can cover now."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+moneyRow("Available",avail,"total")+moneyRow("Savings toward the goal",M.save)+'</div>';
   if(avail>0){
     html+='<div class="card"><h3>There\'s '+fmt0(avail)+' available. What should it do?</h3><div class="opts">'+
@@ -426,7 +498,15 @@ function showEnding(){
    moneyRow("🎮 Entertainment",-P.entertainment)+moneyRow("🧾 Other expenses",-P.misc)+
    moneyRow("🎯 Savings",-P.save)+moneyRow("Available",avail,"total")+
    '</div>'+
-   coach("Devon","So that was the month. <strong>What did you protect, and what would you do differently?</strong>")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">💬 Devon\'s Reflection</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"So that was the month. <strong>What did you protect, and what would you do differently?</strong>"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
    '<p style="font-size:14px;margin-bottom:8px">What did you protect first this month? What would you do differently next time? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on the month"></textarea></div>'+
