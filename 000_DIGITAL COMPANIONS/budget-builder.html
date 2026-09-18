@@ -314,9 +314,9 @@ function renderScene1(){
      '</div>'+
    '</div>'+
    '<div class="card"><h3>What would you do?</h3><div class="opts" id="scene1opts">'+
-    '<button class="opt" onclick="scene1Choice(\'cut\')">🔄 Cut back on one category<span class="opt-sub">Free up room by lowering one expense.</span></button>'+
-    '<button class="opt" onclick="scene1Choice(\'save-less\')">🎯 Save less this month<span class="opt-sub">Put aside a smaller amount toward the goal.</span></button>'+
-    '<button class="opt" onclick="scene1Choice(\'keep\')">📋 Keep the plan<span class="opt-sub">Work with '+fmt0(afterAvail)+' available.</span></button>'+
+    '<button class="opt" onclick="scene1Choice(\'cut\')">🔄 Cut back on one category<span class="opt-sub">Lowers a spending category — the laptop savings goal stays on track.</span></button>'+
+    '<button class="opt" onclick="scene1Choice(\'save-less\')">🎯 Save less this month<span class="opt-sub">Spending stays the same — the laptop goal takes longer.</span></button>'+
+    '<button class="opt" onclick="scene1Choice(\'keep\')">📋 Keep the plan<span class="opt-sub">Nothing changes — just '+fmt0(afterAvail)+' to work with instead of '+fmt0(before)+'.</span></button>'+
    '</div><div id="scene1follow"></div></div>'+
   '</div>';
 }
@@ -326,7 +326,7 @@ function scene1Choice(which){
   if(which==="keep"){
     M.income-=window._drop;
     log.push({scene:1,text:"Kept the plan unchanged."});
-    scene1Finish("Kept the plan — working with "+fmt0(available(M))+".");
+    scene1Finish("Nothing changed in the plan — Devon is just working with less room this month.");
     return;
   }
   if(which==="save-less"){
@@ -343,9 +343,9 @@ function scene1Choice(which){
     return;
   }
   // cut
-  var cats=[["groceries","🛒 Groceries"],["transportation","🚌 Transportation"],["entertainment","🎮 Entertainment"],["misc","🧾 Other expenses"]];
+  var cats=[["groceries","🛒 Groceries","Still a need, but there may be room to trim."],["transportation","🚌 Transportation","Often fixed costs like a bus pass — less flexible."],["entertainment","🎮 Entertainment","Usually the easiest category to lower."],["misc","🧾 Other expenses","Miscellaneous spending — worth a second look."]];
   follow.innerHTML='<div class="card soft" style="margin-top:10px"><h3>Where would you cut back?</h3><div class="opts" id="cutOpts">'+
-   cats.map(function(c){return '<button class="opt" onclick="scene1Cut(\''+c[0]+'\')">'+c[1]+'<span class="opt-sub">Currently '+fmt0(M[c[0]])+'</span></button>'}).join("")+
+   cats.map(function(c){return '<button class="opt" onclick="scene1Cut(\''+c[0]+'\')">'+c[1]+'<span class="opt-sub">Currently '+fmt0(M[c[0]])+' — '+c[2]+'</span></button>'}).join("")+
    '</div><div class="action-row"><button class="btn btn-secondary" onclick="scene1BackToChoices()" type="button">← Keep the plan instead</button></div></div>';
 }
 function scene1BackToChoices(){
@@ -379,7 +379,7 @@ function confirmScene1Cut(cat){
   var newVal=num("cutR"),oldVal=window._cutCur;
   M[cat]=newVal;
   log.push({scene:1,text:"Reduced "+cat+" from "+fmt0(oldVal)+" to "+fmt0(newVal)+"."});
-  scene1Finish("That leaves "+fmt0(oldVal-newVal)+" more available this month.");
+  scene1Finish("Lowering "+cat+" by "+fmt0(oldVal-newVal)+" adds a bit more room — savings and the laptop goal stay exactly as planned.");
 }
 function confirmScene1Save(){
   M.income-=window._drop;
@@ -422,9 +422,9 @@ function renderScene2(){
 }
 function scene2Choice(which){
   var msg;
-  if(which==="existing"){log.push({scene:2,text:"Used $15 already inside the entertainment plan for the weekend — the plan itself didn't change."});msg="That $15 was already part of the entertainment budget, so nothing about the plan changes.";}
-  else if(which==="add"){M.entertainment+=15;log.push({scene:2,text:"Added $15 to entertainment for the weekend."});msg="Added $15 for the weekend.";}
-  else {log.push({scene:2,text:"Suggested the free option — no cost."});msg="Saw friends without adding a cost.";}
+  if(which==="existing"){log.push({scene:2,text:"Used $15 already inside the entertainment plan for the weekend — the plan itself didn't change."});msg="Good catch — that $15 already fit inside the entertainment budget, so nothing else has to move. Spotting what already fits the plan is a budgeting skill too.";}
+  else if(which==="add"){M.entertainment+=15;log.push({scene:2,text:"Added $15 to entertainment for the weekend."});msg="Added $15 on top of the entertainment budget for the weekend — that's $15 less available for anything else this month.";}
+  else {log.push({scene:2,text:"Suggested the free option — no cost."});msg="Saw friends without spending anything — the rest of the plan stays exactly as it was.";}
   var m=$("buildSteps"),avail=available(M);
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:70%"></div></div>'+
