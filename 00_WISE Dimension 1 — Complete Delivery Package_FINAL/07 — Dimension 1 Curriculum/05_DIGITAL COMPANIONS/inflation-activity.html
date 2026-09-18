@@ -88,6 +88,16 @@ textarea:focus{outline:2.5px solid var(--blue);outline-offset:0;border-color:tra
 .progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
 .progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
 
+.moment-scene{position:relative;border-radius:18px;border:1px solid var(--line);padding:22px 20px 20px;margin:14px 0;overflow:hidden;background-color:#fbfcff;background-image:linear-gradient(rgba(30,41,59,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,41,59,.05) 1px,transparent 1px);background-size:22px 22px}
+.moment-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-deep);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:99px;margin-bottom:16px}
+.moment-body{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.moment-char{width:100px;height:auto;flex:none;filter:drop-shadow(0 6px 10px rgba(10,17,31,.15))}
+.moment-content{flex:1;min-width:220px}
+.moment-bubble{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14.5px;font-weight:600;color:var(--midnight);margin-bottom:0;box-shadow:0 2px 6px rgba(10,17,31,.06)}
+.moment-bubble mark{background:#FFE066;color:var(--midnight);padding:0 3px;border-radius:3px;font-weight:800;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.moment-bubble:after{content:"";position:absolute;left:28px;bottom:-8px;width:16px;height:16px;background:#fff;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);transform:rotate(45deg)}
+@media(max-width:520px){.moment-body{flex-direction:column;align-items:center;text-align:center}.moment-char{width:90px}.moment-content{width:100%;min-width:0}.moment-bubble:after{display:none}}
+
 .time-dial{text-align:center;margin:10px 0}
 .time-dial .yr-readout{font-size:15px;font-weight:700;color:var(--kate);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
 .cost-readout{text-align:center;padding:18px 10px}
@@ -218,8 +228,15 @@ function chooseStart(){goalCost=8000;growthRate=0.04;show("s-build");renderMachi
 function renderMachine(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
-   '<div class="q-count">The Time Machine</div>'+
-   coach("Kate","Drag the dial forward and watch what a 3% planning assumption does to the price.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">⏳ The Time Machine</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Drag the dial forward and watch what a <mark>3%</mark> planning assumption does to the price."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+
     '<label class="fld" for="costR">Current cost of the goal: <span class="range-val" id="costVal">'+fmt0(goalCost)+'</span></label>'+
     '<input type="range" id="costR" min="100" max="30000" step="100" value="'+goalCost+'" oninput="dialMove()" aria-label="Current cost of the goal">'+
@@ -255,8 +272,15 @@ function renderPowerCheck(){
   var years=num("yearR")||10;
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
-   '<div class="q-count">Does $100 Keep Up?</div>'+
-   coach("Kate","Here\'s the same idea from the other side: if I just hold onto $100, does it still buy the same basket of stuff later?")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">💵 Does $100 Keep Up?</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Here\'s the same idea from the other side: if I just hold onto $100, does it still buy the same basket of stuff later?"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+
     '<label class="fld" for="growR">If the $100 grows at: <span class="range-val" id="growVal">4%</span> per year</label>'+
     '<input type="range" id="growR" min="0" max="8" step="1" value="4" oninput="powerSlide()" aria-label="Annual growth rate for the $100">'+
@@ -294,7 +318,15 @@ function showEnding(){
    '<p style="font-size:14px;margin:6px 0">• Tested your own goal cost and timeline in the same time machine.</p>'+
    '<p style="font-size:14px;margin:6px 0">• Checked whether $100 growing at '+Math.round(p.rate*100)+'% kept up with a basket inflating at 3% over '+p.years+' years — it '+(p.cmp==="ahead"?"grew faster.":p.cmp==="even"?"approximately kept pace.":"fell behind.")+'</p>'+
    '</div>'+
-   coach("Kate","The number on the price tag isn\'t fixed. Planning with an estimate gets me closer to the real target than pretending prices will stay the same.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">💬 Kate\'s Reflection</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"The number on the price tag isn\'t fixed. Planning with an estimate gets me closer to the real target than pretending prices will stay the same."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
    '<p style="font-size:14px;margin-bottom:8px">Why is planning with an estimated future cost more useful than assuming the price will stay exactly what it is today? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on future cost planning"></textarea></div>'+
