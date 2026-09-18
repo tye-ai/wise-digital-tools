@@ -314,9 +314,9 @@ function renderScene1(){
      '</div>'+
    '</div>'+
    '<div class="card"><h3>What would you do?</h3><div class="opts" id="scene1opts">'+
-    '<button class="opt" onclick="scene1Choice(\'cut\')">🔄 Cut back on one category<span class="opt-sub">Lowers a spending category — the laptop savings goal stays on track.</span></button>'+
-    '<button class="opt" onclick="scene1Choice(\'save-less\')">🎯 Save less this month<span class="opt-sub">Spending stays the same — the laptop goal takes longer.</span></button>'+
-    '<button class="opt" onclick="scene1Choice(\'keep\')">📋 Keep the plan<span class="opt-sub">Nothing changes — just '+fmt0(afterAvail)+' to work with instead of '+fmt0(before)+'.</span></button>'+
+    '<button class="opt" onclick="scene1Choice(\'cut\')">🔄 Cut back on one category<span class="opt-sub">Spend less in one area, like entertainment or groceries — the $100 savings stays untouched.</span></button>'+
+    '<button class="opt" onclick="scene1Choice(\'save-less\')">🎯 Save less this month<span class="opt-sub">Groceries, entertainment, everything else stays the same — just less goes into the laptop savings this month.</span></button>'+
+    '<button class="opt" onclick="scene1Choice(\'keep\')">📋 Keep the plan<span class="opt-sub">Every category — including savings — stays exactly as planned. The '+fmt0(drop)+' shortfall just comes out of what\'s left over: '+fmt0(afterAvail)+' instead of '+fmt0(before)+'.</span></button>'+
    '</div><div id="scene1follow"></div></div>'+
   '</div>';
 }
@@ -326,7 +326,7 @@ function scene1Choice(which){
   if(which==="keep"){
     M.income-=window._drop;
     log.push({scene:1,text:"Kept the plan unchanged."});
-    scene1Finish("Nothing changed in the plan — Devon is just working with less room this month.");
+    scene1Finish("Every category, including the $100 savings, stayed exactly as planned. The "+fmt0(window._drop)+" shortfall just came out of what's left over at the end.");
     return;
   }
   if(which==="save-less"){
@@ -379,14 +379,14 @@ function confirmScene1Cut(cat){
   var newVal=num("cutR"),oldVal=window._cutCur;
   M[cat]=newVal;
   log.push({scene:1,text:"Reduced "+cat+" from "+fmt0(oldVal)+" to "+fmt0(newVal)+"."});
-  scene1Finish("Lowering "+cat+" by "+fmt0(oldVal-newVal)+" adds a bit more room — savings and the laptop goal stay exactly as planned.");
+  scene1Finish("Spending "+fmt0(oldVal-newVal)+" less on "+cat+" this month means "+fmt0(oldVal-newVal)+" more available to work with — and the $100 laptop savings didn't have to change.");
 }
 function confirmScene1Save(){
   M.income-=window._drop;
   var newVal=num("save1R"),oldVal=M.save;
   M.save=newVal;
   log.push({scene:1,text:"Changed savings from "+fmt0(oldVal)+" to "+fmt0(newVal)+" this month."});
-  scene1Finish(newVal<oldVal?"That leaves "+fmt0(oldVal-newVal)+" more available now, but slows down the laptop goal.":"That puts "+fmt0(newVal-oldVal)+" more toward the laptop, and leaves less available this month.");
+  scene1Finish(newVal<oldVal?"Putting "+fmt0(oldVal-newVal)+" less into the laptop fund this month means "+fmt0(oldVal-newVal)+" more available to spend — groceries, entertainment, everything else stays the same. The laptop just takes a little longer.":"Putting "+fmt0(newVal-oldVal)+" more into the laptop fund means "+fmt0(newVal-oldVal)+" less available to spend this month.");
 }
 function scene1Finish(msg){
   var m=$("buildSteps"),avail=available(M);
