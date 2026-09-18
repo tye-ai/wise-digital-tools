@@ -527,6 +527,9 @@ function replayMonth(){log=[];storyFinalPlan=null;chooseSample()}
 
 /* ---------- Explore This Plan (sandbox, after the story — never touches storyFinalPlan) ---------- */
 var EXPLORE_RANGES={
+  income:{icon:"💰",label:"Income",max:3000},
+  rent:{icon:"🏠",label:"Housing",max:1200},
+  phone:{icon:"📱",label:"Phone",max:150},
   groceries:{icon:"🛒",label:"Groceries",max:400},
   transportation:{icon:"🚌",label:"Transportation",max:200},
   entertainment:{icon:"🎮",label:"Entertainment",max:150},
@@ -543,13 +546,12 @@ function exploreThisPlan(){
      '<div class="moment-body">'+
        '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
        '<div class="moment-content">'+
-         '<div class="moment-bubble">"Want to see what else could\'ve changed the month? Try moving these — this is just for you to try out. It won\'t change Devon\'s actual ending."</div>'+
+         '<div class="moment-bubble">"Want to build a budget with your own numbers? Every line here is yours to change — income included. This is just for you to try out. It won\'t change Devon\'s actual ending."</div>'+
        '</div>'+
      '</div>'+
    '</div>'+
    '<div class="card">'+
-    moneyRow("💰 Income",E.income)+moneyRow("🏠 Housing",-E.rent)+moneyRow("📱 Phone",-E.phone)+
-    '<div id="exploreSliders" style="margin-top:10px"></div>'+
+    '<div id="exploreSliders"></div>'+
     '<div id="exploreBox" style="margin-top:12px" aria-live="polite"></div>'+
    '</div>'+
    '<button class="btn btn-accent btn-lg" onclick="showExperimentResult()" type="button">Done exploring →</button>'+
@@ -565,7 +567,7 @@ function exploreThisPlan(){
 }
 function exploreSlide(){
   var E=window._explorePlan;
-  ["groceries","transportation","entertainment","misc","save"].forEach(function(k){var elm=$("ex_"+k);if(elm){E[k]=num("ex_"+k);$("ex_"+k+"Val").textContent=fmt0(E[k])}});
+  ["income","rent","phone","groceries","transportation","entertainment","misc","save"].forEach(function(k){var elm=$("ex_"+k);if(elm){E[k]=num("ex_"+k);$("ex_"+k+"Val").textContent=fmt0(E[k])}});
   var avail=available(E);
   $("exploreBox").innerHTML='<div class="result-banner '+stateClass(avail)+'" style="margin:0"><h2>'+fmt0(avail)+' available</h2><p>'+verdictText(avail)+'</p></div>';
 }
@@ -580,6 +582,9 @@ function showExperimentResult(){
    '<div class="q-count">Your Experiment</div>'+
    '<div class="result-banner '+stateClass(eAvail)+'"><h2>'+fmt0(eAvail)+' available</h2><p>'+diffLine+'</p></div>'+
    '<div class="card"><h2>Your Experiment vs. Devon\'s Actual Ending</h2>'+
+    moneyRow("💰 Income — yours",E.income)+moneyRow("💰 Income — Devon\'s",P.income)+
+    moneyRow("🏠 Housing — yours",-E.rent)+moneyRow("🏠 Housing — Devon\'s",-P.rent)+
+    moneyRow("📱 Phone — yours",-E.phone)+moneyRow("📱 Phone — Devon\'s",-P.phone)+
     moneyRow("🛒 Groceries — yours",-E.groceries)+moneyRow("🛒 Groceries — Devon\'s",-P.groceries)+
     moneyRow("🚌 Transportation — yours",-E.transportation)+moneyRow("🚌 Transportation — Devon\'s",-P.transportation)+
     moneyRow("🎮 Entertainment — yours",-E.entertainment)+moneyRow("🎮 Entertainment — Devon\'s",-P.entertainment)+

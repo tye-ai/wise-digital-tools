@@ -88,13 +88,13 @@ Use the ten replacement teacher entries in this synchronized source package.
 **When / prerequisites:** after the core workbook work for 1.1 is complete; students should already understand the calculation or reasoning in the connected workbook section (p. 12; optional research p. 13).
 **Open:** `budget-builder.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** A sequence of events carries earlier budget choices forward through a month.
-**DO:** Run Devon’s sample month. Make choices when income and circumstances change, then compare the final plan with the starting plan. If time remains, use Explore This Plan to change one available category.
+**DO:** Run Devon’s sample month. Make choices when income and circumstances change, then compare the final plan with the starting plan. If time remains, use Explore This Plan — every line, including income, can be changed to build a full budget from scratch.
 **ASK / RECORD:** Name one event, the choice you made, and its effect on the balance. Explain one change you would consider in Devon’s workbook budget.
 **Return to:** Apply p. 12 — Devon’s budget.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** The story starts with Devon’s sample. Explore This Plan is available after the story; it is not a blank budget importer.
+**Control limits:** The story starts with Devon’s sample. Explore This Plan opens pre-filled with Devon’s numbers, but every field, including income, is editable — students can zero everything out and build their own budget from there.
 
 ### OPTIONAL DIGITAL COMPANION — Priority Shift
 
