@@ -452,17 +452,17 @@ function renderScene3(){
    '</div>';
   if(avail>0){
     html+='<div class="card"><h3>There\'s '+fmt0(avail)+' available. What should it do?</h3><div class="opts">'+
-     '<button class="opt" onclick="scene3Choice(\'save\')">🎯 Add it to savings</button>'+
-     '<button class="opt" onclick="scene3Choice(\'keep\')">💾 Leave it available</button>'+
+     '<button class="opt" onclick="scene3Choice(\'save\')">🎯 Add it to savings<span class="opt-sub">Gets to the laptop goal faster.</span></button>'+
+     '<button class="opt" onclick="scene3Choice(\'keep\')">💾 Leave it available<span class="opt-sub">More flexibility now — the laptop goal stays the same pace.</span></button>'+
     '</div></div>';
   } else if(avail===0){
     html+='<div class="card"><h3>Every dollar is assigned.</h3><div class="opts">'+
-     '<button class="opt" onclick="scene3Choice(\'keep\')">📋 Keep the plan as-is</button>'+
+     '<button class="opt" onclick="scene3Choice(\'keep\')">📋 Keep the plan as-is<span class="opt-sub">Nothing left over to decide on.</span></button>'+
     '</div></div>';
   } else {
     html+='<div class="card"><h3>The plan is '+fmt0(Math.abs(avail))+' short. What should change?</h3><div class="opts">'+
-     '<button class="opt" onclick="scene3Choice(\'reduce-save\')">🎯 Reduce savings this month</button>'+
-     '<button class="opt" onclick="scene3Choice(\'keep-short\')">⚠️ Finish with the shortfall</button>'+
+     '<button class="opt" onclick="scene3Choice(\'reduce-save\')">🎯 Reduce savings this month<span class="opt-sub">Closes the gap now — the laptop goal takes longer.</span></button>'+
+     '<button class="opt" onclick="scene3Choice(\'keep-short\')">⚠️ Finish with the shortfall<span class="opt-sub">Keeps savings on track, but spending outran the plan.</span></button>'+
     '</div></div>';
   }
   html+='</div>';
@@ -470,12 +470,17 @@ function renderScene3(){
 }
 function scene3Choice(which){
   var msg;
-  if(which==="save"){var extra=available(M);M.save+=extra;log.push({scene:3,text:"Added "+fmt0(extra)+" more to savings."});msg="Added the extra to savings.";}
-  else if(which==="reduce-save"){var short=Math.abs(available(M));var newSave=Math.max(0,M.save-short);log.push({scene:3,text:"Reduced savings by "+fmt0(M.save-newSave)+" to close the gap."});M.save=newSave;msg="Reduced savings to close the gap.";}
-  else if(which==="keep-short"){log.push({scene:3,text:"Finished the month with the shortfall in place."});msg="Finished with the shortfall — nothing else changed.";}
-  else{log.push({scene:3,text:"Kept the plan as it stood."});msg="Kept the plan as it stood.";}
+  if(which==="save"){var extra=available(M);M.save+=extra;log.push({scene:3,text:"Added "+fmt0(extra)+" more to savings."});msg="Added the extra "+fmt0(extra)+" to savings — that's closer to the laptop goal.";}
+  else if(which==="reduce-save"){var short=Math.abs(available(M));var newSave=Math.max(0,M.save-short);log.push({scene:3,text:"Reduced savings by "+fmt0(M.save-newSave)+" to close the gap."});M.save=newSave;msg="Reduced savings by "+fmt0(short)+" to close the gap — the laptop goal takes a bit longer, but the month balances.";}
+  else if(which==="keep-short"){log.push({scene:3,text:"Finished the month with the shortfall in place."});msg="Savings and spending stayed exactly as planned — the plan finishes short instead of cutting back.";}
+  else{var avNow=available(M);log.push({scene:3,text:"Kept the plan as it stood."});msg=avNow>0?"Left "+fmt0(avNow)+" available instead of adding it to savings — more flexibility now, same pace toward the laptop.":"Kept the plan as-is — every dollar already had a job.";}
   storyFinalPlan=clone(M);
-  showEnding();
+  var m=$("buildSteps"),avail=available(M);
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="progress"><div class="progress-fill" style="width:95%"></div></div>'+
+   '<div class="result-banner '+stateClass(avail)+'"><h2>'+verdictText(avail)+'</h2><p>'+msg+'</p></div>'+
+   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">See Devon\'s month →</button>'+
+  '</div>';
 }
 
 /* ---------- Ending ---------- */
