@@ -351,6 +351,7 @@ function showEnding(){
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on emergency savings"></textarea></div>'+
    '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Compare this to the Key Calculation on p. 66 and your own plan on the Apply page (p. 70). Would your chosen strategy still fit after a hit like this one?</p></div>'+
    '<div class="action-row print-hide">'+
+    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Explore This Plan</button>'+
     '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try a Different Response</button>'+
     '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
    '</div>'+
@@ -358,6 +359,68 @@ function showEnding(){
 }
 function niaBarrier(){return "Saving is easy to forget"}
 function replayStory(){savedSoFar=MONTHLY*MONTHS_BEFORE_RIPPLE;usedForRepair=0;newMonthlyRate=MONTHLY;log=[];chooseStart()}
+
+/* ---------- Explore This Plan (sandbox — build your own emergency-fund plan, never touches the story) ---------- */
+function fundBarG(amount,target,cls){
+  var pct=target>0?Math.min(100,Math.round(amount/target*100)):0;
+  return '<div class="fund-bar-wrap"><div class="fund-bar-head"><span>Emergency Fund</span><span>'+fmt0(amount)+' of '+fmt0(target)+'</span></div>'+
+   '<div class="fund-track"><div class="fund-fill'+(cls?" "+cls:"")+'" style="width:'+pct+'%"></div></div></div>';
+}
+function exploreThisPlan(){
+  show("s-build");
+  window._ex={target:240,monthly:40,monthsElapsed:1,emergencyCost:120,used:40};
+  renderExplore();
+}
+function renderExplore(){
+  var ex=window._ex;
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🔓 Explore This Plan</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/nia-full.png" alt="Nia">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Want to build your own emergency-fund plan? Set a target and a monthly amount, then test what an emergency would do to it. This won\'t change my actual ending."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
+   '<div class="card">'+
+    '<label class="fld" for="ex_target">🎯 Fund Target: <span class="range-val" id="ex_targetVal"></span></label>'+
+    '<input type="range" id="ex_target" min="50" max="1000" step="10" value="'+ex.target+'" oninput="exploreSlide()" aria-label="Emergency fund target dollars">'+
+    '<label class="fld" for="ex_monthly">💵 Monthly Savings: <span class="range-val" id="ex_monthlyVal"></span></label>'+
+    '<input type="range" id="ex_monthly" min="5" max="200" step="5" value="'+ex.monthly+'" oninput="exploreSlide()" aria-label="Monthly savings dollars">'+
+    '<label class="fld" for="ex_months">🗓 Months Saved So Far: <span class="range-val" id="ex_monthsVal"></span></label>'+
+    '<input type="range" id="ex_months" min="1" max="24" step="1" value="'+ex.monthsElapsed+'" oninput="exploreSlide()" aria-label="Months saved so far">'+
+    '<div id="exploreFundBox" style="margin-top:12px"></div>'+
+    '<label class="fld" for="ex_cost" style="margin-top:16px">💥 Emergency Cost: <span class="range-val" id="ex_costVal"></span></label>'+
+    '<input type="range" id="ex_cost" min="10" max="800" step="10" value="'+ex.emergencyCost+'" oninput="exploreSlide()" aria-label="Emergency cost dollars">'+
+    '<label class="fld" for="ex_used">How much to use from savings: <span class="range-val" id="ex_usedVal"></span></label>'+
+    '<input type="range" id="ex_used" min="0" max="1000" step="5" value="'+ex.used+'" oninput="exploreSlide()" aria-label="Amount of savings used toward the emergency">'+
+    '<div id="exploreBox" style="margin-top:12px" aria-live="polite"></div>'+
+   '</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Done exploring →</button>'+
+  '</div>';
+  exploreSlide();
+}
+function exploreSlide(){
+  var ex=window._ex;
+  ex.target=num("ex_target");ex.monthly=num("ex_monthly");ex.monthsElapsed=num("ex_months");ex.emergencyCost=num("ex_cost");
+  var saved=Math.min(ex.target,ex.monthly*ex.monthsElapsed);
+  $("ex_used").max=saved;
+  ex.used=Math.min(num("ex_used"),saved);
+  $("ex_used").value=ex.used;
+  $("ex_targetVal").textContent=fmt0(ex.target);
+  $("ex_monthlyVal").textContent=fmt0(ex.monthly);
+  $("ex_monthsVal").textContent=ex.monthsElapsed;
+  $("ex_costVal").textContent=fmt0(ex.emergencyCost);
+  $("ex_usedVal").textContent=fmt0(ex.used);
+  $("exploreFundBox").innerHTML=fundBarG(saved,ex.target);
+  var gap=Math.max(0,ex.emergencyCost-ex.used);
+  var fundAfter=saved-ex.used;
+  var monthsToGoal=ex.monthly>0?Math.ceil((ex.target-fundAfter)/ex.monthly):null;
+  $("exploreBox").innerHTML=fundBarG(fundAfter,ex.target,fundAfter<ex.target?"hit":"")+
+   '<div class="result-banner '+(gap>0?"ripple":"recover")+'" style="margin-top:10px"><h2>'+fmt0(ex.emergencyCost)+' − '+fmt0(ex.used)+' = '+fmt0(gap)+' remaining gap</h2><p>'+(gap===0?"The full emergency is covered by savings.":"You\'d need to cover the remaining "+fmt0(gap)+" some other way.")+(monthsToGoal&&monthsToGoal>0?" Rebuilding to the "+fmt0(ex.target)+" target from here takes about "+monthsToGoal+" more month"+(monthsToGoal===1?"":"s")+" at "+fmt0(ex.monthly)+"/month.":"")+'</p></div>';
+}
 </script>
 </body>
 </html>

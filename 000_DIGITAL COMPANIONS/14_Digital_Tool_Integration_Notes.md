@@ -131,13 +131,13 @@ WISE Dimension 1 — Digital Integration Notes. Scope: ten optional companions f
 **When / prerequisites:** after the core workbook work for 3.1 is complete; students should already understand the calculation or reasoning in the connected workbook section (Key Calculation p. 66; Apply p. 70; research p. 71).
 **Open:** `savings-goal-calculator-u3.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** The emergency changes the fund balance and future rebuilding path.
-**DO:** Start with $40 saved toward a $240 fund. Decide how much of the $40 to use for the $120 repair. Compare the remaining gap, fund balance, and rebuilding contribution.
+**DO:** Start with $40 saved toward a $240 fund. Decide how much of the $40 to use for the $120 repair. Compare the remaining gap, fund balance, and rebuilding contribution. After the story, use Explore This Plan to set your own target, monthly amount, and emergency cost.
 **ASK / RECORD:** If all $40 is used, record $120 − $40 = $80 remaining gap. Explain whether your p. 70 saving strategy would still fit after a similar disruption.
 **Return to:** Key Calculation p. 66 and Apply p. 70.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** The tool calculates the gap but does not simulate a complete funding source for the uncovered repair cost. The sample is separate from Nia’s p. 68 worked example.
+**Control limits:** The story sample is separate from Nia’s p. 68 worked example. Explore This Plan afterward is a free-form calculator (fund target, monthly amount, months saved, and emergency cost are all adjustable) but still does not simulate a funding source for an uncovered gap beyond the fund itself.
 
 ### OPTIONAL DIGITAL COMPANION — Interest in Motion
 
