@@ -1,0 +1,323 @@
+/* ============================================================
+   WISE EDITORIAL DESIGN SYSTEM
+   Brand: Navy #001943 / Green #018037 / Red #EA1E25 / White
+   Display: Times New Roman Bold (Liberation Serif Bold locally)
+   Body: Open Sans
+   ============================================================ */
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/open-sans-latin-400-normal.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/open-sans-latin-400-italic.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/open-sans-latin-600-normal.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/open-sans-latin-700-normal.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+:root{
+  /* 1. BRAND PALETTE — broadest design freedom */
+  --navy:#001943;
+  --green:#018037;
+  --red:#EA1E25;
+  --white:#FFFFFF;
+
+  /* 2. STRUCTURAL / NEUTRAL — layout support only */
+  --slate:#94A3B8;
+  --border:#CBD5E1;
+  --fill:#F1F5F9;
+  --navy-tint-05:#EEF1F6;
+  --navy-tint-10:#E3E8F0;
+  --green-tint:#E7F4EC;
+  --red-tint:#FCEAEA;
+  --cream:#FBF9F4;
+  --ink-muted:#3F4A5C;
+
+  /* 3. UNIT COLORS — curriculum identity only */
+  --unit1:#82BB3F;
+  --unit2:#F0751A;
+  --unit3:#30B8D1;
+
+  /* 4. LESSON-POSITION COLORS — lesson navigation only */
+  --lesson-1:#16A34A;
+  --lesson-2:#FACC15;
+  --lesson-3:#D9262C;
+
+  /* 5. SEQUENTIAL-ACTION COLORS — true ordered actions only */
+  --seq-1:#16A34A; --seq-2:#1C76F7; --seq-3:#FF3A29; --seq-4:#5C4DE6;
+  --seq-5:#D8267B; --seq-6:#30BFFC; --seq-7:#FACC15;
+
+  --font-display:'Liberation Serif','Times New Roman',serif;
+  --font-body:'Open Sans',sans-serif;
+
+  --page-w:8.5in;
+  --page-h:11in;
+  --margin-x:0.72in;
+  --margin-top:0.62in;
+  --margin-bottom:0.58in;
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family:var(--font-body);
+  color:var(--navy);
+  font-size:10.4pt;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============================ PAGE SHELL ============================ */
+.page{
+  width:var(--page-w);
+  height:var(--page-h);
+  padding:var(--margin-top) var(--margin-x) var(--margin-bottom) var(--margin-x);
+  position:relative;
+  page-break-after:always;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  background:var(--white);
+}
+.page:last-child{ page-break-after:avoid; }
+
+.page-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:0.34in;
+  flex:0 0 auto;
+}
+.page-header img.wise-logo{ height:0.62in; }
+.page-header img.beac-logo{ height:0.30in; }
+.page-header.compact{ margin-bottom:0.2in; }
+
+.page-body{ flex:1 1 auto; min-height:0; }
+
+.page-footer{
+  flex:0 0 auto;
+  border-top:1.4pt dotted var(--navy);
+  padding-top:0.11in;
+  margin-top:0.18in;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:8pt;
+  color:var(--navy);
+  font-weight:600;
+}
+.page-footer .sep{ color:var(--green); margin:0 0.16in; font-weight:700; }
+.page-footer .footer-left{ display:flex; align-items:center; }
+.page-footer .footer-right{ display:flex; align-items:center; }
+
+/* ============================ TITLE SYSTEM ============================ */
+.kicker{
+  font-family:var(--font-body);
+  font-weight:700;
+  font-size:9.5pt;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--navy);
+  margin:0 0 8px 0;
+}
+.kicker-rule{
+  width:52px; height:3px; background:var(--green);
+  margin:0 0 14px 0;
+}
+h1.display{
+  font-family:var(--font-display);
+  font-weight:700;
+  color:var(--navy);
+  font-size:44pt;
+  line-height:1.02;
+  margin:0 0 10px 0;
+  letter-spacing:-0.01em;
+}
+h1.display.medium{ font-size:32pt; }
+h1.display.small{ font-size:25pt; }
+.deck{
+  font-family:var(--font-body);
+  font-weight:400;
+  font-size:13pt;
+  color:var(--navy);
+  line-height:1.42;
+  margin:0 0 18px 0;
+  max-width:92%;
+}
+h2.section-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  color:var(--navy);
+  font-size:19pt;
+  line-height:1.08;
+  margin:0 0 6px 0;
+}
+h3.sub-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  color:var(--navy);
+  font-size:13.5pt;
+  margin:0 0 6px 0;
+}
+h4.label-title{
+  font-family:var(--font-body);
+  font-weight:700;
+  color:var(--navy);
+  font-size:10.6pt;
+  margin:0 0 3px 0;
+}
+
+/* ============================ BODY TEXT ============================ */
+p{ margin:0 0 9px 0; }
+.lede{ font-size:11.3pt; line-height:1.55; }
+.small{ font-size:9pt; }
+.muted{ color:var(--ink-muted); }
+strong{ font-weight:700; }
+em{ font-style:italic; }
+.rule-thin{ height:1px; background:var(--border); border:none; margin:12px 0; }
+.rule-green{ height:2px; background:var(--green); border:none; width:64px; margin:10px 0 12px; }
+
+.columns-2{ column-count:2; column-gap:0.34in; }
+.columns-2 p{ margin-bottom:8px; }
+
+.dropcap:first-letter{
+  font-family:var(--font-display);
+  font-weight:700;
+  color:var(--green);
+  font-size:52pt;
+  line-height:0.78;
+  float:left;
+  padding-right:8px;
+  padding-top:4px;
+}
+
+/* ============================ PULL QUOTE ============================ */
+.pull-quote{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-weight:700;
+  color:var(--navy);
+  font-size:19pt;
+  line-height:1.24;
+  border-top:2px solid var(--green);
+  padding-top:12px;
+  margin:14px 0;
+  position:relative;
+}
+.pull-quote .mark-open{ color:var(--green); font-size:30pt; line-height:0; position:relative; top:12px; margin-right:2px; }
+.pull-quote .mark-close{ color:var(--green); font-size:30pt; line-height:0; position:relative; top:14px; }
+
+/* ============================ ICON + HEADING MODULE ============================ */
+.icon-module{ display:flex; align-items:flex-start; gap:14px; }
+.icon-badge{
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex:0 0 auto;
+}
+.icon-badge svg{ width:22px; height:22px; }
+.icon-badge svg *, .pathway-icon svg *{ fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.icon-module h4{ margin:2px 0 3px 0; }
+.icon-module p{ margin:0; font-size:9.6pt; color:var(--ink-muted); }
+
+.badge-green{ background:var(--green-tint); }
+.badge-green svg{ stroke:var(--green); }
+.badge-navy{ background:var(--navy-tint-10); }
+.badge-navy svg{ stroke:var(--navy); }
+.badge-red{ background:var(--red-tint); }
+.badge-red svg{ stroke:var(--red); }
+.badge-blue{ background:#E5F0FF; }
+.badge-blue svg{ stroke:#2563EB; }
+
+.module-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px 28px; }
+.module-grid .icon-module{ border-top:1px solid var(--border); padding-top:12px; }
+.module-grid .icon-module:nth-child(-n+2){ border-top:none; padding-top:0; }
+.divider-col{ border-left:1px solid var(--border); padding-left:28px; }
+
+/* ============================ NUMBERED EDITORIAL MODULE ============================ */
+.num-module{ display:flex; gap:12px; margin-bottom:12px; align-items:baseline; }
+.num-module .num{ font-family:var(--font-display); font-weight:700; font-size:15pt; width:26px; flex:0 0 auto; }
+.num-module .num-title{ font-weight:700; text-transform:uppercase; font-size:9pt; letter-spacing:.05em; margin-right:8px; }
+.num-module .num-body{ font-size:9.6pt; }
+
+/* ============================ SEQUENTIAL STEP STRIP ============================ */
+.seq-strip{ display:flex; gap:8px; }
+.seq-card{
+  flex:1; background:var(--fill); border-radius:8px; padding:14px 10px 12px;
+  text-align:center; position:relative;
+}
+.seq-card .seq-num{
+  width:30px; height:30px; border-radius:50%; color:#fff; font-weight:700;
+  display:flex; align-items:center; justify-content:center; margin:0 auto 8px;
+  font-family:var(--font-body); font-size:12pt;
+}
+.seq-card h5{ font-family:var(--font-display); font-weight:700; font-size:10.5pt; margin:0 0 4px 0; }
+.seq-card p{ font-size:8.3pt; margin:0; color:var(--ink-muted); }
+.seq-card .bar{ height:3px; margin-top:10px; border-radius:2px; }
+
+/* ============================ PATHWAY / DIMENSION DIAGRAM ============================ */
+.pathway{ display:flex; gap:0; align-items:stretch; }
+.pathway-col{
+  flex:1; border-radius:10px; padding:16px 14px; display:flex; flex-direction:column;
+}
+.pathway-arrow{
+  flex:0 0 22px; display:flex; align-items:center; justify-content:center;
+}
+.pathway-arrow .circle{
+  width:22px; height:22px; border-radius:50%; background:var(--navy);
+  color:#fff; display:flex; align-items:center; justify-content:center; font-size:11pt;
+}
+.pathway-kicker{ font-size:7.6pt; font-weight:700; letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px; }
+.pathway-title{ font-family:var(--font-display); font-weight:700; font-size:16pt; line-height:1.05; margin:0 0 2px 0; }
+.pathway-sub{ font-family:var(--font-display); font-style:italic; font-size:9pt; margin:0 0 10px 0; }
+.pathway-icon{ width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:8px; }
+.pathway-icon svg{ width:26px; height:26px; }
+.pathway-list{ list-style:none; margin:0 0 10px 0; padding:0; font-size:8.3pt; }
+.pathway-list li{ margin-bottom:6px; padding-left:0; }
+.pathway-list b{ display:block; font-size:8.6pt; }
+.pathway-desc{ font-size:8.1pt; color:var(--ink-muted); flex:1; }
+
+/* ============================ TABLES ============================ */
+table.wise-table{ width:100%; border-collapse:collapse; font-size:9.2pt; }
+table.wise-table th{
+  background:var(--navy); color:#fff; text-align:left; font-weight:700;
+  padding:7px 10px; font-size:8.6pt; text-transform:uppercase; letter-spacing:.03em;
+}
+table.wise-table td{ padding:7px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+table.wise-table tr:nth-child(even) td{ background:var(--fill); }
+
+/* ============================ STAT / NUMBER ANCHOR ============================ */
+.stat-row{ display:flex; gap:26px; }
+.stat{ text-align:left; }
+.stat .stat-num{ font-family:var(--font-display); font-weight:700; color:var(--red); font-size:40pt; line-height:1; }
+.stat .stat-label{ font-size:8.4pt; text-transform:uppercase; letter-spacing:.05em; font-weight:700; color:var(--navy); margin-top:4px; }
+
+/* ============================ INFO / SHADED BOX ============================ */
+.info-box{ background:var(--navy-tint-05); border-radius:8px; padding:14px 16px; }
+.info-box.green{ background:var(--green-tint); }
+.info-box.cream{ background:var(--cream); border:1px solid var(--border); }
+
+/* ============================ COVER PAGE ============================ */
+.cover-icons{ display:flex; flex-direction:column; gap:0; }
+
+/* ============================ SECTION DIVIDER PAGE ============================ */
+.divider-page{ background:var(--navy); color:#fff; justify-content:center; }
+.divider-page .kicker{ color:var(--seq-6); }
+.divider-page h1.display{ color:#fff; }
+.divider-page .deck{ color:#C9D6E8; }
+.divider-page .page-footer{ border-top-color:#3A537A; color:#C9D6E8; }
+
+ul.plain{ margin:0; padding-left:16px; }
+ul.plain li{ margin-bottom:5px; font-size:9.4pt; }
+ol.plain{ margin:0; padding-left:16px; }
+ol.plain li{ margin-bottom:5px; font-size:9.4pt; }
