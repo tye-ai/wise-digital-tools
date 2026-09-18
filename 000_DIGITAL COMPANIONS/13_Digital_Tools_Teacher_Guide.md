@@ -56,6 +56,9 @@ Use the ten replacement teacher entries in this synchronized source package.
 | R08 | Interest in Motion | `interest-comparison-tool.html` | Unit 3 | 3.2 | Optional digital companion |
 | R09 | Purchasing Power Time Machine | `inflation-activity.html` | Unit 3 | 3.3 | Optional digital companion |
 | R10 | My Financial Future: Stress Test | `financial-projection-capstone.html` | Capstone I | Capstone I | Optional digital companion |
+
+**Tools R01–R10 above are the only ones built and live.** Everything below this line (Tools 16–36, Units 4–9) is planning reference for a future build — none of these files exist yet. Do not schedule or promise them to a class.
+
 | 16 | Bank Comparison Tool | `bank-comparison-tool.html` | Unit 4 | 4.1 | Digital lesson companion |
 | 17 | Account Match-Up | `account-explorer.html` | Unit 4 | 4.2 | Digital lesson companion |
 | 18 | My First Account Decision | `institution-decision-tool.html` | Unit 4 | 4.3 | Digital lesson companion |
@@ -218,6 +221,11 @@ Use the ten replacement teacher entries in this synchronized source package.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
 **Control limits:** No personal-plan input/import is implemented. The tool uses a fixed 25% deduction estimate and 3% future-cost assumption. It is not a standalone Capstone submission or assessment.
+
+---
+
+**⚠️ NOT YET BUILT — planning reference only.** The detailed entries above (Devon's Month through My Financial Future: Stress Test) are the ten tools that exist and are live. Everything from here down documents tools for Units 4–9 and later capstones that have not been built. Treat this section as a roadmap, not a usable teacher resource.
+
 ## Tool 21: Debt Payoff Simulator
 
 - Tool title: Debt Payoff Simulator
@@ -470,6 +478,10 @@ Use the ten replacement teacher entries in this synchronized source package.
 | 3.1 | Emergency Ripple | An emergency changes the fund balance and future rebuilding path. |
 | 3.2 | Interest in Motion | Animated comparison shows simple and compound growth over time. |
 | 3.3 | Purchasing Power Time Machine | Time and cost manipulation connect future price estimates to purchasing power. |
+| Capstone I | My Financial Future: Stress Test | After the core plan, test the sample’s income/rent shock, rebalance, and compare the recalculated goal with workbook reasoning |
+
+**Rows above this line are built and live. Rows below are planning reference for tools that do not exist yet.**
+
 | 4.1 | Bank Comparison Tool | Compare workbook research criteria; avoid duplicate searching |
 | 4.2 | Account Match-Up | Reinforce account-purpose distinctions |
 | 4.3 | My First Account Decision | Formalize decision-matrix reasoning |
@@ -488,7 +500,6 @@ Use the ten replacement teacher entries in this synchronized source package.
 | 9.1 | Scam Spotter | Practice red-flag recognition |
 | 9.2 | Consumer Protection Navigator | Sequence consumer-protection responses |
 | 9.3 | Identity Theft Defense | Practice prevention and recovery steps |
-| Capstone I | My Financial Future: Stress Test | After the core plan, test the sample’s income/rent shock, rebalance, and compare the recalculated goal with workbook reasoning |
 | Capstone II | Money Systems Capstone | Guided interactive planning |
 | Capstone III | Wealth & Protection Capstone | Guided interactive planning |
 | Final Capstone | My Financial Future — Complete Edition | Optional synthesis organizer |

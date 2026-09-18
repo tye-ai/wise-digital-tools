@@ -14,6 +14,9 @@ WISE Dimension 1 — Digital Integration Notes. Scope: ten optional companions f
 | **Unit 2** | Mindset Paths, Same Choice, Different Story, Goal Fit | Optional Companions |
 | **Unit 3** | Emergency Ripple, Interest in Motion, Purchasing Power Time Machine | Optional Companions |
 | **Capstone I** | My Financial Future: Stress Test | Optional Capstone Companion |
+
+**Everything through Capstone I above is built and live — ten tools plus the Hub. Units 4–9 below are planning reference; none of those files exist yet.**
+
 | **Unit 4** | Bank Comparison Tool, Account Match-Up, My First Account Decision | Lesson Companions |
 | **Unit 5** | What Is Credit, Really?, True Cost of Credit, Debt Payoff Simulator | Lesson Companions + Enrichment |
 | **Unit 6** | Income Streams Explorer, Paycheck Decoder, The Raise Simulator, Money Systems Capstone | Lesson Companions + Enrichment + Capstone |
@@ -181,6 +184,10 @@ WISE Dimension 1 — Digital Integration Notes. Scope: ten optional companions f
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
 **Control limits:** No personal-plan input/import is implemented. The tool uses a fixed 25% deduction estimate and 3% future-cost assumption. It is not a standalone Capstone submission or assessment.
+
+---
+
+**⚠️ NOT YET BUILT — planning reference only, starting here.** Units 1–3 and Capstone I above are the ten tools that exist and are live. Units 4–9 and the later capstones below have not been built.
 
 ### UNIT 4: BANKING & FINANCIAL INSTITUTIONS
 
@@ -521,6 +528,9 @@ A short oral or written observation is sufficient. Do not require a separate dup
 | Interest in Motion | Learn p. 76; Kate p. 77; Practice p. 79 | Complete the existing workbook lesson; omit the optional companion. |
 | Purchasing Power Time Machine | Kate p. 84; multiplier table p. 85; Apply p. 87; optional research p. 88 | Complete the existing workbook lesson; omit the optional companion. |
 | My Financial Future: Stress Test | Capstone I pp. 93–98; reflection/rubric pp. 99–101 | Complete the existing workbook lesson; omit the optional companion. |
+
+**Rows above are the ten built, live tools. Rows below are planning reference for tools that do not exist yet.**
+
 | Bank Comparison Tool | Fee Detective Activity (Activity Book) |
 | Account Match-Up | Card Sort Activity (Activity Book) |
 | My First Account Decision | Decision Matrix (workbook) |
@@ -577,6 +587,9 @@ A short oral or written observation is sufficient. Do not require a separate dup
 | 9.2 | Consumer Protection Navigator | — |
 | 9.3 | Identity Theft Defense | — |
 | Capstone I | My Financial Future: Stress Test | — |
+
+**Rows above are the ten built, live tools. Rows below are planning reference for tools that do not exist yet.**
+
 | Capstone II | Money Systems Capstone | — |
 | Capstone III | Wealth & Protection Capstone | — |
 | Final Capstone | My Financial Future — Complete Edition | — |
