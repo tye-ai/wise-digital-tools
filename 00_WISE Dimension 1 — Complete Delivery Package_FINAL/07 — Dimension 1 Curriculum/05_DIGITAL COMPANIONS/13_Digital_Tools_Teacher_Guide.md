@@ -158,13 +158,13 @@ Use the ten replacement teacher entries in this synchronized source package.
 **When / prerequisites:** after the core workbook work for 2.3 is complete; students should already understand the calculation or reasoning in the connected workbook section (Apply p. 58; values work p. 57 remains separate).
 **Open:** `goal-alignment-planner.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** Recalculation shows how a plan can change while the guiding value stays constant.
-**DO:** Start with the sample $240 goal over eight months ($30 per month). When it changes to $280 over five months ($56 per month), compare raising the monthly amount, choosing a lower-cost version, or finding a later cohort.
+**DO:** Start with the sample $240 goal over eight months ($30 per month). When it changes to $280 over five months ($56 per month), compare raising the monthly amount, choosing a lower-cost version, or finding a later cohort. After the story, use Test Your Own Goal to run any cost and timeline, original and changed, through the same math.
 **ASK / RECORD:** Identify the value that stayed constant and the plan detail you changed. Apply the Final Goal Check on p. 58 to your own, sample, or fictional plan.
 **Return to:** Apply p. 58 — Final Goal Check.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** The tool holds Growth fixed. It does not rank personal values, accept a new personal goal, or verify the affordability of the $56 contribution against a full budget.
+**Control limits:** The story holds Growth fixed and does not rank personal values. Test Your Own Goal afterward is a free-form calculator for any cost/timeline pair, but it still does not verify affordability against a full budget.
 
 ### OPTIONAL DIGITAL COMPANION — Emergency Ripple
 

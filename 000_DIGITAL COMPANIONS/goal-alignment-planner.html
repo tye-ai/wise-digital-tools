@@ -395,12 +395,65 @@ function showEnding(){
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on values and goals"></textarea></div>'+
    '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Compare this to your own goal on the Apply page (p. 58) and its Final Goal Check: if the monthly amount didn\'t fit, would you change the goal, the timeline, the savings amount, or the budget?</p></div>'+
    '<div class="action-row print-hide">'+
+    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Test Your Own Goal</button>'+
     '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try a Different Path</button>'+
     '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
    '</div>'+
   '</div>';
 }
 function replayStory(){log=[];chosenPath=null;chooseStart()}
+
+/* ---------- Test Your Own Goal (sandbox — free-form goal calculator, never touches the story) ---------- */
+function exploreThisPlan(){
+  show("s-build");
+  window._ex={cost:240,months:8,newCost:280,newMonths:5};
+  renderExplore();
+}
+function renderExplore(){
+  var ex=window._ex;
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🔓 Test Your Own Goal</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Anchor your own goal to a value, then test what happens when the cost or timeline changes. This won\'t change my actual ending."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
+   '<div class="card"><h3>Step 1 — Your Original Goal</h3>'+
+    '<label class="fld" for="ex_cost">🎯 Goal Cost: <span class="range-val" id="ex_costVal"></span></label>'+
+    '<input type="range" id="ex_cost" min="20" max="2000" step="10" value="'+ex.cost+'" oninput="exploreSlide()" aria-label="Original goal cost dollars">'+
+    '<label class="fld" for="ex_months">🗓 Timeline: <span class="range-val" id="ex_monthsVal"></span></label>'+
+    '<input type="range" id="ex_months" min="1" max="36" step="1" value="'+ex.months+'" oninput="exploreSlide()" aria-label="Original timeline in months">'+
+    '<div id="exploreBox1" style="margin-top:12px"></div>'+
+   '</div>'+
+   '<div class="card"><h3>Step 2 — Something Changes</h3>'+
+    '<label class="fld" for="ex_newcost">🎯 New Cost: <span class="range-val" id="ex_newcostVal"></span></label>'+
+    '<input type="range" id="ex_newcost" min="20" max="2000" step="10" value="'+ex.newCost+'" oninput="exploreSlide()" aria-label="New goal cost dollars">'+
+    '<label class="fld" for="ex_newmonths">🗓 New Timeline: <span class="range-val" id="ex_newmonthsVal"></span></label>'+
+    '<input type="range" id="ex_newmonths" min="1" max="36" step="1" value="'+ex.newMonths+'" oninput="exploreSlide()" aria-label="New timeline in months">'+
+    '<div id="exploreBox2" style="margin-top:12px" aria-live="polite"></div>'+
+   '</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Done exploring →</button>'+
+  '</div>';
+  exploreSlide();
+}
+function exploreSlide(){
+  var ex=window._ex;
+  ex.cost=num("ex_cost");ex.months=num("ex_months");ex.newCost=num("ex_newcost");ex.newMonths=num("ex_newmonths");
+  $("ex_costVal").textContent=fmt0(ex.cost);
+  $("ex_monthsVal").textContent=ex.months;
+  $("ex_newcostVal").textContent=fmt0(ex.newCost);
+  $("ex_newmonthsVal").textContent=ex.newMonths;
+  var origMonthly=ex.cost/ex.months,newMonthly=ex.newCost/ex.newMonths;
+  var diff=newMonthly-origMonthly;
+  $("exploreBox1").innerHTML=moneyRow("Original Monthly Amount",origMonthly,"total");
+  var diffLine=diff===0?"The monthly amount stays exactly the same.":(diff>0?"That\'s "+fmt0(diff)+" more per month than the original plan.":"That\'s "+fmt0(Math.abs(diff))+" less per month than the original plan.");
+  $("exploreBox2").innerHTML=moneyRow("New Monthly Amount",newMonthly,"total")+
+   '<div class="result-banner kate" style="margin-top:10px"><h2>'+fmt0(newMonthly)+' a month</h2><p>'+diffLine+' Same goal idea, different numbers — the value behind it doesn\'t have to change just because the plan did.</p></div>';
+}
 </script>
 </body>
 </html>
