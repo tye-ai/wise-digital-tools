@@ -354,12 +354,31 @@ function showEnding(){
    '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Turn to the Apply page (p. 42) and reframe a belief of your own using the same four steps: Name it → Question it → Find evidence → Reframe it.</p></div>'+
    '<div class="action-row print-hide">'+
     (pathsSeen.fixed&&pathsSeen.growth?'':'<button class="btn btn-secondary" onclick="pickPath(\''+(pathsSeen.fixed?"growth":"fixed")+'\')" type="button">↺ See the Other Path</button>')+
+    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Reframe Your Own Belief</button>'+
     '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try It Again</button>'+
     '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
    '</div>'+
   '</div>';
 }
 function replayStory(){log=[];pathsSeen={};currentPath=null;show("s-build");renderFork()}
+
+/* ---------- Reframe Your Own Belief (sandbox — personalize, never touches the story) ---------- */
+function exploreThisPlan(){
+  show("s-build");
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="card accent"><h2>🔓 Reframe Your Own Belief</h2>'+
+    '<p style="font-size:14.5px;margin-top:6px">Think of a money belief — yours, a sample, or a fictional one. Run it through the same four steps Elijah used. Nothing here is saved — copy or print it before you leave if you want to keep it.</p>'+
+   '</div>'+
+   '<div class="card"><div class="step-list">'+
+    '<div class="step-item"><b>1. Name the Belief</b><textarea id="my_name" rows="2" placeholder="What\'s the thought, word for word?" aria-label="Name the belief" style="margin-top:6px"></textarea></div>'+
+    '<div class="step-item"><b>2. Question It</b><textarea id="my_question" rows="2" placeholder="Is that completely true, or is this one moment?" aria-label="Question the belief" style="margin-top:6px"></textarea></div>'+
+    '<div class="step-item"><b>3. Find Evidence</b><textarea id="my_evidence" rows="2" placeholder="What\'s a time this belief wasn\'t true?" aria-label="Find evidence against the belief" style="margin-top:6px"></textarea></div>'+
+    '<div class="step-item"><b>4. Write the Reframe</b><textarea id="my_reframe" rows="2" placeholder="Rewrite the belief so it leaves room for a next step." aria-label="Write the reframe" style="margin-top:6px"></textarea></div>'+
+   '</div></div>'+
+   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Done →</button>'+
+  '</div>';
+}
 </script>
 </body>
 </html>

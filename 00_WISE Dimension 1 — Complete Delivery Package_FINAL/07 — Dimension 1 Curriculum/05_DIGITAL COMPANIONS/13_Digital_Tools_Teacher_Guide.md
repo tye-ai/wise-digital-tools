@@ -130,13 +130,13 @@ Use the ten replacement teacher entries in this synchronized source package.
 **When / prerequisites:** after the core workbook work for 2.1 is complete; students should already understand the calculation or reasoning in the connected workbook section (Apply p. 42; Reflect p. 43 remains separate).
 **Open:** `money-mindset-assessment.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** Branching makes the relationship between a thought and a next action visible.
-**DO:** View both belief branches from the same setback. Compare the action each thought supports; discuss a realistic next step without promising a financial outcome.
+**DO:** View both belief branches from the same setback. Compare the action each thought supports; discuss a realistic next step without promising a financial outcome. Afterward, use Reframe Your Own Belief to run your own thought through the same four steps.
 **ASK / RECORD:** Use Name it → Question it → Find evidence → Reframe it on p. 42, and identify one realistic next action.
 **Return to:** Apply p. 42 — Reframe a Money Belief.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** This is not a scored mindset inventory or a digital equivalent of the eight-statement reflection on p. 43.
+**Control limits:** Reframe Your Own Belief afterward lets a student run their own thought through Name it → Question it → Find evidence → Reframe it, but this is still not a scored mindset inventory or a digital equivalent of the eight-statement reflection on p. 43.
 
 ### OPTIONAL DIGITAL COMPANION — Same Choice, Different Story
 
@@ -144,13 +144,13 @@ Use the ten replacement teacher entries in this synchronized source package.
 **When / prerequisites:** after the core workbook work for 2.2 is complete; students should already understand the calculation or reasoning in the connected workbook section (Practice p. 49; Apply p. 50 remains separate).
 **Open:** `family-influence-map.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** Layered information reveals reasons behind initially different choices.
-**DO:** Investigate both fictional profiles. Reveal Family & Home, Friends & Peers, Media & Social Media, and Circumstances. Trace one underlying money message through Name → Trace → Notice → Decide.
+**DO:** Investigate both fictional profiles. Reveal Family & Home, Friends & Peers, Media & Social Media, and Circumstances. Trace one underlying money message through Name → Trace → Notice → Decide. Afterward, use Map Your Own Influences to fill in the same four categories for a choice of your own.
 **ASK / RECORD:** Explain one influence that helps make a choice understandable. Revisit p. 49 using your own, general, or fictional information.
 **Return to:** Practice p. 49 — Mapping Your Money Influences.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** It does not build the student’s personal influence map, replay Mina’s p. 50 case, or offer a context-variable toggle. Circumstances is not the same category as School & Community on p. 49.
+**Control limits:** Map Your Own Influences afterward lets a student build a personal influence map across the same four categories. The story itself does not replay Mina’s p. 50 case or offer a context-variable toggle, and Circumstances is not the same category as School & Community on p. 49.
 
 ### OPTIONAL DIGITAL COMPANION — Goal Fit
 

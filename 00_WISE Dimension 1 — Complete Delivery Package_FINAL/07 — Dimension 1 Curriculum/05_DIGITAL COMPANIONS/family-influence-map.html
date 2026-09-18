@@ -364,12 +364,37 @@ function showEnding(){
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on influence and financial choices"></textarea></div>'+
    '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Revisit Mapping Your Money Influences on p. 49: Family & Home, Friends & Peers, Media & Social Media, and School & Community. Compare those categories with the fictional profiles, including the additional Circumstances information.</p></div>'+
    '<div class="action-row print-hide">'+
+    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Map Your Own Influences</button>'+
     '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try It Again</button>'+
     '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
    '</div>'+
   '</div>';
 }
 function replayStory(){log=[];seenInfluences={bianca:0,taylor:0};chooseStart()}
+
+/* ---------- Map Your Own Influences (sandbox — personalize, never touches the story) ---------- */
+function exploreThisPlan(){
+  show("s-build");
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="card accent"><h2>🔓 Map Your Own Influences</h2>'+
+    '<p style="font-size:14.5px;margin-top:6px">Think of a financial choice — yours, a sample, or a fictional one. Fill in what shaped it, the same way you investigated Bianca and Taylor\'s choices. Nothing here is saved — copy or print it before you leave if you want to keep it.</p>'+
+   '</div>'+
+   '<div class="card">'+
+    '<label class="fld" for="my_choice">The choice: <span class="hint">What was the choice, and what did you (or they) decide?</span></label>'+
+    '<textarea id="my_choice" rows="2" placeholder="e.g., Got an unexpected $50 and decided to..." aria-label="The financial choice"></textarea>'+
+    '<label class="fld" for="my_family">👪 Family & Home</label>'+
+    '<textarea id="my_family" rows="2" placeholder="What did you hear about money growing up that connects to this choice?" aria-label="Family and home influence"></textarea>'+
+    '<label class="fld" for="my_friends">🤝 Friends & Peers</label>'+
+    '<textarea id="my_friends" rows="2" placeholder="Did anyone around you shape this choice?" aria-label="Friends and peers influence"></textarea>'+
+    '<label class="fld" for="my_media">📱 Media & Social Media</label>'+
+    '<textarea id="my_media" rows="2" placeholder="Did anything you watched, read, or scrolled past shape this?" aria-label="Media and social media influence"></textarea>'+
+    '<label class="fld" for="my_circumstances">🌊 Circumstances</label>'+
+    '<textarea id="my_circumstances" rows="2" placeholder="What was going on in your life at the time?" aria-label="Circumstances influence"></textarea>'+
+   '</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Done →</button>'+
+  '</div>';
+}
 </script>
 </body>
 </html>
