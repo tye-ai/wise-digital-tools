@@ -354,12 +354,70 @@ function showEnding(){
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on adjusting a financial plan"></textarea></div>'+
    '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Return to your own Capstone plan on pp. 93–98. On paper, apply the same checks: income, spending balance, monthly savings, and goal fit. The tool uses a fixed sample; your workbook and rubric remain the assessed work.</p></div>'+
    '<div class="action-row print-hide">'+
+    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Test Your Own Plan</button>'+
     '<button class="btn btn-secondary" onclick="replay()" type="button">🔄 Try It Again</button>'+
     '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
    '</div>'+
   '</div>';
 }
 function replay(){log=[];chooseStart()}
+
+/* ---------- Test Your Own Plan (sandbox — free-form full-plan calculator, never touches the story) ---------- */
+function exploreThisPlan(){
+  show("s-build");
+  window._ex={grossAnnual:36000,deductionRate:0.25,needs:1200,savings:225,wants:590,goalCost:1500,goalYears:1};
+  renderExplore();
+}
+function renderExplore(){
+  var ex=window._ex;
+  var m=$("buildSteps");
+  m.innerHTML='<div class="stepfade" id="stepWrap">'+
+   '<div class="card accent"><h2>🔓 Test Your Own Plan</h2>'+
+    '<p style="font-size:14.5px;margin-top:6px">Run your own numbers — real, sample, or fictional — through the same checks: income, budget balance, and goal fit. This is just for you to try out. It won\'t change the sample plan\'s ending.</p>'+
+   '</div>'+
+   '<div class="card"><h3>Income</h3>'+
+    '<label class="fld" for="ex_gross">💰 Gross Annual Income: <span class="range-val" id="ex_grossVal"></span></label>'+
+    '<input type="range" id="ex_gross" min="12000" max="90000" step="500" value="'+ex.grossAnnual+'" oninput="exploreSlide()" aria-label="Gross annual income dollars">'+
+    '<div id="exploreIncomeBox" style="margin-top:12px"></div>'+
+   '</div>'+
+   '<div class="card"><h3>Budget</h3>'+
+    '<label class="fld" for="ex_needs">🧾 Needs (monthly): <span class="range-val" id="ex_needsVal"></span></label>'+
+    '<input type="range" id="ex_needs" min="0" max="4000" step="25" value="'+ex.needs+'" oninput="exploreSlide()" aria-label="Monthly needs dollars">'+
+    '<label class="fld" for="ex_savings">🎯 Savings (monthly): <span class="range-val" id="ex_savingsVal"></span></label>'+
+    '<input type="range" id="ex_savings" min="0" max="2000" step="25" value="'+ex.savings+'" oninput="exploreSlide()" aria-label="Monthly savings dollars">'+
+    '<label class="fld" for="ex_wants">🎮 Wants (monthly): <span class="range-val" id="ex_wantsVal"></span></label>'+
+    '<input type="range" id="ex_wants" min="0" max="2000" step="25" value="'+ex.wants+'" oninput="exploreSlide()" aria-label="Monthly wants dollars">'+
+    '<div id="exploreBudgetBox" style="margin-top:12px" aria-live="polite"></div>'+
+   '</div>'+
+   '<div class="card"><h3>Long-Term Goal</h3>'+
+    '<label class="fld" for="ex_goalcost">🎯 Goal Cost Today: <span class="range-val" id="ex_goalcostVal"></span></label>'+
+    '<input type="range" id="ex_goalcost" min="100" max="10000" step="50" value="'+ex.goalCost+'" oninput="exploreSlide()" aria-label="Goal cost today dollars">'+
+    '<label class="fld" for="ex_goalyears">🗓 Years to the Goal: <span class="range-val" id="ex_goalyearsVal"></span></label>'+
+    '<input type="range" id="ex_goalyears" min="1" max="10" step="1" value="'+ex.goalYears+'" oninput="exploreSlide()" aria-label="Years to reach the goal">'+
+    '<div id="exploreGoalBox" style="margin-top:12px" aria-live="polite"></div>'+
+   '</div>'+
+   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Done exploring →</button>'+
+  '</div>';
+  exploreSlide();
+}
+function exploreSlide(){
+  var ex=window._ex;
+  ex.grossAnnual=num("ex_gross");ex.needs=num("ex_needs");ex.savings=num("ex_savings");ex.wants=num("ex_wants");ex.goalCost=num("ex_goalcost");ex.goalYears=num("ex_goalyears");
+  $("ex_grossVal").textContent=fmt0(ex.grossAnnual);
+  $("ex_needsVal").textContent=fmt0(ex.needs);
+  $("ex_savingsVal").textContent=fmt0(ex.savings);
+  $("ex_wantsVal").textContent=fmt0(ex.wants);
+  $("ex_goalcostVal").textContent=fmt0(ex.goalCost);
+  $("ex_goalyearsVal").textContent=ex.goalYears;
+  var gm=grossMonthly(ex),th=takeHome(ex),bal=balance(ex),fc=goalFutureCost(ex),gmo=goalMonthly(ex);
+  $("exploreIncomeBox").innerHTML=moneyRow("Gross Monthly Income",gm)+moneyRow("Estimated Deductions (25%)",-Math.round(gm*ex.deductionRate))+moneyRow("Estimated Monthly Take-Home",th,"total");
+  $("exploreBudgetBox").innerHTML=moneyRow("Take-Home Pay",th)+moneyRow("Needs",-ex.needs)+moneyRow("Savings",-ex.savings)+moneyRow("Wants",-ex.wants)+moneyRow("Final Balance",bal,"total")+
+   '<div class="result-banner '+stateClass(bal)+'" style="margin-top:10px"><h2>'+verdictText(bal)+'</h2><p>'+(bal<0?"Needs, savings, and wants add up to "+fmt0(-bal)+" more than take-home pay.":"")+'</p></div>';
+  var fits=ex.savings>=gmo;
+  $("exploreGoalBox").innerHTML=factRow("Estimated Future Cost",fmt0(fc)+" (using the 3% annual planning assumption over "+ex.goalYears+" yr)")+
+   factRow("Monthly Savings Target",fmt0(gmo))+
+   factRow("Does it fit inside Savings?",fits?"Yes — "+fmt0(ex.savings-gmo)+" to spare":"Not yet — short by "+fmt0(gmo-ex.savings));
+}
 </script>
 </body>
 </html>

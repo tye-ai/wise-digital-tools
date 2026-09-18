@@ -177,13 +177,13 @@ WISE Dimension 1 — Digital Integration Notes. Scope: ten optional companions f
 **When / prerequisites:** after the core workbook work for Capstone I is complete; students should already understand the calculation or reasoning in the connected workbook section (pp. 93–101; core plan pp. 93–98).
 **Open:** `financial-projection-capstone.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** Income, needs, savings, wants, and a future goal interact; goal choices recalculate and loop back.
-**DO:** Run the fixed sample Workforce plan. Observe the income drop from $36,000 to $30,000 and rent increase from $600 to $700. Rebalance savings and wants, then extend the timeline, reduce the goal cost, or revisit the budget until the goal check fits.
+**DO:** Run the fixed sample Workforce plan. Observe the income drop from $36,000 to $30,000 and rent increase from $600 to $700. Rebalance savings and wants, then extend the timeline, reduce the goal cost, or revisit the budget until the goal check fits. Afterward, use Test Your Own Plan to run your own income, needs, savings, wants, and goal through the same checks.
 **ASK / RECORD:** Record what changed, your adjustment, and the resulting monthly savings target. Use those same checks on your own workbook plan; keep the existing Capstone rubric as the assessment.
 **Return to:** Capstone I pp. 93–98, with the existing reflection and rubric on pp. 99–101.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** No personal-plan input/import is implemented. The tool uses a fixed 25% deduction estimate and 3% future-cost assumption. It is not a standalone Capstone submission or assessment.
+**Control limits:** The story is fixed to the sample Workforce plan and does not import a student's own numbers. Test Your Own Plan afterward accepts real, sample, or fictional income/budget/goal numbers and applies the same fixed 25% deduction and 3% future-cost assumptions — it is still not a standalone Capstone submission or assessment; the workbook plan and rubric remain the graded evidence.
 
 ---
 
