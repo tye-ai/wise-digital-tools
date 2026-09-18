@@ -93,6 +93,16 @@ textarea:focus{outline:2.5px solid var(--blue);outline-offset:0;border-color:tra
 .progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
 .progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
 
+.moment-scene{position:relative;border-radius:18px;border:1px solid var(--line);padding:22px 20px 20px;margin:14px 0;overflow:hidden;background-color:#fbfcff;background-image:linear-gradient(rgba(30,41,59,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,41,59,.05) 1px,transparent 1px);background-size:22px 22px}
+.moment-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-deep);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:99px;margin-bottom:16px}
+.moment-body{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.moment-char{width:100px;height:auto;flex:none;filter:drop-shadow(0 6px 10px rgba(10,17,31,.15))}
+.moment-content{flex:1;min-width:220px}
+.moment-bubble{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14.5px;font-weight:600;color:var(--midnight);margin-bottom:18px;box-shadow:0 2px 6px rgba(10,17,31,.06)}
+.moment-bubble mark{background:#FFE066;color:var(--midnight);padding:0 3px;border-radius:3px;font-weight:800;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.moment-bubble:after{content:"";position:absolute;left:28px;bottom:-8px;width:16px;height:16px;background:#fff;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);transform:rotate(45deg)}
+@media(max-width:520px){.moment-body{flex-direction:column;align-items:center;text-align:center}.moment-char{width:90px}.moment-content{width:100%;min-width:0}.moment-bubble:after{display:none}}
+
 .value-tag{display:inline-block;background:var(--kate-light);color:var(--kate);font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;padding:5px 14px;border-radius:99px;margin-bottom:10px}
 .money-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
 .money-row:last-child{border-bottom:none}
@@ -215,7 +225,15 @@ function renderGoal(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:20%"></div></div>'+
-   '<div class="q-count">The SMART Goal</div>'+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🌱 Kate\'s Goal · Start</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"I anchored my SMART goal to one value: Growth. I want to pay for a training course — <mark>'+fmt0(G.cost)+'</mark>, over '+G.months+' months, so '+fmt0(monthly(G))+' a month."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card"><span class="value-tag">Value: Growth</span>'+
     moneyRow("🎯 Course Cost",G.cost)+factRow("🗓 Timeline",G.months+" months")+moneyRow("💵 Monthly Amount",monthly(G))+
     '<p class="subtle" style="margin-top:8px">This value could also show up as saving for other skills or opportunities — the course is just this month\'s version of it.</p>'+
@@ -230,8 +248,15 @@ function renderStress(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:40%"></div></div>'+
-   '<div class="q-count">Two Things Change at Once</div>'+
-   coach("Kate","The course provider just raised the price to $280 — and I found out applications close in 5 months, not 8. The Growth value hasn\'t changed. Everything around it just did.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">⚡ Two Things Change at Once</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"The course provider just raised the price to <mark>$280</mark> — and I found out applications close in <mark>5 months</mark>, not 8. The Growth value hasn\'t changed. Everything around it just did."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+moneyRow("New Course Cost",280)+factRow("New Timeline",5+" months")+'</div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderChoices()" type="button">See what could change →</button>'+
   '</div>';
@@ -243,8 +268,15 @@ function renderChoices(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:60%"></div></div>'+
-   '<div class="q-count">Preserve the Value, Change the Plan</div>'+
-   coach("Kate","I still want Growth. I don\'t have to want THIS exact course, on THIS exact timeline, at THIS exact rate. What should move?")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🌱 Preserve the Value, Change the Plan</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"I still want Growth. I don\'t have to want THIS exact course, on THIS exact timeline, at THIS exact rate. What should move?"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card"><div class="opts">'+
     '<button class="opt" onclick="pickPath(\'raise\')">🔺 Raise the monthly amount<span class="opt-sub">Keep this course and the 5-month deadline: '+fmt0(280)+' ÷ 5 = '+fmt0(raiseRate)+' a month.</span></button>'+
     '<button class="opt" onclick="pickPath(\'version\')">🔁 Choose a different version of the training<span class="opt-sub">Same Growth value, a less expensive way to build the skill.</span></button>'+
@@ -268,8 +300,15 @@ function renderVersionSlider(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:75%"></div></div>'+
-   '<div class="q-count">A Different Version of the Same Value</div>'+
-   coach("Kate","There\'s a shorter, less expensive version of this training that still builds the same core skill. What should it cost?")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🔁 A Different Version of the Same Value</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"There\'s a shorter, less expensive version of this training that still builds the same core skill. What should it cost?"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+
     '<label class="fld" for="verR">Cost of this version: <span class="range-val" id="verVal">'+fmt0(200)+'</span></label>'+
     '<input type="range" id="verR" min="100" max="280" step="10" value="200" oninput="versionSlide()" aria-label="Cost of the alternate training version">'+
@@ -294,8 +333,15 @@ function renderTimelineSlider(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:75%"></div></div>'+
-   '<div class="q-count">A Different Timeline for the Same Value</div>'+
-   coach("Kate","If I look for a cohort with a later deadline, I could keep the exact $280 course and stretch the timeline instead. How many months would work?")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🗓 A Different Timeline for the Same Value</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"If I look for a cohort with a later deadline, I could keep the exact $280 course and stretch the timeline instead. How many months would work?"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+
     '<label class="fld" for="timR">Months to save: <span class="range-val" id="timVal">8</span></label>'+
     '<input type="range" id="timR" min="5" max="14" step="1" value="8" oninput="timelineSlide()" aria-label="Months to save for the course">'+
@@ -335,7 +381,15 @@ function showEnding(){
    '<div class="card"><span class="value-tag">Value: Growth (unchanged)</span>'+
     moneyRow("Final Course Cost",G.cost)+factRow("Final Timeline",G.months+" months")+moneyRow("Final Monthly Amount",monthly(G),"total")+
    '</div>'+
-   coach("Kate","The value never moved. The course, the cost, or the timeline did — depending on what you picked. <strong>Which part would you have changed first, and why?</strong>")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">💬 Kate\'s Reflection</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"The value never moved. The course, the cost, or the timeline did — depending on what you picked. <strong>Which part would you have changed first, and why?</strong>"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
    '<p style="font-size:14px;margin-bottom:8px">Changing the plan does not automatically mean abandoning the value. Name one value — yours, a sample, or a fictional one — that could survive a plan changing more than once. This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on values and goals"></textarea></div>'+
