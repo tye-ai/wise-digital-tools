@@ -59,6 +59,7 @@ main{flex:1;width:100%;max-width:680px;margin:0 auto;padding:26px 20px 40px}
 
 .coach{display:flex;gap:12px;align-items:flex-start;margin:14px 0}
 .avatar{width:44px;height:44px;min-width:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px;box-shadow:0 2px 6px rgba(10,17,31,.18)}
+.avatar-img{width:44px;height:44px;min-width:44px;border-radius:50%;object-fit:cover;box-shadow:0 2px 6px rgba(10,17,31,.18)}
 .bubble{background:var(--white);border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:12px 16px;font-size:15px;box-shadow:0 1px 3px rgba(10,17,31,.06)}
 .bubble .who{font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
 
@@ -150,7 +151,7 @@ footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5
       </div>
     </div>
     <div class="hd-title"><span class="icon">🌊</span><div><h1>Emergency Ripple</h1><div class="hd-sub">A fund is building. Then something unexpected hits.</div></div></div>
-    <div class="hd-desc">Watch fictional student Priya’s emergency fund grow, take a real hit, and see whether the saving strategy still holds up afterward.</div>
+    <div class="hd-desc">Watch fictional student Nia’s emergency fund grow, take a real hit, and see whether the saving strategy still holds up afterward.</div>
     <div class="chips">
       <span class="chip acc">Lesson 3.1</span>
       <span class="chip">⏱ 8 min</span>
@@ -194,13 +195,14 @@ function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function num(id){var v=parseFloat($(id).value);return isNaN(v)?0:v}
 function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
 var REDUCED_MOTION=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-var CHAR={Priya:"#BE123C"};
-function coach(name,text){var c=CHAR[name]||"#003366";return '<div class="coach"><div class="avatar" style="background:'+c+'">'+esc(name[0])+'</div><div class="bubble"><div class="who" style="color:'+c+'">'+esc(name)+'</div>'+text+'</div></div>'}
+var CHAR={Nia:"#BE123C"};
+var AVATAR_IMG={Nia:'assets/img/characters/nia.png'};
+function coach(name,text){var c=CHAR[name]||"#003366";var img=AVATAR_IMG[name];var av=img?'<img class="avatar-img" src="'+img+'" alt="'+esc(name)+'">':'<div class="avatar" style="background:'+c+'">'+esc(name[0])+'</div>';return '<div class="coach">'+av+'<div class="bubble"><div class="who" style="color:'+c+'">'+esc(name)+'</div>'+text+'</div></div>'}
 function moneyRow(label,amt,cls){return '<div class="money-row'+(cls==="total"?" total":"")+'"><span>'+label+'</span><span class="amt">'+fmt0(amt)+'</span></div>'}
 function factRow(label,value,cls){return '<div class="money-row'+(cls==="total"?" total":"")+'"><span>'+label+'</span><span class="amt">'+value+'</span></div>'}
 
 
-/* ================= Emergency Ripple (fictional saver, Lesson 3.1) ================= */
+/* ================= Emergency Ripple (Nia, Lesson 3.1) ================= */
 var TARGET=240, MONTHLY=40, MONTHS_BEFORE_RIPPLE=1, REPAIR_COST=120;
 var savedSoFar=MONTHLY*MONTHS_BEFORE_RIPPLE;
 var usedForRepair=0, newMonthlyRate=MONTHLY, log=[];
@@ -208,7 +210,7 @@ var usedForRepair=0, newMonthlyRate=MONTHLY, log=[];
 function resetAll(){savedSoFar=MONTHLY*MONTHS_BEFORE_RIPPLE;usedForRepair=0;newMonthlyRate=MONTHLY;log=[];show("s-intro")}
 
 (function(){
-  $("introCoach").innerHTML=coach("Priya","I want to build a $240 emergency fund over 6 months — that's $40 a month. Saving is easy for me to forget, so I set up an automatic transfer: $40 a month, no need to remember.");
+  $("introCoach").innerHTML=coach("Nia","I want to build a $240 emergency fund over 6 months — that's $40 a month. Saving is easy for me to forget, so I set up an automatic transfer: $40 a month, no need to remember.");
 })();
 
 function fundBar(amount,cls){
@@ -225,7 +227,7 @@ function renderScene1(){
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:20%"></div></div>'+
    '<div class="q-count">Month 1</div>'+
-   coach("Priya","$40 a month, automatically. $240 ÷ $40 = 6 months. After month 1, the automatic transfer has already moved $40 into the fund.")+
+   coach("Nia","$40 a month, automatically. $240 ÷ $40 = 6 months. After month 1, the automatic transfer has already moved $40 into the fund.")+
    '<div class="card">'+fundBar(savedSoFar)+'</div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderRipple()" type="button">Continue →</button>'+
   '</div>';
@@ -238,7 +240,7 @@ function renderRipple(){
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:40%"></div></div>'+
    '<div class="q-count">The Ripple</div>'+
-   coach("Priya","Something I need for school just broke, and the repair costs $120. Here\'s what I\'ve saved so far.")+
+   coach("Nia","Something I need for school just broke, and the repair costs $120. Here\'s what I\'ve saved so far.")+
    '<div class="card">'+fundBar(savedSoFar)+'</div>'+
    '<div class="card">'+
     '<label class="fld" for="useR">How much of the '+fmt0(savedSoFar)+' saved should go toward the repair? <span class="range-val" id="useVal">'+fmt0(savedSoFar)+'</span></label>'+
@@ -256,7 +258,7 @@ function rippleSlide(){
   var gap=REPAIR_COST-v;
   var fundAfter=savedSoFar-v;
   $("rippleBox").innerHTML=fundBar(fundAfter,"hit")+
-   '<div class="result-banner ripple" style="margin-top:10px"><h2>'+fmt0(REPAIR_COST)+' − '+fmt0(v)+' = '+fmt0(gap)+' remaining gap</h2><p>'+(gap===0?"The full repair is covered by savings.":"Priya will need to cover the remaining "+fmt0(gap)+" some other way this month.")+'</p></div>';
+   '<div class="result-banner ripple" style="margin-top:10px"><h2>'+fmt0(REPAIR_COST)+' − '+fmt0(v)+' = '+fmt0(gap)+' remaining gap</h2><p>'+(gap===0?"The full repair is covered by savings.":"Nia will need to cover the remaining "+fmt0(gap)+" some other way this month.")+'</p></div>';
 }
 function finishRipple(){
   usedForRepair=window._useAmt||0;
@@ -272,7 +274,7 @@ function renderStrategyCheck(){
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:70%"></div></div>'+
    '<div class="q-count">Strategy Fit Check</div>'+
-   coach("Priya","The fund just took a hit. Does the same $40-a-month plan still make sense, or should something change?")+
+   coach("Nia","The fund just took a hit. Does the same $40-a-month plan still make sense, or should something change?")+
    '<div class="card">'+fundBar(savedSoFar,savedSoFar<TARGET?"hit":"")+'</div>'+
    '<div class="card"><div class="opts">'+
     '<button class="opt" onclick="pickStrategy(40)">📋 Keep saving $40 a month<span class="opt-sub">Stay with the plan that was already working.</span></button>'+
@@ -300,11 +302,11 @@ function showEnding(){
    log.map(function(l){return '<p style="font-size:14px;margin:6px 0">• '+esc(l.text)+'</p>'}).join("")+
    '</div>'+
    '<div class="card"><h2>🧾 Fund Status Now</h2>'+fundBar(savedSoFar)+
-    factRow("Barrier",priyaBarrier())+
+    factRow("Barrier",niaBarrier())+
     factRow("Strategy",newMonthlyRate===40?"Automatic saving, unchanged ($40/month)":newMonthlyRate===50?"Automatic saving, increased ($50/month)":"Automatic saving, paused")+
     factRow("Months to reach $240 from here",monthsToRebuild?monthsToRebuild+" more month"+(monthsToRebuild===1?"":"s"):"On hold")+
    '</div>'+
-   coach("Priya",usedForRepair===0?"I didn\'t touch the fund for this repair, so I had to cover the full "+fmt0(REPAIR_COST)+" another way. The fund\'s still there, untouched, for next time.":usedForRepair>=REPAIR_COST?"The "+fmt0(usedForRepair)+" I\'d saved covered the whole repair. That\'s exactly what an emergency fund is for.":"Even after the hit, the "+fmt0(usedForRepair)+" I\'d already saved made the repair less of a problem than it could have been. That\'s the point of building the fund before you need it.")+
+   coach("Nia",usedForRepair===0?"I didn\'t touch the fund for this repair, so I had to cover the full "+fmt0(REPAIR_COST)+" another way. The fund\'s still there, untouched, for next time.":usedForRepair>=REPAIR_COST?"The "+fmt0(usedForRepair)+" I\'d saved covered the whole repair. That\'s exactly what an emergency fund is for.":"Even after the hit, the "+fmt0(usedForRepair)+" I\'d already saved made the repair less of a problem than it could have been. That\'s the point of building the fund before you need it.")+
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
    '<p style="font-size:14px;margin-bottom:8px">Why can even partial emergency savings be useful? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on emergency savings"></textarea></div>'+
@@ -315,7 +317,7 @@ function showEnding(){
    '</div>'+
   '</div>';
 }
-function priyaBarrier(){return "Saving is easy to forget"}
+function niaBarrier(){return "Saving is easy to forget"}
 function replayStory(){savedSoFar=MONTHLY*MONTHS_BEFORE_RIPPLE;usedForRepair=0;newMonthlyRate=MONTHLY;log=[];chooseStart()}
 </script>
 </body>

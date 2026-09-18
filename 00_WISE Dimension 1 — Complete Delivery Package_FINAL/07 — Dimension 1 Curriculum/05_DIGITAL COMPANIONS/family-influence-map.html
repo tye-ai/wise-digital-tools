@@ -12,8 +12,8 @@
   --line:#E2E8F0; --bg:#F4F6FA; --white:#FFFFFF;
   --accent:#F0751A; --accent-light:#FDEEE4;
   --accent-deep:#84400E; --orange-deep:#B34A00;
-  --riley:#0369A1; --riley-light:#EAF4FC;
-  --theo:#C2410C; --theo-light:#FDF1EA;
+  --bianca:#0369A1; --bianca-light:#EAF4FC;
+  --taylor:#C2410C; --taylor-light:#FDF1EA;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -90,12 +90,12 @@ main{flex:1;width:100%;max-width:680px;margin:0 auto;padding:26px 20px 40px}
 
 .people-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .person-card{border-radius:16px;padding:18px 16px;text-align:left}
-.person-card.riley{background:var(--riley-light)}
-.person-card.theo{background:var(--theo-light)}
+.person-card.bianca{background:var(--bianca-light)}
+.person-card.taylor{background:var(--taylor-light)}
 .person-card h3{margin-bottom:4px}
 .person-card .choice{font-size:14px;font-weight:700;margin-top:6px}
-.person-card.riley .choice{color:var(--riley)}
-.person-card.theo .choice{color:var(--theo)}
+.person-card.bianca .choice{color:var(--bianca)}
+.person-card.taylor .choice{color:var(--taylor)}
 @media(max-width:520px){.people-grid{grid-template-columns:1fr}}
 
 .influence-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
@@ -105,8 +105,8 @@ main{flex:1;width:100%;max-width:680px;margin:0 auto;padding:26px 20px 40px}
 .influence-card .inf-body{font-size:14.5px;margin-top:6px;display:none}
 .influence-card.open .inf-body{display:block}
 .influence-card.open{border-color:currentColor}
-.influence-card.riley.open{color:var(--riley)}
-.influence-card.theo.open{color:var(--theo)}
+.influence-card.bianca.open{color:var(--bianca)}
+.influence-card.taylor.open{color:var(--taylor)}
 
 .step-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
 .step-item{border-left:3px solid var(--navy);padding:6px 0 6px 14px;font-size:14.5px}
@@ -177,7 +177,7 @@ footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5
 <section class="screen" id="s-intro">
   <div class="card accent">
     <h2>Two people. One shape of choice. Very different reasons. 🔍</h2>
-    <p style="font-size:14.5px;margin-top:6px">Riley and Theo each received an unexpected $200 gift this month. Riley saved all of it. Theo spent all of it on a trip with friends. Neither choice is the "right" one — your job is to figure out what shaped each of them.</p>
+    <p style="font-size:14.5px;margin-top:6px">Bianca and Taylor each received an unexpected $200 gift this month. Bianca saved all of it. Taylor spent all of it on a trip with friends. Neither choice is the "right" one — your job is to figure out what shaped each of them.</p>
   </div>
   <button class="entry-opt" onclick="chooseStart()" type="button" style="width:100%;max-width:360px;margin:14px auto 0;display:block">
     <span class="entry-icon">🔍</span>
@@ -206,29 +206,29 @@ function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=c
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
 var REDUCED_MOTION=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-var CHAR={Riley:"#0369A1",Theo:"#C2410C"};
+var CHAR={Bianca:"#0369A1",Taylor:"#C2410C"};
 function coach(name,text){var c=CHAR[name]||"#003366";return '<div class="coach"><div class="avatar" style="background:'+c+'">'+esc(name[0])+'</div><div class="bubble"><div class="who" style="color:'+c+'">'+esc(name)+'</div>'+text+'</div></div>'}
 
 
-/* ================= Same Choice, Different Story (Riley & Theo, Lesson 2.2) ================= */
+/* ================= Same Choice, Different Story (Bianca & Taylor, Lesson 2.2) ================= */
 var INFLUENCES={
-  riley:[
-    {cat:"Family & Home",text:"“Put something away before you spend it” is something Riley heard constantly growing up — it wasn't a suggestion, it was just how money worked at home."},
-    {cat:"Friends & Peers",text:"Riley's friend group doesn't really do big group trips or expensive plans together, so there's no social pull toward spending it that way."},
-    {cat:"Media & Social Media",text:"A lot of what shows up in Riley's feed is budgeting and saving content — it's just the kind of financial content Riley ends up watching."},
-    {cat:"Circumstances", text:"Riley is trying to move into their own place next year, so any extra money already feels like it belongs to that goal."}
+  bianca:[
+    {cat:"Family & Home",text:"“Put something away before you spend it” is something Bianca heard constantly growing up — it wasn't a suggestion, it was just how money worked at home."},
+    {cat:"Friends & Peers",text:"Bianca's friend group doesn't really do big group trips or expensive plans together, so there's no social pull toward spending it that way."},
+    {cat:"Media & Social Media",text:"A lot of what shows up in Bianca's feed is budgeting and saving content — it's just the kind of financial content Bianca ends up watching."},
+    {cat:"Circumstances", text:"Bianca is trying to move into their own place next year, so any extra money already feels like it belongs to that goal."}
   ],
-  theo:[
-    {cat:"Family & Home",text:"Theo's family always prioritized being together over saving for \"someday\" — experiences got talked about as the thing that actually mattered."},
-    {cat:"Friends & Peers",text:"This particular trip is something Theo's whole friend group is doing together — a rare chance for everyone to be in the same place at once."},
-    {cat:"Media & Social Media",text:"A lot of what Theo sees online is about not putting off experiences — the idea that there are only so many summers to spend with the same people."},
-    {cat:"Circumstances", text:"Theo's living situation is stable right now, so there's less pressure to build a cushion immediately."}
+  taylor:[
+    {cat:"Family & Home",text:"Taylor's family always prioritized being together over saving for \"someday\" — experiences got talked about as the thing that actually mattered."},
+    {cat:"Friends & Peers",text:"This particular trip is something Taylor's whole friend group is doing together — a rare chance for everyone to be in the same place at once."},
+    {cat:"Media & Social Media",text:"A lot of what Taylor sees online is about not putting off experiences — the idea that there are only so many summers to spend with the same people."},
+    {cat:"Circumstances", text:"Taylor's living situation is stable right now, so there's less pressure to build a cushion immediately."}
   ]
 };
-var seenInfluences={riley:0,theo:0}, log=[];
+var seenInfluences={bianca:0,taylor:0}, log=[];
 
-function resetAll(){log=[];seenInfluences={riley:0,theo:0};show("s-intro")}
-function chooseStart(){log=[];seenInfluences={riley:0,theo:0};show("s-build");renderMoment()}
+function resetAll(){log=[];seenInfluences={bianca:0,taylor:0};show("s-intro")}
+function chooseStart(){log=[];seenInfluences={bianca:0,taylor:0};show("s-build");renderMoment()}
 
 /* ---------- The shared moment ---------- */
 function renderMoment(){
@@ -237,8 +237,8 @@ function renderMoment(){
    '<div class="progress"><div class="progress-fill" style="width:20%"></div></div>'+
    '<div class="q-count">The Same Moment</div>'+
    '<div class="card"><h2>Two people. Same $200 gift.</h2><div class="people-grid">'+
-    '<div class="person-card riley"><h3>Riley</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Saved all $200.</p></div>'+
-    '<div class="person-card theo"><h3>Theo</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Spent all $200 on a trip with friends.</p></div>'+
+    '<div class="person-card bianca"><h3>Bianca</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Saved all $200.</p></div>'+
+    '<div class="person-card taylor"><h3>Taylor</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Spent all $200 on a trip with friends.</p></div>'+
    '</div></div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderPickInvestigate()" type="button">Investigate why →</button>'+
   '</div>';
@@ -249,15 +249,15 @@ function renderPickInvestigate(){
    '<div class="progress"><div class="progress-fill" style="width:35%"></div></div>'+
    '<div class="q-count">Pick Someone to Investigate</div>'+
    '<div class="card"><h3>Neither choice is "the right one." Start uncovering what shaped each of them.</h3><div class="opts">'+
-    '<button class="opt" onclick="renderInvestigate(\'riley\')">🔎 Investigate Riley\'s choice</button>'+
-    '<button class="opt" onclick="renderInvestigate(\'theo\')">🔎 Investigate Theo\'s choice</button>'+
+    '<button class="opt" onclick="renderInvestigate(\'bianca\')">🔎 Investigate Bianca\'s choice</button>'+
+    '<button class="opt" onclick="renderInvestigate(\'taylor\')">🔎 Investigate Taylor\'s choice</button>'+
    '</div></div>'+
   '</div>';
 }
 
 /* ---------- Investigate influences (click to reveal) ---------- */
 function renderInvestigate(who){
-  var person=who==="riley"?"Riley":"Theo";
+  var person=who==="bianca"?"Bianca":"Taylor";
   var m=$("buildSteps");
   var cards=INFLUENCES[who].map(function(inf,idx){
     return '<button type="button" class="influence-card '+who+'" id="inf_'+who+'_'+idx+'" aria-expanded="false" onclick="toggleInfluence(\''+who+'\','+idx+')">'+
@@ -281,15 +281,15 @@ function toggleInfluence(who,idx){
   elm.setAttribute("aria-expanded",wasOpen?"false":"true");
   if(!wasOpen){
     seenInfluences[who]=Math.min(INFLUENCES[who].length,seenInfluences[who]+1);
-    log.push({text:(who==="riley"?"Riley":"Theo")+" — "+INFLUENCES[who][idx].cat+": "+INFLUENCES[who][idx].text});
+    log.push({text:(who==="bianca"?"Bianca":"Taylor")+" — "+INFLUENCES[who][idx].cat+": "+INFLUENCES[who][idx].text});
   }
   updateInvestigateActions();
 }
 function updateInvestigateActions(){
   var who=window._investigating;
-  var allSeen=seenInfluences.riley>=INFLUENCES.riley.length&&seenInfluences.theo>=INFLUENCES.theo.length;
-  var otherWho=who==="riley"?"theo":"riley";
-  var otherPerson=otherWho==="riley"?"Riley":"Theo";
+  var allSeen=seenInfluences.bianca>=INFLUENCES.bianca.length&&seenInfluences.taylor>=INFLUENCES.taylor.length;
+  var otherWho=who==="bianca"?"taylor":"bianca";
+  var otherPerson=otherWho==="bianca"?"Bianca":"Taylor";
   var actions="";
   if(seenInfluences[who]>=INFLUENCES[who].length&&seenInfluences[otherWho]<INFLUENCES[otherWho].length){
     actions+='<button class="btn btn-secondary" onclick="renderInvestigate(\''+otherWho+'\')" type="button">🔎 Now investigate '+otherPerson+'</button>';
@@ -302,8 +302,8 @@ function updateInvestigateActions(){
 
 /* ---------- Trace a money message (Name -> Trace -> Notice -> Decide) ---------- */
 var MESSAGES={
-  riley:{name:"“Put something away before you spend it.”",trace:"This message likely came from Riley's family managing money carefully, possibly through a period when income wasn't always steady.",notice:"That caution shows up now as an instinct to protect any unplanned money by default, before deciding what else it could do.",decide:"Riley could keep the instinct to protect unplanned money, while also asking sometimes whether a small planned exception fits too."},
-  theo:{name:"“There are only so many summers to spend with these people.”",trace:"This likely comes from Theo's family treating shared time and experiences as something you don't postpone indefinitely.",notice:"That value shows up now as a pull toward saying yes to time with friends, even when it costs something real.",decide:"Theo could keep valuing shared experiences, while also asking sometimes whether a lower-cost version could protect the same relationship."}
+  bianca:{name:"“Put something away before you spend it.”",trace:"This message likely came from Bianca's family managing money carefully, possibly through a period when income wasn't always steady.",notice:"That caution shows up now as an instinct to protect any unplanned money by default, before deciding what else it could do.",decide:"Bianca could keep the instinct to protect unplanned money, while also asking sometimes whether a small planned exception fits too."},
+  taylor:{name:"“There are only so many summers to spend with these people.”",trace:"This likely comes from Taylor's family treating shared time and experiences as something you don't postpone indefinitely.",notice:"That value shows up now as a pull toward saying yes to time with friends, even when it costs something real.",decide:"Taylor could keep valuing shared experiences, while also asking sometimes whether a lower-cost version could protect the same relationship."}
 };
 function renderTraceMessage(){
   var m=$("buildSteps");
@@ -311,14 +311,14 @@ function renderTraceMessage(){
    '<div class="progress"><div class="progress-fill" style="width:75%"></div></div>'+
    '<div class="q-count">Trace a Money Message</div>'+
    '<div class="card"><h3>Pick one underlying message to trace, step by step.</h3><div class="opts">'+
-    '<button class="opt" onclick="traceMessage(\'riley\')">💬 Riley\'s: "Put something away before you spend it."</button>'+
-    '<button class="opt" onclick="traceMessage(\'theo\')">💬 Theo\'s: "There are only so many summers with these people."</button>'+
+    '<button class="opt" onclick="traceMessage(\'bianca\')">💬 Bianca\'s: "Put something away before you spend it."</button>'+
+    '<button class="opt" onclick="traceMessage(\'taylor\')">💬 Taylor\'s: "There are only so many summers with these people."</button>'+
    '</div></div>'+
   '</div>';
 }
 function traceMessage(who){
   var msg=MESSAGES[who];
-  log.push({text:"Traced "+(who==="riley"?"Riley's":"Theo's")+" money message: "+msg.name});
+  log.push({text:"Traced "+(who==="bianca"?"Bianca's":"Taylor's")+" money message: "+msg.name});
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:85%"></div></div>'+
@@ -340,7 +340,7 @@ function showEnding(){
    '<div class="card"><h2>📋 What you uncovered</h2>'+
    log.map(function(l){return '<p style="font-size:14px;margin:6px 0">• '+esc(l.text)+'</p>'}).join("")+
    '</div>'+
-   '<div class="result-banner investigate" aria-live="polite"><h2>Same shape of choice. Different reasonable reasons.</h2><p>Riley and Theo faced the same kind of moment and reached opposite decisions — and both had real, explainable reasons behind them.</p></div>'+
+   '<div class="result-banner investigate" aria-live="polite"><h2>Same shape of choice. Different reasonable reasons.</h2><p>Bianca and Taylor faced the same kind of moment and reached opposite decisions — and both had real, explainable reasons behind them.</p></div>'+
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
    '<p style="font-size:14px;margin-bottom:8px">Why can two reasonable people make opposite financial choices with the same amount of unplanned money? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on influence and financial choices"></textarea></div>'+
@@ -351,7 +351,7 @@ function showEnding(){
    '</div>'+
   '</div>';
 }
-function replayStory(){log=[];seenInfluences={riley:0,theo:0};chooseStart()}
+function replayStory(){log=[];seenInfluences={bianca:0,taylor:0};chooseStart()}
 </script>
 </body>
 </html>
