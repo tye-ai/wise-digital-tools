@@ -446,10 +446,10 @@ function renderScene3(){
        '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
        '<div class="moment-content">'+
          '<div class="moment-bubble">"Let\'s take one last look. Here\'s what the plan can cover now."</div>'+
+         '<div class="flow-row"><div class="flow-card flow-result"><div class="flow-card-label">Available</div><div class="flow-card-amt">'+fmt0(avail)+'</div></div><div class="flow-card flow-start"><div class="flow-card-label">Savings so far</div><div class="flow-card-amt">'+fmt0(M.save)+'</div></div></div>'+
        '</div>'+
      '</div>'+
-   '</div>'+
-   '<div class="card">'+moneyRow("Available",avail,"total")+moneyRow("Savings toward the goal",M.save)+'</div>';
+   '</div>';
   if(avail>0){
     html+='<div class="card"><h3>There\'s '+fmt0(avail)+' available. What should it do?</h3><div class="opts">'+
      '<button class="opt" onclick="scene3Choice(\'save\')">🎯 Add it to savings</button>'+
