@@ -59,7 +59,7 @@ WISE Dimension 1 — Digital Integration Notes. Scope: ten optional companions f
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** Use the sample story first. Explore This Plan can test available category amounts afterward; it does not import the p. 20 profile.
+**Control limits:** Use the sample story first. Explore This Plan opens pre-filled with Elijah’s numbers, but every field, including income, is editable — it still does not import the p. 20 profile automatically.
 
 ### OPTIONAL DIGITAL COMPANION — Goal in Motion
 

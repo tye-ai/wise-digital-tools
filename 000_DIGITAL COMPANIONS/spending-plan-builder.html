@@ -437,9 +437,16 @@ function replayStory(){log=[];shoesChoice=null;busChoice=null;finalConsequenceLi
 
 /* ---------- Explore This Plan (sandbox, after the story — never touches storyFinalPlan) ---------- */
 var EXPLORE_RANGES={
+  income:{icon:"💰",label:"Income",max:3000},
+  rent:{icon:"🏠",label:"Rent",max:1200},
+  phone:{icon:"📱",label:"Phone",max:100},
+  bus:{icon:"🚌",label:"Bus Pass",max:150},
+  electricity:{icon:"💡",label:"Electricity",max:150},
   groceries:{icon:"🛒",label:"Groceries",max:300},
+  streaming:{icon:"📺",label:"Streaming",max:60},
   entertainment:{icon:"🎮",label:"Entertainment",max:150},
   clothing:{icon:"👕",label:"Clothing",max:150},
+  dataPlan:{icon:"📶",label:"Data Plan",max:60},
   misc:{icon:"🧾",label:"Other expenses",max:150}
 };
 function exploreThisPlan(){
@@ -453,13 +460,12 @@ function exploreThisPlan(){
      '<div class="moment-body">'+
        '<img class="moment-char" src="assets/img/characters/elijah-full.png" alt="Elijah">'+
        '<div class="moment-content">'+
-         '<div class="moment-bubble">"Want to see what else could’ve changed the month? Try moving these — this is just for you to try out. It won’t change my actual ending."</div>'+
+         '<div class="moment-bubble">"Want to build a spending plan with your own numbers? Every line here is yours to change — income included. This is just for you to try out. It won’t change my actual ending."</div>'+
        '</div>'+
      '</div>'+
    '</div>'+
    '<div class="card">'+
-    moneyRow("💰 Income",Ep.income)+
-    '<div id="exploreSliders" style="margin-top:10px"></div>'+
+    '<div id="exploreSliders"></div>'+
     '<div id="exploreBox" style="margin-top:12px" aria-live="polite"></div>'+
    '</div>'+
    '<button class="btn btn-accent btn-lg" onclick="showExperimentResult()" type="button">Done exploring →</button>'+
@@ -475,7 +481,7 @@ function exploreThisPlan(){
 }
 function exploreSlide(){
   var Ep=window._explorePlan;
-  ["groceries","entertainment","clothing","misc","save"].forEach(function(k){var elm=$("ex_"+k);if(elm){Ep[k]=num("ex_"+k);$("ex_"+k+"Val").textContent=fmt0(Ep[k])}});
+  ["income","rent","phone","bus","electricity","groceries","streaming","entertainment","clothing","dataPlan","misc","save"].forEach(function(k){var elm=$("ex_"+k);if(elm){Ep[k]=num("ex_"+k);$("ex_"+k+"Val").textContent=fmt0(Ep[k])}});
   var avail=available(Ep);
   $("exploreBox").innerHTML='<div class="result-banner '+stateClass(avail)+'" style="margin:0"><h2>'+fmt0(avail)+' available</h2><p>'+verdictText(avail)+'</p></div>';
 }
@@ -490,9 +496,16 @@ function showExperimentResult(){
    '<div class="q-count">Your Experiment</div>'+
    '<div class="result-banner '+stateClass(eAvail)+'"><h2>'+fmt0(eAvail)+' available</h2><p>'+diffLine+'</p></div>'+
    '<div class="card"><h2>Your Experiment vs. Elijah’s Actual Ending</h2>'+
+    moneyRow("💰 Income — yours",Ep.income)+moneyRow("💰 Income — Elijah’s",P.income)+
+    moneyRow("🏠 Rent — yours",-Ep.rent)+moneyRow("🏠 Rent — Elijah’s",-P.rent)+
+    moneyRow("📱 Phone — yours",-Ep.phone)+moneyRow("📱 Phone — Elijah’s",-P.phone)+
+    moneyRow("🚌 Bus Pass — yours",-Ep.bus)+moneyRow("🚌 Bus Pass — Elijah’s",-P.bus)+
+    moneyRow("💡 Electricity — yours",-Ep.electricity)+moneyRow("💡 Electricity — Elijah’s",-P.electricity)+
     moneyRow("🛒 Groceries — yours",-Ep.groceries)+moneyRow("🛒 Groceries — Elijah’s",-P.groceries)+
+    moneyRow("📺 Streaming — yours",-Ep.streaming)+moneyRow("📺 Streaming — Elijah’s",-P.streaming)+
     moneyRow("🎮 Entertainment — yours",-Ep.entertainment)+moneyRow("🎮 Entertainment — Elijah’s",-P.entertainment)+
     moneyRow("👕 Clothing — yours",-Ep.clothing)+moneyRow("👕 Clothing — Elijah’s",-P.clothing)+
+    moneyRow("📶 Data Plan — yours",-Ep.dataPlan)+moneyRow("📶 Data Plan — Elijah’s",-P.dataPlan)+
     moneyRow("🧾 Other — yours",-Ep.misc)+moneyRow("🧾 Other — Elijah’s",-P.misc)+
     moneyRow("🎯 Savings — yours",-Ep.save)+moneyRow("🎯 Savings — Elijah’s",-P.save)+
     moneyRow("Available — yours",eAvail,"total")+moneyRow("Available — Elijah’s",pAvail,"total")+
