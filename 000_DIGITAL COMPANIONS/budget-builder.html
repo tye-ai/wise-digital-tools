@@ -100,6 +100,8 @@ input[type=range]{width:100%;accent-color:var(--accent);height:32px}
 .moment-content{flex:1;min-width:220px}
 .moment-bubble{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14.5px;font-weight:600;color:var(--midnight);margin-bottom:18px;box-shadow:0 2px 6px rgba(10,17,31,.06)}
 .moment-bubble mark{background:#FFE066;color:var(--midnight);padding:0 3px;border-radius:3px;font-weight:800;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.scene-illustration{border-radius:16px;overflow:hidden;margin:14px 0;box-shadow:0 2px 8px rgba(10,17,31,.08);border:1px solid var(--line)}
+.scene-illustration img{width:100%;height:auto;display:block}
 .moment-bubble:after{content:"";position:absolute;left:28px;bottom:-8px;width:16px;height:16px;background:#fff;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);transform:rotate(45deg)}
 .flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .flow-card{background:#fff;border-radius:10px;border:1px solid var(--line);padding:10px 14px;min-width:92px;text-align:center;box-shadow:0 2px 5px rgba(10,17,31,.08);position:relative}
@@ -276,16 +278,10 @@ function renderScene0(){
        '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
        '<div class="moment-content">'+
          '<div class="moment-bubble">"Here\'s my plan. After the required costs and savings, there\'s <mark>'+fmt0(avail)+'</mark> left. Looks okay on paper — let\'s see what actually happens."</div>'+
-         '<div class="flow-row"><div class="flow-card flow-result"><div class="flow-card-label">Available this month</div><div class="flow-card-amt">'+fmt0(avail)+'</div></div></div>'+
        '</div>'+
      '</div>'+
    '</div>'+
-   '<div class="card">'+
-    moneyRow("💰 Income",M.income)+moneyRow("🏠 Housing",-M.rent)+moneyRow("📱 Phone",-M.phone)+
-    moneyRow("🛒 Groceries",-M.groceries)+moneyRow("🚌 Transportation",-M.transportation)+
-    moneyRow("🎮 Entertainment",-M.entertainment)+moneyRow("🧾 Other expenses",-M.misc)+
-    moneyRow("🎯 Savings",-M.save)+moneyRow("Available",avail,"total")+
-   '</div>'+
+   '<div class="scene-illustration"><img src="assets/img/scenes/devon-plan-breakdown.jpg" alt="Devon\'s plan, $950 income: Housing −$300, Phone −$50, Groceries −$200, Transportation −$70, Entertainment −$55, Other expenses −$35, Savings −$100. Available: $140." loading="lazy"></div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderScene1()" type="button">See what happens →</button>'+
   '</div>';
 }
