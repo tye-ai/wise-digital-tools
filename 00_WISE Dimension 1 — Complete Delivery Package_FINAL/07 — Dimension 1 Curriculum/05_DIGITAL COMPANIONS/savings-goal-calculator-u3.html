@@ -92,6 +92,16 @@ textarea:focus{outline:2.5px solid var(--blue);outline-offset:0;border-color:tra
 .progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
 .progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
 
+.moment-scene{position:relative;border-radius:18px;border:1px solid var(--line);padding:22px 20px 20px;margin:14px 0;overflow:hidden;background-color:#fbfcff;background-image:linear-gradient(rgba(30,41,59,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,41,59,.05) 1px,transparent 1px);background-size:22px 22px}
+.moment-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-deep);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:99px;margin-bottom:16px}
+.moment-body{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.moment-char{width:100px;height:auto;flex:none;filter:drop-shadow(0 6px 10px rgba(10,17,31,.15))}
+.moment-content{flex:1;min-width:220px}
+.moment-bubble{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14.5px;font-weight:600;color:var(--midnight);margin-bottom:18px;box-shadow:0 2px 6px rgba(10,17,31,.06)}
+.moment-bubble mark{background:#FFE066;color:var(--midnight);padding:0 3px;border-radius:3px;font-weight:800;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.moment-bubble:after{content:"";position:absolute;left:28px;bottom:-8px;width:16px;height:16px;background:#fff;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);transform:rotate(45deg)}
+@media(max-width:520px){.moment-body{flex-direction:column;align-items:center;text-align:center}.moment-char{width:90px}.moment-content{width:100%;min-width:0}.moment-bubble:after{display:none}}
+
 .fund-bar-wrap{margin:14px 0}
 .fund-bar-head{display:flex;justify-content:space-between;font-size:13.5px;font-weight:700;color:var(--midnight);margin-bottom:5px}
 .fund-track{height:20px;background:var(--line);border-radius:99px;overflow:hidden}
@@ -226,8 +236,15 @@ function renderScene1(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:20%"></div></div>'+
-   '<div class="q-count">Month 1</div>'+
-   coach("Nia","$40 a month, automatically. $240 ÷ $40 = 6 months. After month 1, the automatic transfer has already moved $40 into the fund.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🌊 Month 1 · Fund Building</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/nia-full.png" alt="Nia">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"$40 a month, automatically. $240 ÷ $40 = 6 months. After month 1, the automatic transfer has already moved <mark>$40</mark> into the fund."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+fundBar(savedSoFar)+'</div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderRipple()" type="button">Continue →</button>'+
   '</div>';
@@ -239,8 +256,15 @@ function renderRipple(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:40%"></div></div>'+
-   '<div class="q-count">The Ripple</div>'+
-   coach("Nia","Something I need for school just broke, and the repair costs $120. Here\'s what I\'ve saved so far.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">💥 The Ripple Hits</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/nia-full.png" alt="Nia">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Something I need for school just broke, and the repair costs <mark>$120</mark>. Here\'s what I\'ve saved so far."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+fundBar(savedSoFar)+'</div>'+
    '<div class="card">'+
     '<label class="fld" for="useR">How much of the '+fmt0(savedSoFar)+' saved should go toward the repair? <span class="range-val" id="useVal">'+fmt0(savedSoFar)+'</span></label>'+
@@ -273,8 +297,15 @@ function renderStrategyCheck(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:70%"></div></div>'+
-   '<div class="q-count">Strategy Fit Check</div>'+
-   coach("Nia","The fund just took a hit. Does the same $40-a-month plan still make sense, or should something change?")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🔀 Strategy Fit Check</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/nia-full.png" alt="Nia">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"The fund just took a hit. Does the same $40-a-month plan still make sense, or should something change?"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card">'+fundBar(savedSoFar,savedSoFar<TARGET?"hit":"")+'</div>'+
    '<div class="card"><div class="opts">'+
     '<button class="opt" onclick="pickStrategy(40)">📋 Keep saving $40 a month<span class="opt-sub">Stay with the plan that was already working.</span></button>'+
@@ -306,7 +337,15 @@ function showEnding(){
     factRow("Strategy",newMonthlyRate===40?"Automatic saving, unchanged ($40/month)":newMonthlyRate===50?"Automatic saving, increased ($50/month)":"Automatic saving, paused")+
     factRow("Months to reach $240 from here",monthsToRebuild?monthsToRebuild+" more month"+(monthsToRebuild===1?"":"s"):"On hold")+
    '</div>'+
-   coach("Nia",usedForRepair===0?"I didn\'t touch the fund for this repair, so I had to cover the full "+fmt0(REPAIR_COST)+" another way. The fund\'s still there, untouched, for next time.":usedForRepair>=REPAIR_COST?"The "+fmt0(usedForRepair)+" I\'d saved covered the whole repair. That\'s exactly what an emergency fund is for.":"Even after the hit, the "+fmt0(usedForRepair)+" I\'d already saved made the repair less of a problem than it could have been. That\'s the point of building the fund before you need it.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">💬 Nia\'s Reflection</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/nia-full.png" alt="Nia">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"'+(usedForRepair===0?"I didn\'t touch the fund for this repair, so I had to cover the full "+fmt0(REPAIR_COST)+" another way. The fund\'s still there, untouched, for next time.":usedForRepair>=REPAIR_COST?"The "+fmt0(usedForRepair)+" I\'d saved covered the whole repair. That\'s exactly what an emergency fund is for.":"Even after the hit, the "+fmt0(usedForRepair)+" I\'d already saved made the repair less of a problem than it could have been. That\'s the point of building the fund before you need it.")+'"</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
    '<p style="font-size:14px;margin-bottom:8px">Why can even partial emergency savings be useful? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on emergency savings"></textarea></div>'+
