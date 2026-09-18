@@ -88,10 +88,21 @@ main{flex:1;width:100%;max-width:680px;margin:0 auto;padding:26px 20px 40px}
 .progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
 .progress-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .35s ease}
 
+.moment-scene{position:relative;border-radius:18px;border:1px solid var(--line);padding:22px 20px 20px;margin:14px 0;overflow:hidden;background-color:#fbfcff;background-image:linear-gradient(rgba(30,41,59,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,41,59,.05) 1px,transparent 1px);background-size:22px 22px}
+.moment-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-deep);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:99px;margin-bottom:16px}
+.moment-body{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.moment-char{width:100px;height:auto;flex:none;filter:drop-shadow(0 6px 10px rgba(10,17,31,.15))}
+.moment-content{flex:1;min-width:220px}
+.moment-bubble{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14.5px;font-weight:600;color:var(--midnight);margin-bottom:18px;box-shadow:0 2px 6px rgba(10,17,31,.06)}
+.moment-bubble mark{background:#FFE066;color:var(--midnight);padding:0 3px;border-radius:3px;font-weight:800;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.moment-bubble:after{content:"";position:absolute;left:28px;bottom:-8px;width:16px;height:16px;background:#fff;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);transform:rotate(45deg)}
+@media(max-width:520px){.moment-body{flex-direction:column;align-items:center;text-align:center}.moment-char{width:90px}.moment-content{width:100%;min-width:0}.moment-bubble:after{display:none}}
+
 .people-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .person-card{border-radius:16px;padding:18px 16px;text-align:left}
 .person-card.bianca{background:var(--bianca-light)}
 .person-card.taylor{background:var(--taylor-light)}
+.person-card .person-avatar{width:52px;height:52px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 2px 6px rgba(10,17,31,.15)}
 .person-card h3{margin-bottom:4px}
 .person-card .choice{font-size:14px;font-weight:700;margin-top:6px}
 .person-card.bianca .choice{color:var(--bianca)}
@@ -237,8 +248,8 @@ function renderMoment(){
    '<div class="progress"><div class="progress-fill" style="width:20%"></div></div>'+
    '<div class="q-count">The Same Moment</div>'+
    '<div class="card"><h2>Two people. Same $200 gift.</h2><div class="people-grid">'+
-    '<div class="person-card bianca"><h3>Bianca</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Saved all $200.</p></div>'+
-    '<div class="person-card taylor"><h3>Taylor</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Spent all $200 on a trip with friends.</p></div>'+
+    '<div class="person-card bianca"><img class="person-avatar" src="assets/img/characters/bianca.png" alt="Bianca"><h3>Bianca</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Saved all $200.</p></div>'+
+    '<div class="person-card taylor"><img class="person-avatar" src="assets/img/characters/taylor.png" alt="Taylor"><h3>Taylor</h3><p style="font-size:14px">Got an unexpected $200 gift.</p><p class="choice">Spent all $200 on a trip with friends.</p></div>'+
    '</div></div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderPickInvestigate()" type="button">Investigate why →</button>'+
   '</div>';
@@ -266,8 +277,15 @@ function renderInvestigate(who){
   }).join("");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:50%"></div></div>'+
-   '<div class="q-count">Investigating '+person+'</div>'+
-   coach(person,"Click each card below to see one piece of what shaped my choice.")+
+   '<div class="moment-scene">'+
+     '<div class="moment-badge">🔎 Investigating '+person+'</div>'+
+     '<div class="moment-body">'+
+       '<img class="moment-char" src="assets/img/characters/'+who+'-full.png" alt="'+person+'">'+
+       '<div class="moment-content">'+
+         '<div class="moment-bubble">"Click each card below to see one piece of what shaped my choice."</div>'+
+       '</div>'+
+     '</div>'+
+   '</div>'+
    '<div class="influence-list">'+cards+'</div>'+
    '<div class="action-row" id="investigateActions"></div>'+
   '</div>';
