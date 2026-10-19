@@ -316,7 +316,7 @@ function renderScene1(){
    '<div class="card"><h3>What would you do?</h3><div class="opts" id="scene1opts">'+
     '<button class="opt" onclick="scene1Choice(\'cut\')">🔄 Cut back on one category<span class="opt-sub">Spend less in one area, like entertainment or groceries — the $100 savings stays untouched.</span></button>'+
     '<button class="opt" onclick="scene1Choice(\'save-less\')">🎯 Save less this month<span class="opt-sub">Groceries, entertainment, everything else stays the same — just less goes into the laptop savings this month.</span></button>'+
-    '<button class="opt" onclick="scene1Choice(\'keep\')">📋 Keep the plan<span class="opt-sub">Every category — including savings — stays exactly as planned. The '+fmt0(drop)+' shortfall just comes out of what\'s left over: '+fmt0(afterAvail)+' instead of '+fmt0(before)+'.</span></button>'+
+    '<button class="opt" onclick="scene1Choice(\'keep\')">📋 Keep the plan<span class="opt-sub">Every category — including savings — stays exactly as planned. The income decrease reduces what\'s left over by '+fmt0(drop)+': '+fmt0(afterAvail)+' instead of '+fmt0(before)+'. The plan still has a positive amount available.</span></button>'+
    '</div><div id="scene1follow"></div></div>'+
   '</div>';
 }
@@ -326,7 +326,7 @@ function scene1Choice(which){
   if(which==="keep"){
     M.income-=window._drop;
     log.push({scene:1,text:"Kept the plan unchanged."});
-    scene1Finish("Every category, including the $100 savings, stayed exactly as planned. The "+fmt0(window._drop)+" shortfall just came out of what's left over at the end.");
+    scene1Finish("Every category, including the $100 savings, stayed exactly as planned. The income decrease reduced what was left over by "+fmt0(window._drop)+", and the plan still ended with a positive amount available.");
     return;
   }
   if(which==="save-less"){
@@ -546,7 +546,7 @@ function exploreThisPlan(){
      '<div class="moment-body">'+
        '<img class="moment-char" src="assets/img/characters/devon-full.png" alt="Devon">'+
        '<div class="moment-content">'+
-         '<div class="moment-bubble">"Want to build a budget with your own numbers? Every line here is yours to change — income included. This is just for you to try out. It won\'t change Devon\'s actual ending."</div>'+
+         '<div class="moment-bubble">"Want to test another sample or fictional budget? Every line here is editable — income included. Use sample, fictional, or rounded numbers only; do not enter private household, account, or bill details. This sandbox won\'t change Devon\'s actual ending."</div>'+
        '</div>'+
      '</div>'+
    '</div>'+

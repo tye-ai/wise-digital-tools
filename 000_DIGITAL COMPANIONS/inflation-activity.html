@@ -257,12 +257,12 @@ function dialMove(){
   $("costVal").textContent=fmt0(goalCost);
   $("yearVal").textContent=years;
   var fc=futureCost(goalCost,years);
-  $("futureBig").textContent=fmt0(fc);
+  $("futureBig").textContent=fmt2(fc);
   $("futureSub").textContent=years===0?"Today's cost — no time has passed yet":"Estimated cost "+years+" year"+(years===1?"":"s")+" from now, at a 3% planning assumption";
   var months=years*12;
   var monthly=months>0?fc/months:null;
   $("monthlyBox").innerHTML=months>0?
-   '<div class="result-banner time" style="margin-top:12px"><h2>'+fmt0(monthly)+' a month</h2><p>'+fmt0(fc)+' ÷ '+months+' months = '+fmt0(monthly)+' per month, saving from $0 to reach the estimated future cost.</p></div>':
+   '<div class="result-banner time" style="margin-top:12px"><h2>About '+fmt2(monthly)+' a month</h2><p>'+fmt2(fc)+' ÷ '+months+' months ≈ '+fmt2(monthly)+' per month, saving from $0 to reach the estimated future cost. The future-cost estimate uses the WISE 3% classroom planning assumption and a 3-decimal multiplier.</p></div>':
    '<p class="subtle" style="margin-top:10px">Move the year dial forward to see a monthly savings target.</p>';
 }
 

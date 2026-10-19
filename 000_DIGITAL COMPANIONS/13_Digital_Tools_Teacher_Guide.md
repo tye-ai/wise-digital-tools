@@ -88,13 +88,13 @@ Use the ten replacement teacher entries in this synchronized source package.
 **When / prerequisites:** after the core workbook work for 1.1 is complete; students should already understand the calculation or reasoning in the connected workbook section (p. 12; optional research p. 13).
 **Open:** `budget-builder.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** A sequence of events carries earlier budget choices forward through a month.
-**DO:** Run Devon’s sample month. Make choices when income and circumstances change, then compare the final plan with the starting plan. If time remains, use Explore This Plan — every line, including income, can be changed to build a full budget from scratch.
+**DO:** Run Devon’s sample month. Make choices when income and circumstances change, then compare the final plan with the starting plan. If time remains, use Explore This Plan with sample, fictional, or rounded numbers only; every line, including income, can be changed without using private household, account, or bill details.
 **ASK / RECORD:** Name one event, the choice you made, and its effect on the balance. Explain one change you would consider in Devon’s workbook budget.
 **Return to:** Apply p. 12 — Devon’s budget.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** The story starts with Devon’s sample. Explore This Plan opens pre-filled with Devon’s numbers, but every field, including income, is editable — students can zero everything out and build their own budget from there.
+**Control limits:** The story starts with Devon’s sample. Explore This Plan opens pre-filled with Devon’s numbers, but every field, including income, is editable. Students may zero fields and build another sample or fictional budget; do not ask for actual household income, account balances, bills, or other private financial details.
 
 ### OPTIONAL DIGITAL COMPANION — Priority Shift
 
@@ -102,13 +102,13 @@ Use the ten replacement teacher entries in this synchronized source package.
 **When / prerequisites:** after the core workbook work for 1.2 is complete; students should already understand the calculation or reasoning in the connected workbook section (pp. 16–17 and p. 20; optional research p. 21).
 **Open:** `spending-plan-builder.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** The same item changes importance as its context changes; choices affect the plan.
-**DO:** Run the safety-shoes and youth-pass situations. Use the lesson’s needs/wants questions to explain the context change, then inspect how the choice changes the plan.
+**DO:** Run the work-shoes and youth-pass situations. For the shoes, use the owner-approved context rule: **job-required + no adequate compliant pair = Need**; **adequate compliant pair already available + preferred upgrade = Gray Zone / possible Want**. A worn-out, unsafe, or noncompliant existing pair does not count as adequate. Then inspect how the funding choice changes the plan.
 **ASK / RECORD:** Explain why one priority changed when the circumstances changed. Recheck one decision in your p. 20 spending plan.
 **Return to:** Learn pp. 16–17 and Apply p. 20.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** Use the sample story first. Explore This Plan opens pre-filled with Elijah’s numbers, but every field, including income, is editable — it still does not import the p. 20 profile automatically.
+**Control limits:** Use the sample story first. Required work shoes are displayed inside **Needs** when the job requires them and no adequate pair is already available; funding may come from available money or by reallocating savings/wants without changing that classification. If an adequate compliant pair already exists and the purchase is only an upgrade, the purchase is a **Gray Zone / possible Want**. Explore This Plan exposes every line affecting totals, including **Required Work Shoes (Need)**, and still does not import the p. 20 profile automatically. Use sample, fictional, or rounded values only.
 
 ### OPTIONAL DIGITAL COMPANION — Goal in Motion
 
@@ -144,13 +144,13 @@ Use the ten replacement teacher entries in this synchronized source package.
 **When / prerequisites:** after the core workbook work for 2.2 is complete; students should already understand the calculation or reasoning in the connected workbook section (Practice p. 49; Apply p. 50 remains separate).
 **Open:** `family-influence-map.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** Layered information reveals reasons behind initially different choices.
-**DO:** Investigate both fictional profiles. Reveal Family & Home, Friends & Peers, Media & Social Media, and Circumstances. Trace one underlying money message through Name → Trace → Notice → Decide. Afterward, use Map Your Own Influences to fill in the same four categories for a choice of your own.
-**ASK / RECORD:** Explain one influence that helps make a choice understandable. Revisit p. 49 using your own, general, or fictional information.
+**DO:** Investigate both fictional profiles. Reveal Family & Home, Friends & Peers, Media & Social Media, and Circumstances. Trace one underlying money message through Name → Trace → Notice → Decide.
+**ASK / RECORD:** Explain one influence that helps make a choice understandable, then return to p. 49 and revisit the influence map using personal-by-choice, general, sample, or fictional information.
 **Return to:** Practice p. 49 — Mapping Your Money Influences.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
-**Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
-**No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** Map Your Own Influences afterward lets a student build a personal influence map across the same four categories. The story itself does not replay Mina’s p. 50 case or offer a context-variable toggle, and Circumstances is not the same category as School & Community on p. 49.
+**Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. The Digital Companion is additional and unscored; workbook Practice/Apply and the Exit Ticket remain the evidence of learning.
+**No-device route:** complete the existing workbook lesson; omit this additional digital experience.
+**Control limits:** The story does not replay Mina’s p. 50 case or offer a context-variable toggle. Circumstances is an added story layer and is not the same category as School & Community on p. 49. The tool ends by sending students back to the workbook rather than recreating the p. 49 map as a digital form.
 
 ### OPTIONAL DIGITAL COMPANION — Goal Fit
 
@@ -159,8 +159,8 @@ Use the ten replacement teacher entries in this synchronized source package.
 **Open:** `goal-alignment-planner.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** Recalculation shows how a plan can change while the guiding value stays constant.
 **DO:** Start with the sample $240 goal over eight months ($30 per month). When it changes to $280 over five months ($56 per month), compare raising the monthly amount, choosing a lower-cost version, or finding a later cohort. After the story, use Test Your Own Goal to run any cost and timeline, original and changed, through the same math.
-**ASK / RECORD:** Identify the value that stayed constant and the plan detail you changed. Apply the Final Goal Check on p. 58 to your own, sample, or fictional plan.
-**Return to:** Apply p. 58 — Final Goal Check.
+**ASK / RECORD:** Identify the value that stayed constant and the plan detail you changed. Return to the **Apply: Connect Values to a SMART Goal** work on p. 58 and revisit its **Reflect** prompt using your own, sample, or fictional plan.
+**Return to:** Workbook p. 58 — **Apply: Connect Values to a SMART Goal**, then the **Reflect** prompt on the same page.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
@@ -188,7 +188,7 @@ Use the ten replacement teacher entries in this synchronized source package.
 **Purpose / what digital adds:** Animated bars and a year-by-year table show growth patterns under common assumptions.
 **DO:** Watch $100 at 10% for three years. Run one changed principal/rate/time example, compare Kate’s $500 storage choices over five years, and try the Rule of 72.
 **ASK / RECORD:** Record the principal, rate, years, simple total, and compound total for one run. Explain why the totals differ and compare with pp. 76–79.
-**Return to:** Learn p. 76, Kate’s comparison p. 77, and Practice p. 79.
+**Return to:** Learn p. 76, Kate’s comparison p. 77, and Apply p. 79.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
@@ -211,18 +211,29 @@ Use the ten replacement teacher entries in this synchronized source package.
 ### OPTIONAL DIGITAL COMPANION — My Financial Future: Stress Test
 
 **Time:** approximately 10 minutes, additional to core instruction; classroom estimate to validate in a pilot.
-**When / prerequisites:** after the core workbook work for Capstone I is complete; students should already understand the calculation or reasoning in the connected workbook section (pp. 93–101; core plan pp. 93–98).
+**When / prerequisites:** after the core workbook work for Capstone I is complete; students should have completed the core workbook plan on pp. 93–98, including a supplied fictional monthly available-income amount; no gross-to-net calculation is required.
 **Open:** `financial-projection-capstone.html` through the approved Dimension 1 Hub.
 **Purpose / what digital adds:** Income, needs, savings, wants, and a future goal interact; goal choices recalculate and loop back.
-**DO:** Run the fixed sample Workforce plan. Observe the income drop from $36,000 to $30,000 and rent increase from $600 to $700. Rebalance savings and wants, then extend the timeline, reduce the goal cost, or revisit the budget until the goal check fits. Afterward, use Test Your Own Plan to run your own income, needs, savings, wants, and goal through the same checks.
-**ASK / RECORD:** Record what changed, your adjustment, and the resulting monthly savings target. Use those same checks on your own workbook plan; keep the existing Capstone rubric as the assessment.
-**Return to:** Capstone I pp. 93–98, with the existing reflection and rubric on pp. 99–101.
+**DO:** Run the fixed sample Workforce plan. Observe the fictional monthly available-income change from $2,250 to $1,875 and rent increase from $600 to $700. Rebalance savings and wants, then extend the timeline, reduce the goal cost, or revisit the budget until the goal check fits. Afterward, students may use Test Your Own Plan with fictional, sample, aspirational, or observed-but-not-personal amounts.
+**ASK / RECORD:** Record what changed, your adjustment, and the resulting monthly savings target. Use the same checks on the student’s fictional workbook plan; the existing Capstone rubric remains the assessment.
+**Return to:** Capstone I core plan and reflection on pp. 93–98; optional research pp. 99–100; completion milestone p. 101. The rubric is in the assessment suite.
 **Access:** browser on a student/shared device or teacher-projected browser; online access for hosted files, or a tested local copy.
 **Privacy and assessment:** use the supplied fictional/sample information. No login, no account, no saved student responses. Copy any wanted reflection before leaving. The workbook and existing assessment remain the evidence of learning.
 **No-device route:** complete the existing workbook lesson; omit this optional simulation.
-**Control limits:** The story is fixed to the sample Workforce plan and does not import a student's own numbers. Test Your Own Plan afterward accepts real, sample, or fictional income/budget/goal numbers and applies the same fixed 25% deduction and 3% future-cost assumptions — it is still not a standalone Capstone submission or assessment; the workbook plan and rubric remain the graded evidence.
+**Control limits:** The story is fixed to a fictional Workforce plan with supplied monthly available income and does not import a student's own numbers. The tool uses a supplied fictional monthly available-income amount and a fixed 3% future-cost planning assumption. The adjustable test accepts fictional, sample, aspirational, or observed-but-not-personal planning values; it does not calculate gross-to-net pay or payroll deductions. It is optional, is not a standalone submission or assessment, and does not replace the workbook plan or rubric.
 
 ---
+
+
+### Checkpoint 1 digital source controls
+
+- **Devon’s Month:** Explore uses sample, fictional, or rounded values only; do not enter private household, account, or bill details. A positive leftover after an income decrease is not labeled a shortfall.
+- **Priority Shift:** Explore uses sample, fictional, or rounded values only; do not enter private household, account, or bill details.
+- **Same Choice, Different Story:** completion depends on unique influence layers revealed for each profile; reopening the same layer does not count as a new reveal.
+- **Goal Fit:** when cost ÷ months is not a whole dollar, display cents so the shown monthly amount does not round down into a false exact result.
+- **Emergency Ripple:** Savings Used is constrained to the smaller of savings available and the emergency cost.
+- **Purchasing Power Time Machine:** future-cost and monthly-target equalities display cents or explicit approximation while preserving the WISE 3% classroom planning assumption and 3-decimal multiplier.
+- **My Financial Future: Stress Test:** goal-fit calculations display cents where needed; Done Exploring produces a sandbox-specific summary and does not silently jump to the fixed sample-story ending.
 
 **⚠️ NOT YET BUILT — planning reference only.** The detailed entries above (Devon's Month through My Financial Future: Stress Test) are the ten tools that exist and are live. Everything from here down documents tools for Units 4–9 and later capstones that have not been built. Treat this section as a roadmap, not a usable teacher resource.
 
@@ -478,7 +489,7 @@ Use the ten replacement teacher entries in this synchronized source package.
 | 3.1 | Emergency Ripple | An emergency changes the fund balance and future rebuilding path. |
 | 3.2 | Interest in Motion | Animated comparison shows simple and compound growth over time. |
 | 3.3 | Purchasing Power Time Machine | Time and cost manipulation connect future price estimates to purchasing power. |
-| Capstone I | My Financial Future: Stress Test | After the core plan, test the sample’s income/rent shock, rebalance, and compare the recalculated goal with workbook reasoning |
+| Capstone I | My Financial Future: Stress Test | After the core plan, test the sample’s available-income/rent shock, rebalance, and compare the recalculated goal with workbook reasoning |
 
 **Rows above this line are built and live. Rows below are planning reference for tools that do not exist yet.**
 

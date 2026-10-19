@@ -161,7 +161,7 @@ footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5
 <section class="screen" id="s-intro">
   <div class="card accent">
     <h2>A strong plan isn't one that never changes. It's one you know how to adjust. 🧩</h2>
-    <p style="font-size:14.5px;margin-top:6px">This sample plan already combines a money-mindset reframe, a career and income estimate, a Needs → Savings → Wants budget, and a long-term goal with an inflation-adjusted future cost. If you already built your own plan on paper, use these same steps to test yours instead.</p>
+    <p style="font-size:14.5px;margin-top:6px">This fictional sample plan combines mindset, career direction, a Needs → Savings → Wants budget, and a long-term goal with an inflation-adjusted future cost. The monthly available-income amount is supplied as a planning input. If you already built a fictional or sample plan on paper, use these same checks to test it.</p>
   </div>
   <button class="entry-opt" onclick="chooseStart()" type="button" style="width:100%;max-width:360px;margin:14px auto 0;display:block">
     <span class="entry-icon">🧩</span>
@@ -188,6 +188,7 @@ footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5
 function $(id){return document.getElementById(id)}
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
 function fmt0(n){var neg=n<0;n=Math.abs(n);var s="$"+Math.round(n).toLocaleString("en-US");return neg?"−"+s:s}
+function fmt2(n){var neg=n<0;n=Math.abs(n);var s="$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});return neg?"−"+s:s}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function num(id){var v=parseFloat($(id).value);return isNaN(v)?0:v}
 function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
@@ -202,7 +203,7 @@ function verdictText(bal){return bal>0?"There's still money to assign.":bal===0?
 var BASE={
   value:"Independence", belief:"I'm still learning how to manage a full paycheck, and I can build the skill with practice.",
   career:"Workforce path — full-time entry-level work",
-  grossAnnual:36000, deductionRate:0.25,
+  monthlyAvailableIncome:2250,
   needs:1200, housing:600, savings:225, wants:590,
   goalName:"Apartment security deposit + moving costs", goalCost:1500, goalYears:1
 };
@@ -210,9 +211,8 @@ var P=null, log=[];
 
 function resetAll(){log=[];show("s-intro")}
 function clone(o){return JSON.parse(JSON.stringify(o))}
-function grossMonthly(p){return p.grossAnnual/12}
-function takeHome(p){return grossMonthly(p)*(1-p.deductionRate)}
-function balance(p){return takeHome(p)-p.needs-p.savings-p.wants}
+function availableIncome(p){return p.monthlyAvailableIncome}
+function balance(p){return availableIncome(p)-p.needs-p.savings-p.wants}
 function goalMultiplier(years){return Math.round(Math.pow(1.03,years)*1000)/1000}
 function goalFutureCost(p){return p.goalCost*goalMultiplier(p.goalYears)}
 function goalMonthly(p){return goalFutureCost(p)/(p.goalYears*12)}
@@ -222,30 +222,27 @@ function chooseStart(){P=clone(BASE);log=[];show("s-build");renderOverview()}
 /* ---------- Beat 1: Load the integrated plan ---------- */
 function renderOverview(){
   var m=$("buildSteps");
-  var gm=grossMonthly(P),th=takeHome(P),bal=balance(P),fc=goalFutureCost(P),gmo=goalMonthly(P);
+  var income=availableIncome(P),bal=balance(P),fc=goalFutureCost(P),gmo=goalMonthly(P);
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:20%"></div></div>'+
    '<div class="q-count">Sample Plan, All Four Parts</div>'+
    '<div class="card"><div class="quad">'+
     '<div class="quad-cell"><h4>Mindset &amp; Values</h4><p><strong>Guiding value:</strong> '+P.value+'<br>"'+P.belief+'"</p></div>'+
-    '<div class="quad-cell"><h4>Career &amp; Income</h4><p><strong>'+P.career+'</strong><br>'+fmt0(P.grossAnnual)+' gross/year</p></div>'+
+    '<div class="quad-cell"><h4>Career &amp; Income</h4><p><strong>'+P.career+'</strong><br>Fictional monthly available income: '+fmt0(P.monthlyAvailableIncome)+'</p></div>'+
     '<div class="quad-cell"><h4>Spending Plan</h4><p>Needs '+fmt0(P.needs)+' · Savings '+fmt0(P.savings)+' · Wants '+fmt0(P.wants)+'</p></div>'+
     '<div class="quad-cell"><h4>Long-Term Goal</h4><p>'+P.goalName+'<br>'+fmt0(P.goalCost)+' today, in '+P.goalYears+' year</p></div>'+
    '</div></div>'+
    '<div class="card"><h2>Income</h2>'+
-    moneyRow("Gross Annual Income",P.grossAnnual)+
-    moneyRow("Gross Monthly Income",gm,"sub")+
-    moneyRow("Estimated Deductions (25%)",-Math.round(gm*P.deductionRate),"sub")+
-    moneyRow("Estimated Monthly Take-Home",th,"total")+
+    moneyRow("Monthly Available Income",income,"total")+
    '</div>'+
    '<div class="card"><h2>Budget Check</h2>'+
-    moneyRow("Take-Home Pay",th)+moneyRow("Needs",-P.needs)+moneyRow("Savings",-P.savings)+moneyRow("Wants",-P.wants)+
+    moneyRow("Monthly Available Income",income)+moneyRow("Needs",-P.needs)+moneyRow("Savings",-P.savings)+moneyRow("Wants",-P.wants)+
     moneyRow("Final Balance",bal,"total")+
    '</div>'+
    '<div class="card"><h2>Long-Term Goal</h2>'+
-    factRow("Estimated Future Cost",fmt0(fc)+" (using the 3% annual planning assumption over "+P.goalYears+" yr)")+
-    factRow("Monthly Savings Target",fmt0(gmo))+
-    factRow("Does it fit inside the Savings line?",P.savings>=gmo?"Yes — "+fmt0(P.savings-gmo)+" to spare":"Not yet")+
+    factRow("Estimated Future Cost",fmt2(fc)+" (using the 3% annual planning assumption over "+P.goalYears+" yr)")+
+    factRow("Monthly Savings Target",fmt2(gmo))+
+    factRow("Does it fit inside the Savings line?",P.savings>=gmo?"Yes — "+fmt2(P.savings-gmo)+" to spare":"Not yet")+
    '</div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderStress()" type="button">Then, life happens →</button>'+
   '</div>';
@@ -253,28 +250,28 @@ function renderOverview(){
 
 /* ---------- Beat 2: The stress event ---------- */
 function renderStress(){
-  P.grossAnnual=30000; P.needs=P.needs-P.housing+700; P.housing=700;
-  log.push({text:"Hours were cut — gross annual income dropped from $36,000 to $30,000."});
+  P.monthlyAvailableIncome=1875; P.needs=P.needs-P.housing+700; P.housing=700;
+  log.push({text:"The fictional scenario changes — monthly available income drops from $2,250 to $1,875."});
   log.push({text:"Rent rose from $600 to $700 a month, raising total needs to "+fmt0(P.needs)+"."});
   var m=$("buildSteps");
-  var th=takeHome(P),bal=balance(P);
+  var income=availableIncome(P),bal=balance(P);
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:50%"></div></div>'+
    '<div class="q-count">Then, Life Happens</div>'+
    '<div class="card"><h3>Two things hit at once</h3>'+
-    '<p style="font-size:14.5px;margin:6px 0">• Hours got cut — gross annual income drops to '+fmt0(P.grossAnnual)+'.</p>'+
+    '<p style="font-size:14.5px;margin:6px 0">• The scenario’s monthly available income changes to '+fmt0(P.monthlyAvailableIncome)+'.</p>'+
     '<p style="font-size:14.5px;margin:6px 0">• Rent rises to '+fmt0(P.housing)+', so total needs are now '+fmt0(P.needs)+'.</p>'+
    '</div>'+
-   '<div class="card">'+moneyRow("New Take-Home Pay",th)+moneyRow("Needs",-P.needs)+moneyRow("Savings (unchanged)",-P.savings)+moneyRow("Wants (unchanged)",-P.wants)+moneyRow("Final Balance",bal,"total")+'</div>'+
-   '<div class="result-banner '+stateClass(bal)+'"><h2>'+verdictText(bal)+'</h2><p>The old Savings and Wants amounts no longer fit the new take-home pay. Something in the plan needs to change.</p></div>'+
+   '<div class="card">'+moneyRow("New Monthly Available Income",income)+moneyRow("Needs",-P.needs)+moneyRow("Savings (unchanged)",-P.savings)+moneyRow("Wants (unchanged)",-P.wants)+moneyRow("Final Balance",bal,"total")+'</div>'+
+   '<div class="result-banner '+stateClass(bal)+'"><h2>'+verdictText(bal)+'</h2><p>The old Savings and Wants amounts no longer fit the new monthly available income. Something in the plan needs to change.</p></div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderRebalance()" type="button">Rebalance the plan →</button>'+
   '</div>';
 }
 
 /* ---------- Beat 3: Rebalance ---------- */
 function renderRebalance(){
-  var th=takeHome(P);
-  var pool=th-P.needs;
+  var income=availableIncome(P);
+  var pool=income-P.needs;
   window._pool=pool;
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
@@ -306,13 +303,13 @@ function finishRebalance(){
 function renderGoalCheck(){
   var gmo=goalMonthly(P);
   var fits=P.savings>=gmo;
-  log.push({text:"Long-term goal target is "+fmt0(gmo)+" a month. The new Savings line "+(fits?"still covers it.":"no longer covers it.")});
+  log.push({text:"Long-term goal target is "+fmt2(gmo)+" a month. The new Savings line "+(fits?"still covers it.":"no longer covers it.")});
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:90%"></div></div>'+
    '<div class="q-count">Does the Goal Still Fit?</div>'+
-   '<div class="card">'+factRow("Long-term goal target",fmt0(gmo)+" a month")+factRow("New Savings line",fmt0(P.savings)+" a month")+'</div>'+
-   '<div class="result-banner '+(fits?"state-available":"state-shortfall")+'"><h2>'+(fits?"Yes — the goal still fits":"Not yet")+'</h2><p>'+(fits?"Even after the hit, the rebalanced Savings line still covers the "+fmt0(gmo)+" the goal needs each month.":"The rebalanced Savings line is "+fmt0(gmo-P.savings)+" short of what the goal needs each month.")+'</p></div>'+
+   '<div class="card">'+factRow("Long-term goal target",fmt2(gmo)+" a month")+factRow("New Savings line",fmt0(P.savings)+" a month")+'</div>'+
+   '<div class="result-banner '+(fits?"state-available":"state-shortfall")+'"><h2>'+(fits?"Yes — the goal still fits":"Not yet")+'</h2><p>'+(fits?"Even after the hit, the rebalanced Savings line still covers the "+fmt2(gmo)+" the goal needs each month.":"The rebalanced Savings line is "+fmt2(gmo-P.savings)+" short of what the goal needs each month.")+'</p></div>'+
    (fits?'':'<div class="card"><h3>What would you change?</h3><div class="opts">'+
     '<button class="opt" onclick="goalChoice(\'timeline\')">🗓 Extend the goal\'s timeline</button>'+
     '<button class="opt" onclick="goalChoice(\'goal\')">🎯 Choose a smaller version of the goal</button>'+
@@ -340,21 +337,21 @@ function goalChoice(which){
 /* ---------- Ending ---------- */
 function showEnding(){
   show("s-end");
-  var th=takeHome(P),bal=balance(P);
+  var income=availableIncome(P),bal=balance(P);
   $("endMount").innerHTML='<div class="stepfade">'+
    '<div class="card"><h2>📋 What happened to the plan</h2>'+
    log.map(function(l){return '<p style="font-size:14px;margin:6px 0">• '+esc(l.text)+'</p>'}).join("")+
    '</div>'+
    '<div class="card"><h2>🧾 Final Plan Status</h2>'+
-    moneyRow("Take-Home Pay",th)+moneyRow("Needs",-P.needs)+moneyRow("Savings",-P.savings)+moneyRow("Wants",-P.wants)+moneyRow("Final Balance",bal,"total")+
+    moneyRow("Monthly Available Income",income)+moneyRow("Needs",-P.needs)+moneyRow("Savings",-P.savings)+moneyRow("Wants",-P.wants)+moneyRow("Final Balance",bal,"total")+
    '</div>'+
    '<div class="result-banner cap"><h2>A strong plan is one you know how to adjust</h2><p>Every part of this plan — mindset, income, budget, and goal — connects to the others. When one piece changes, it can ripple through all four.</p></div>'+
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
-   '<p style="font-size:14px;margin-bottom:8px">Using your own plan, the sample plan here, or a fictional one — which part would be hardest to adjust if income dropped: needs, savings, wants, or the long-term goal? Why? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
-   '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on adjusting a financial plan"></textarea></div>'+
-   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Return to your own Capstone plan on pp. 93–98. On paper, apply the same checks: income, spending balance, monthly savings, and goal fit. The tool uses a fixed sample; your workbook and rubric remain the assessed work.</p></div>'+
+   '<p style="font-size:14px;margin-bottom:8px">Using the sample plan or another fictional plan, which part would be hardest to adjust if income dropped: needs, savings, wants, or the long-term goal? Why? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
+   '<textarea id="reflectionBox" rows="3" placeholder="Use a sample or fictional answer..." aria-label="Reflection on adjusting a financial plan"></textarea></div>'+
+   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Return to your fictional Capstone plan on pp. 93–98. On paper, apply the same checks: income, spending balance, monthly savings, and goal fit. The tool uses a fixed sample; your workbook and rubric remain the assessed work.</p></div>'+
    '<div class="action-row print-hide">'+
-    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Test Your Own Plan</button>'+
+    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Test Another Scenario</button>'+
     '<button class="btn btn-secondary" onclick="replay()" type="button">🔄 Try It Again</button>'+
     '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
    '</div>'+
@@ -362,22 +359,22 @@ function showEnding(){
 }
 function replay(){log=[];chooseStart()}
 
-/* ---------- Test Your Own Plan (sandbox — free-form full-plan calculator, never touches the story) ---------- */
+/* ---------- Test Another Scenario (sandbox — free-form full-plan calculator, never touches the story) ---------- */
 function exploreThisPlan(){
   show("s-build");
-  window._ex={grossAnnual:36000,deductionRate:0.25,needs:1200,savings:225,wants:590,goalCost:1500,goalYears:1};
+  window._ex={monthlyAvailableIncome:2250,needs:1200,savings:225,wants:590,goalCost:1500,goalYears:1};
   renderExplore();
 }
 function renderExplore(){
   var ex=window._ex;
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
-   '<div class="card accent"><h2>🔓 Test Your Own Plan</h2>'+
-    '<p style="font-size:14.5px;margin-top:6px">Run your own numbers — real, sample, or fictional — through the same checks: income, budget balance, and goal fit. This is just for you to try out. It won\'t change the sample plan\'s ending.</p>'+
+   '<div class="card accent"><h2>🔓 Test Another Scenario</h2>'+
+    '<p style="font-size:14.5px;margin-top:6px">Try another fictional, sample, aspirational, or observed-but-not-personal scenario. Test income, budget balance, and goal fit; values are not saved and do not change the sample story.</p>'+
    '</div>'+
    '<div class="card"><h3>Income</h3>'+
-    '<label class="fld" for="ex_gross">💰 Gross Annual Income: <span class="range-val" id="ex_grossVal"></span></label>'+
-    '<input type="range" id="ex_gross" min="12000" max="90000" step="500" value="'+ex.grossAnnual+'" oninput="exploreSlide()" aria-label="Gross annual income dollars">'+
+    '<label class="fld" for="ex_income">💰 Monthly Available Income: <span class="range-val" id="ex_incomeVal"></span></label>'+
+    '<input type="range" id="ex_income" min="500" max="6000" step="25" value="'+ex.monthlyAvailableIncome+'" oninput="exploreSlide()" aria-label="Fictional monthly available income dollars">'+
     '<div id="exploreIncomeBox" style="margin-top:12px"></div>'+
    '</div>'+
    '<div class="card"><h3>Budget</h3>'+
@@ -396,27 +393,48 @@ function renderExplore(){
     '<input type="range" id="ex_goalyears" min="1" max="10" step="1" value="'+ex.goalYears+'" oninput="exploreSlide()" aria-label="Years to reach the goal">'+
     '<div id="exploreGoalBox" style="margin-top:12px" aria-live="polite"></div>'+
    '</div>'+
-   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Done exploring →</button>'+
+   '<button class="btn btn-accent btn-lg" onclick="showExploreEnding()" type="button">Done exploring →</button>'+
   '</div>';
   exploreSlide();
 }
 function exploreSlide(){
   var ex=window._ex;
-  ex.grossAnnual=num("ex_gross");ex.needs=num("ex_needs");ex.savings=num("ex_savings");ex.wants=num("ex_wants");ex.goalCost=num("ex_goalcost");ex.goalYears=num("ex_goalyears");
-  $("ex_grossVal").textContent=fmt0(ex.grossAnnual);
+  ex.monthlyAvailableIncome=num("ex_income");ex.needs=num("ex_needs");ex.savings=num("ex_savings");ex.wants=num("ex_wants");ex.goalCost=num("ex_goalcost");ex.goalYears=num("ex_goalyears");
+  $("ex_incomeVal").textContent=fmt0(ex.monthlyAvailableIncome);
   $("ex_needsVal").textContent=fmt0(ex.needs);
   $("ex_savingsVal").textContent=fmt0(ex.savings);
   $("ex_wantsVal").textContent=fmt0(ex.wants);
   $("ex_goalcostVal").textContent=fmt0(ex.goalCost);
   $("ex_goalyearsVal").textContent=ex.goalYears;
-  var gm=grossMonthly(ex),th=takeHome(ex),bal=balance(ex),fc=goalFutureCost(ex),gmo=goalMonthly(ex);
-  $("exploreIncomeBox").innerHTML=moneyRow("Gross Monthly Income",gm)+moneyRow("Estimated Deductions (25%)",-Math.round(gm*ex.deductionRate))+moneyRow("Estimated Monthly Take-Home",th,"total");
-  $("exploreBudgetBox").innerHTML=moneyRow("Take-Home Pay",th)+moneyRow("Needs",-ex.needs)+moneyRow("Savings",-ex.savings)+moneyRow("Wants",-ex.wants)+moneyRow("Final Balance",bal,"total")+
-   '<div class="result-banner '+stateClass(bal)+'" style="margin-top:10px"><h2>'+verdictText(bal)+'</h2><p>'+(bal<0?"Needs, savings, and wants add up to "+fmt0(-bal)+" more than take-home pay.":"")+'</p></div>';
+  var income=availableIncome(ex),bal=balance(ex),fc=goalFutureCost(ex),gmo=goalMonthly(ex);
+  $("exploreIncomeBox").innerHTML=moneyRow("Monthly Available Income",income,"total");
+  $("exploreBudgetBox").innerHTML=moneyRow("Monthly Available Income",income)+moneyRow("Needs",-ex.needs)+moneyRow("Savings",-ex.savings)+moneyRow("Wants",-ex.wants)+moneyRow("Final Balance",bal,"total")+
+   '<div class="result-banner '+stateClass(bal)+'" style="margin-top:10px"><h2>'+verdictText(bal)+'</h2><p>'+(bal<0?"Needs, savings, and wants add up to "+fmt0(-bal)+" more than monthly available income.":"")+'</p></div>';
   var fits=ex.savings>=gmo;
-  $("exploreGoalBox").innerHTML=factRow("Estimated Future Cost",fmt0(fc)+" (using the 3% annual planning assumption over "+ex.goalYears+" yr)")+
-   factRow("Monthly Savings Target",fmt0(gmo))+
-   factRow("Does it fit inside Savings?",fits?"Yes — "+fmt0(ex.savings-gmo)+" to spare":"Not yet — short by "+fmt0(gmo-ex.savings));
+  $("exploreGoalBox").innerHTML=factRow("Estimated Future Cost",fmt2(fc)+" (using the 3% annual planning assumption over "+ex.goalYears+" yr)")+
+   factRow("Monthly Savings Target",fmt2(gmo))+
+   factRow("Does it fit inside Savings?",fits?"Yes — "+fmt2(ex.savings-gmo)+" to spare":"Not yet — short by "+fmt2(gmo-ex.savings));
+}
+function showExploreEnding(){
+  var ex=window._ex;
+  var income=availableIncome(ex),bal=balance(ex),fc=goalFutureCost(ex),gmo=goalMonthly(ex),fits=ex.savings>=gmo;
+  show("s-end");
+  $("endMount").innerHTML='<div class="stepfade">'+
+   '<div class="card"><h2>🔓 Sandbox Scenario Summary</h2><p style="font-size:14.5px">This summary reflects the fictional/sample scenario you just tested. It does not replace or change the fixed Capstone sample story.</p></div>'+
+   '<div class="card"><h3>Budget Check</h3>'+
+    moneyRow("Monthly Available Income",income)+moneyRow("Needs",-ex.needs)+moneyRow("Savings",-ex.savings)+moneyRow("Wants",-ex.wants)+moneyRow("Final Balance",bal,"total")+
+   '</div>'+
+   '<div class="card"><h3>Goal Check</h3>'+
+    factRow("Estimated Future Cost",fmt2(fc)+" (3% classroom planning assumption; 3-decimal multiplier)")+
+    factRow("Monthly Savings Target",fmt2(gmo))+
+    factRow("Does it fit inside Savings?",fits?"Yes — "+fmt2(ex.savings-gmo)+" to spare":"Not yet — short by "+fmt2(gmo-ex.savings))+
+   '</div>'+
+   '<div class="action-row print-hide">'+
+    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Keep Exploring</button>'+
+    '<button class="btn btn-secondary" onclick="showEnding()" type="button">View Sample Story Ending</button>'+
+    '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
+   '</div>'+
+  '</div>';
 }
 </script>
 </body>

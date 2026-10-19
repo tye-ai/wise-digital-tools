@@ -196,6 +196,7 @@ footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5
 function $(id){return document.getElementById(id)}
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
 function fmt0(n){var neg=n<0;n=Math.abs(n);var s="$"+Math.round(n).toLocaleString("en-US");return neg?"−"+s:s}
+function fmt2(n){var neg=n<0;n=Math.abs(n);var s="$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});return neg?"−"+s:s}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function num(id){var v=parseFloat($(id).value);return isNaN(v)?0:v}
 function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
@@ -230,12 +231,12 @@ function renderGoal(){
      '<div class="moment-body">'+
        '<img class="moment-char" src="assets/img/characters/kate-full.png" alt="Kate">'+
        '<div class="moment-content">'+
-         '<div class="moment-bubble">"I anchored my SMART goal to one value: Growth. I want to pay for a training course — <mark>'+fmt0(G.cost)+'</mark>, over '+G.months+' months, so '+fmt0(monthly(G))+' a month."</div>'+
+         '<div class="moment-bubble">"I anchored my SMART goal to one value: Growth. I want to pay for a training course — <mark>'+fmt0(G.cost)+'</mark>, over '+G.months+' months, so '+fmt2(monthly(G))+' a month."</div>'+
        '</div>'+
      '</div>'+
    '</div>'+
    '<div class="card"><span class="value-tag">Value: Growth</span>'+
-    moneyRow("🎯 Course Cost",G.cost)+factRow("🗓 Timeline",G.months+" months")+moneyRow("💵 Monthly Amount",monthly(G))+
+    moneyRow("🎯 Course Cost",G.cost)+factRow("🗓 Timeline",G.months+" months")+factRow("💵 Monthly Amount",fmt2(monthly(G)))+
     '<p class="subtle" style="margin-top:8px">This value could also show up as saving for other skills or opportunities — the course is just this month\'s version of it.</p>'+
    '</div>'+
    '<button class="btn btn-accent btn-lg" onclick="renderStress()" type="button">Continue →</button>'+
@@ -278,7 +279,7 @@ function renderChoices(){
      '</div>'+
    '</div>'+
    '<div class="card"><div class="opts">'+
-    '<button class="opt" onclick="pickPath(\'raise\')">🔺 Raise the monthly amount<span class="opt-sub">Keep this course and the 5-month deadline: '+fmt0(280)+' ÷ 5 = '+fmt0(raiseRate)+' a month.</span></button>'+
+    '<button class="opt" onclick="pickPath(\'raise\')">🔺 Raise the monthly amount<span class="opt-sub">Keep this course and the 5-month deadline: '+fmt0(280)+' ÷ 5 = '+fmt2(raiseRate)+' a month.</span></button>'+
     '<button class="opt" onclick="pickPath(\'version\')">🔁 Choose a different version of the training<span class="opt-sub">Same Growth value, a less expensive way to build the skill.</span></button>'+
     '<button class="opt" onclick="pickPath(\'timeline\')">🗓 Find a later cohort<span class="opt-sub">Same course and cost, more time to save for it.</span></button>'+
    '</div></div>'+
@@ -289,7 +290,7 @@ function pickPath(which){
   if(which==="raise"){
     G.cost=280;G.months=5;
     log.push({text:"Kept this exact course and the 5-month deadline, and raised the monthly amount to fit."});
-    renderPathResult("Raised the monthly amount","The Growth value stays anchored to the same course. The trade-off is a bigger monthly commitment: "+fmt0(monthly(G))+" a month.");
+    renderPathResult("Raised the monthly amount","The Growth value stays anchored to the same course. The trade-off is a bigger monthly commitment: "+fmt2(monthly(G))+" a month.");
   } else if(which==="version"){
     renderVersionSlider();
   } else {
@@ -322,12 +323,12 @@ function versionSlide(){
   var cost=num("verR");
   $("verVal").textContent=fmt0(cost);
   window._verCost=cost;
-  $("verBox").innerHTML=moneyRow("Cost",cost)+factRow("Timeline","5 months (deadline unchanged)")+moneyRow("Monthly amount",cost/5,"total");
+  $("verBox").innerHTML=moneyRow("Cost",cost)+factRow("Timeline","5 months (deadline unchanged)")+factRow("Monthly amount",fmt2(cost/5),"total");
 }
 function finishVersion(){
   G.cost=window._verCost;G.months=5;
   log.push({text:"Chose a different, "+fmt0(G.cost)+" version of the training that still builds Growth, keeping the 5-month deadline."});
-  renderPathResult("Chose a different version of the training","Same Growth value, a different way to fund it: "+fmt0(monthly(G))+" a month for the "+fmt0(G.cost)+" version.");
+  renderPathResult("Chose a different version of the training","Same Growth value, a different way to fund it: "+fmt2(monthly(G))+" a month for the "+fmt0(G.cost)+" version.");
 }
 function renderTimelineSlider(){
   var m=$("buildSteps");
@@ -355,12 +356,12 @@ function timelineSlide(){
   var months=num("timR");
   $("timVal").textContent=months;
   window._timMonths=months;
-  $("timBox").innerHTML=moneyRow("Cost",280)+factRow("Timeline",months+" months")+moneyRow("Monthly amount",280/months,"total");
+  $("timBox").innerHTML=moneyRow("Cost",280)+factRow("Timeline",months+" months")+factRow("Monthly amount",fmt2(280/months),"total");
 }
 function finishTimeline(){
   G.cost=280;G.months=window._timMonths;
   log.push({text:"Kept the exact $280 course, but found a cohort "+G.months+" months out instead of the compressed 5-month deadline."});
-  renderPathResult("Found a later cohort","Same Growth value, same exact course, more time to fund it: "+fmt0(monthly(G))+" a month over "+G.months+" months.");
+  renderPathResult("Found a later cohort","Same Growth value, same exact course, more time to fund it: "+fmt2(monthly(G))+" a month over "+G.months+" months.");
 }
 function renderPathResult(title,msg){
   var m=$("buildSteps");
@@ -379,7 +380,7 @@ function showEnding(){
    log.map(function(l){return '<p style="font-size:14px;margin:6px 0">• '+esc(l.text)+'</p>'}).join("")+
    '</div>'+
    '<div class="card"><span class="value-tag">Value: Growth (unchanged)</span>'+
-    moneyRow("Final Course Cost",G.cost)+factRow("Final Timeline",G.months+" months")+moneyRow("Final Monthly Amount",monthly(G),"total")+
+    moneyRow("Final Course Cost",G.cost)+factRow("Final Timeline",G.months+" months")+factRow("Final Monthly Amount",fmt2(monthly(G)),"total")+
    '</div>'+
    '<div class="moment-scene">'+
      '<div class="moment-badge">💬 Kate\'s Reflection</div>'+
@@ -393,7 +394,7 @@ function showEnding(){
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
    '<p style="font-size:14px;margin-bottom:8px">Changing the plan does not automatically mean abandoning the value. Name one value — yours, a sample, or a fictional one — that could survive a plan changing more than once. This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on values and goals"></textarea></div>'+
-   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Compare this to your own goal on the Apply page (p. 58) and its Final Goal Check: if the monthly amount didn\'t fit, would you change the goal, the timeline, the savings amount, or the budget?</p></div>'+
+   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Compare this with your own, sample, or fictional goal on the Apply page (p. 58) and revisit the Reflect prompt: if the monthly amount didn\'t fit, would you change the goal, the timeline, the savings amount, or the budget?</p></div>'+
    '<div class="action-row print-hide">'+
     '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Test Your Own Goal</button>'+
     '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try a Different Path</button>'+
@@ -449,10 +450,10 @@ function exploreSlide(){
   $("ex_newmonthsVal").textContent=ex.newMonths;
   var origMonthly=ex.cost/ex.months,newMonthly=ex.newCost/ex.newMonths;
   var diff=newMonthly-origMonthly;
-  $("exploreBox1").innerHTML=moneyRow("Original Monthly Amount",origMonthly,"total");
-  var diffLine=diff===0?"The monthly amount stays exactly the same.":(diff>0?"That\'s "+fmt0(diff)+" more per month than the original plan.":"That\'s "+fmt0(Math.abs(diff))+" less per month than the original plan.");
-  $("exploreBox2").innerHTML=moneyRow("New Monthly Amount",newMonthly,"total")+
-   '<div class="result-banner kate" style="margin-top:10px"><h2>'+fmt0(newMonthly)+' a month</h2><p>'+diffLine+' Same goal idea, different numbers — the value behind it doesn\'t have to change just because the plan did.</p></div>';
+  $("exploreBox1").innerHTML=factRow("Original Monthly Amount",fmt2(origMonthly),"total");
+  var diffLine=diff===0?"The monthly amount stays exactly the same.":(diff>0?"That\'s "+fmt2(diff)+" more per month than the original plan.":"That\'s "+fmt2(Math.abs(diff))+" less per month than the original plan.");
+  $("exploreBox2").innerHTML=factRow("New Monthly Amount",fmt2(newMonthly),"total")+
+   '<div class="result-banner kate" style="margin-top:10px"><h2>'+fmt2(newMonthly)+' a month</h2><p>'+diffLine+' Same goal idea, different numbers — the value behind it doesn\'t have to change just because the plan did.</p></div>';
 }
 </script>
 </body>

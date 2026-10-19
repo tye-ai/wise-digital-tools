@@ -243,9 +243,9 @@ var ELIJAH_BASE={income:1050,rent:350,groceries:160,phone:40,bus:55,electricity:
 var E=null, log=[], storyFinalPlan=null, shoesChoice=null, busChoice=null, finalConsequenceLine=null;
 
 function clone(o){return JSON.parse(JSON.stringify(o))}
-function needsTotal(e){return e.rent+e.groceries+e.phone+e.bus+e.electricity}
+function needsTotal(e){return e.rent+e.groceries+e.phone+e.bus+e.electricity+(e.shoes||0)}
 function wantsTotal(e){return e.streaming+e.entertainment+e.clothing+e.misc+e.dataPlan}
-function available(e){return e.income-needsTotal(e)-e.save-wantsTotal(e)-(e.shoes||0)}
+function available(e){return e.income-needsTotal(e)-e.save-wantsTotal(e)}
 function stateClass(bal){return bal>0?"state-available":bal===0?"state-assigned":"state-shortfall"}
 function verdictText(bal){return bal>0?"There's still money available.":bal===0?"Every dollar has a job.":"This plan is short."}
 
@@ -258,15 +258,14 @@ function resetAll(){E=null;log=[];storyFinalPlan=null;shoesChoice=null;busChoice
 function chooseStart(){E=clone(ELIJAH_BASE);log=[];show("s-build");renderScene1()}
 
 function renderStaircase(e,bare){
-  var needs=needsTotal(e),afterNeeds=e.income-needs,afterSave=afterNeeds-e.save,wants=wantsTotal(e),afterWants=afterSave-wants,shoes=e.shoes||0,final=afterWants-shoes;
-  var rows='<div class="stair-row"><span>💰 Income</span><span class="amt">'+fmt0(e.income)+'</span></div>'+
-   '<div class="stair-row sub"><span>− Needs</span><span class="amt">'+fmt0(-needs)+'</span></div>'+
-   '<div class="stair-row total"><span>= After Needs</span><span class="amt">'+fmt0(afterNeeds)+'</span></div>'+
-   '<div class="stair-row sub"><span>− Savings</span><span class="amt">'+fmt0(-e.save)+'</span></div>'+
-   '<div class="stair-row total"><span>= After Savings</span><span class="amt">'+fmt0(afterSave)+'</span></div>'+
-   '<div class="stair-row sub"><span>− Wants</span><span class="amt">'+fmt0(-wants)+'</span></div>'+
-   (shoes?'<div class="stair-row total"><span>= After Wants</span><span class="amt">'+fmt0(afterWants)+'</span></div>'+
-   '<div class="stair-row sub"><span>− Work Shoes (new cost)</span><span class="amt">'+fmt0(-shoes)+'</span></div>':'')+
+  var shoes=e.shoes||0,needs=needsTotal(e),afterNeeds=e.income-needs,afterSave=afterNeeds-e.save,wants=wantsTotal(e),afterWants=afterSave-wants,final=afterWants;
+  var rows='<div class="stair-row"><span>💰 Income</span><span class="amt">'+fmt0(e.income)+'</span></div>'+ 
+   '<div class="stair-row sub"><span>− Needs</span><span class="amt">'+fmt0(-needs)+'</span></div>'+ 
+   (shoes?'<div class="stair-row sub"><span>↳ Required Work Shoes included in Needs</span><span class="amt">'+fmt0(-shoes)+'</span></div>':'')+
+   '<div class="stair-row total"><span>= After Needs</span><span class="amt">'+fmt0(afterNeeds)+'</span></div>'+ 
+   '<div class="stair-row sub"><span>− Savings</span><span class="amt">'+fmt0(-e.save)+'</span></div>'+ 
+   '<div class="stair-row total"><span>= After Savings</span><span class="amt">'+fmt0(afterSave)+'</span></div>'+ 
+   '<div class="stair-row sub"><span>− Wants</span><span class="amt">'+fmt0(-wants)+'</span></div>'+ 
    '<div class="stair-row total final"><span>= '+(final>=0?"Surplus":"Shortfall")+'</span><span class="amt">'+fmt0(final)+'</span></div>';
   return bare?rows:'<div class="card">'+rows+'</div>';
 }
@@ -290,39 +289,41 @@ function renderScene1(){
   '</div>';
 }
 
-/* ---------- Scene 2: The situation changes — safety shoes for a new shift ---------- */
+/* ---------- Scene 2: The situation changes — work shoes for a new shift ---------- */
 function renderScene2(){
   var m=$("buildSteps");
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
-   '<div class="progress"><div class="progress-fill" style="width:30%"></div></div>'+
+   '<div class="progress"><div class="progress-fill" style="width:30%"></div></div>'+ 
    '<div class="moment-scene">'+
-     '<div class="moment-badge">🔀 The Situation Changes</div>'+
+     '<div class="moment-badge">🔀 The Situation Changes</div>'+ 
      '<div class="moment-body">'+
        '<img class="moment-char" src="assets/img/characters/elijah-full.png" alt="Elijah">'+
        '<div class="moment-content">'+
-         '<div class="moment-bubble">"I just picked up an extra weekend shift at the community center. My manager says this role requires slip-resistant, closed-toe shoes, though — they cost <mark>$45</mark>, and I need them before my next shift."</div>'+
-       '</div>'+
-     '</div>'+
-   '</div>'+
-   '<div class="card"><h3>The item didn\'t change. Did the situation?</h3><div class="opts">'+
-    '<button class="opt" onclick="shoesPick(\'clothing\')">👕 It fits inside Clothing<span class="opt-sub">Elijah already budgets $60/month there — this is just what it\'s for.</span></button>'+
-    '<button class="opt" onclick="shoesPick(\'new\')">🆕 It\'s a new cost tied to the job<span class="opt-sub">Separate from regular Clothing spending — it needs its own place in the plan.</span></button>'+
-    '<button class="opt" onclick="shoesPick(\'decline\')">🚫 Turn down the extra shift<span class="opt-sub">Skip the shoes by skipping the shift.</span></button>'+
-   '</div></div>'+
+         '<div class="moment-bubble">"I just picked up an extra weekend shift at the community center. My manager says the role requires slip-resistant, closed-toe shoes. A pair costs <mark>$45</mark>. Whether that purchase is a Need depends on whether I already have an adequate pair that meets the job requirement."</div>'+ 
+       '</div>'+ 
+     '</div>'+ 
+   '</div>'+ 
+   '<div class="card"><h3>Which context applies?</h3><div class="opts">'+
+    '<button class="opt" onclick="shoesPick(\'need\')">✅ No adequate pair yet — the required shoes are a Need<span class="opt-sub">Elijah must have them to work the shift, so the $45 belongs with required Needs before Savings and Wants.</span></button>'+ 
+    '<button class="opt" onclick="shoesPick(\'upgrade\')">👕 An adequate pair already exists — a preferred upgrade is a Gray Zone / possible Want<span class="opt-sub">If the current pair already meets the job requirement, buying a newer or preferred pair is not automatically a required Need.</span></button>'+ 
+    '<button class="opt" onclick="shoesPick(\'decline\')">🚫 Turn down the extra shift<span class="opt-sub">If Elijah does not take the shift, the job-specific purchase is no longer required for this scenario.</span></button>'+ 
+   '</div></div>'+ 
   '</div>';
 }
 function shoesPick(which){
   shoesChoice=which;
-  if(which==="clothing"){
-    log.push({text:"Decided the $45 shoes fit inside the existing $60 Clothing budget — nothing about the plan\'s numbers changes."});
-    renderShoesConsequence("No numbers move.","$45 of the $60 Clothing budget goes to work shoes this month, leaving $15 for anything else clothing-related. The category didn\'t grow — it just got used for something new.");
-  } else if(which==="new"){
+  if(which==="need"){
     E.shoes=45;
-    log.push({text:"Decided the $45 shoes are a new cost tied to the job, separate from Clothing."});
+    log.push({text:"Elijah does not already have an adequate compliant pair, so the $45 job-required shoes are classified as a Need."});
     renderShoesSource();
+  } else if(which==="upgrade"){
+    E.shoes=0;
+    log.push({text:"Elijah already has an adequate compliant pair; a newer or preferred $45 pair is treated as a Gray Zone / possible Want rather than a required Need."});
+    renderShoesConsequence("The required need is already covered.","Because Elijah already has compliant shoes, the preferred replacement does not enter the plan as a new required Need. If he chooses the upgrade, it can come from the existing Clothing/Wants amount.");
   } else {
-    log.push({text:"Turned down the extra shift — no shoes needed, but no extra shift either."});
-    renderShoesConsequence("Nothing changes.","Elijah keeps his current schedule and his current plan. He also doesn\'t pick up the extra shift.");
+    E.shoes=0;
+    log.push({text:"Turned down the extra shift — the job-specific shoes are no longer required in this scenario."});
+    renderShoesConsequence("Nothing changes.","Elijah keeps his current schedule and current plan, so the job-specific shoe purchase is not required.");
   }
 }
 function renderShoesSource(){
@@ -330,7 +331,7 @@ function renderShoesSource(){
   m.innerHTML='<div class="stepfade" id="stepWrap">'+
    '<div class="progress"><div class="progress-fill" style="width:35%"></div></div>'+
    '<div class="card"><h3>It\'s a new $45 cost this month. Where does it come from?</h3><div class="opts">'+
-    '<button class="opt" onclick="shoesSourceChoice(\'savings\')">🎯 Take it from savings this month<span class="opt-sub">$45 less goes toward Elijah\'s goal this month — the shoes get paid for, and needs and wants stay untouched.</span></button>'+
+    '<button class="opt" onclick="shoesSourceChoice(\'savings\')">🎯 Reduce planned savings this month to make room for the Need<span class="opt-sub">$45 less goes toward Elijah\'s goal this month — the shoes get paid for, and needs and wants stay untouched.</span></button>'+
     '<button class="opt" onclick="shoesSourceChoice(\'wants\')">🎮 Take it from this month\'s wants<span class="opt-sub">Less room for entertainment or other wants this month — savings stays exactly on track.</span></button>'+
     '<button class="opt" onclick="shoesSourceChoice(\'short\')">💵 Let it come out of what\'s available<span class="opt-sub">Nothing in the plan\'s categories changes — there\'s just less left over at the end of the month.</span></button>'+
    '</div></div>'+
@@ -409,7 +410,7 @@ function showEnding(){
    '<div class="result-banner '+stateClass(avail)+'" aria-live="polite"><h2>'+verdictText(avail)+'</h2><p>'+finalConsequenceLine+'</p></div>'+
    '<div class="card"><h2>🧾 Elijah\'s Final Plan</h2>'+renderStaircase(P,true)+'</div>'+
    '<div class="card"><h2>What This Plan Shows</h2>'+
-    factRow("What changed about the shoes?",shoesChoice==="clothing"?"Nothing numeric — Clothing absorbed it":shoesChoice==="new"?"A new $45 cost entered the plan":"Nothing — the extra shift was declined")+
+    factRow("How were the shoes classified?",shoesChoice==="need"?"Need — job-required and no adequate pair already available":shoesChoice==="upgrade"?"Gray Zone / possible Want — an adequate compliant pair already exists":"Not required — the extra shift was declined")+
     factRow("What changed about the bus pass?",busChoice==="save"?"A Need became free, and it went to savings":busChoice==="want"?"A Need became free, and it went to wants":"A Need became free, and it\'s unassigned")+
     moneyRow("Final balance",avail,"total")+
    '</div>'+
@@ -418,12 +419,12 @@ function showEnding(){
      '<div class="moment-body">'+
        '<img class="moment-char" src="assets/img/characters/elijah-full.png" alt="Elijah">'+
        '<div class="moment-content">'+
-         '<div class="moment-bubble">"Neither the shoes nor the bus pass changed what they physically were. What changed was my situation — a new job requirement, then a new transit benefit. <strong>Did the item decide its own category, or did the situation?</strong>"</div>'+
+         '<div class="moment-bubble">"The item did not decide its own category. If my job requires the shoes and I do not already have an adequate pair, they are a Need. If I already have compliant shoes and only prefer an upgrade, that purchase can become a Gray Zone or Want. <strong>The situation decides what the purchase means in the plan.</strong>"</div>'+
        '</div>'+
      '</div>'+
    '</div>'+
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
-   '<p style="font-size:14px;margin-bottom:8px">Think of something in your own life that used to be one thing (a want, a need, an assumed cost) until a situation changed it. What changed — the item, or the circumstances around it? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
+   '<p style="font-size:14px;margin-bottom:8px">Using a sample, fictional, aspirational, or generalized situation, think of something that used to be one thing (a want, a need, an assumed cost) until a situation changed it. What changed — the item, or the circumstances around it? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on Elijah\'s month"></textarea></div>'+
    '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Turn to the Learn page on Needs, Wants & the Gray Zone (pp. 16–17). Elijah\'s shoes and bus pass are new situations — not the same example — but they use the same three questions from that page.</p></div>'+
    '<div class="action-row print-hide">'+
@@ -442,6 +443,7 @@ var EXPLORE_RANGES={
   phone:{icon:"📱",label:"Phone",max:100},
   bus:{icon:"🚌",label:"Bus Pass",max:150},
   electricity:{icon:"💡",label:"Electricity",max:150},
+  shoes:{icon:"🥾",label:"Required Work Shoes (Need)",max:150},
   groceries:{icon:"🛒",label:"Groceries",max:300},
   streaming:{icon:"📺",label:"Streaming",max:60},
   entertainment:{icon:"🎮",label:"Entertainment",max:150},
@@ -460,7 +462,7 @@ function exploreThisPlan(){
      '<div class="moment-body">'+
        '<img class="moment-char" src="assets/img/characters/elijah-full.png" alt="Elijah">'+
        '<div class="moment-content">'+
-         '<div class="moment-bubble">"Want to build a spending plan with your own numbers? Every line here is yours to change — income included. This is just for you to try out. It won’t change my actual ending."</div>'+
+         '<div class="moment-bubble">"Want to test another sample or fictional spending plan? Every line here is editable — income included. Use sample, fictional, or rounded numbers only; do not enter private household, account, or bill details. This sandbox won’t change my actual ending."</div>'+
        '</div>'+
      '</div>'+
    '</div>'+
@@ -481,7 +483,7 @@ function exploreThisPlan(){
 }
 function exploreSlide(){
   var Ep=window._explorePlan;
-  ["income","rent","phone","bus","electricity","groceries","streaming","entertainment","clothing","dataPlan","misc","save"].forEach(function(k){var elm=$("ex_"+k);if(elm){Ep[k]=num("ex_"+k);$("ex_"+k+"Val").textContent=fmt0(Ep[k])}});
+  ["income","rent","phone","bus","electricity","shoes","groceries","streaming","entertainment","clothing","dataPlan","misc","save"].forEach(function(k){var elm=$("ex_"+k);if(elm){Ep[k]=num("ex_"+k);$("ex_"+k+"Val").textContent=fmt0(Ep[k])}});
   var avail=available(Ep);
   $("exploreBox").innerHTML='<div class="result-banner '+stateClass(avail)+'" style="margin:0"><h2>'+fmt0(avail)+' available</h2><p>'+verdictText(avail)+'</p></div>';
 }
@@ -501,6 +503,7 @@ function showExperimentResult(){
     moneyRow("📱 Phone — yours",-Ep.phone)+moneyRow("📱 Phone — Elijah’s",-P.phone)+
     moneyRow("🚌 Bus Pass — yours",-Ep.bus)+moneyRow("🚌 Bus Pass — Elijah’s",-P.bus)+
     moneyRow("💡 Electricity — yours",-Ep.electricity)+moneyRow("💡 Electricity — Elijah’s",-P.electricity)+
+    moneyRow("🥾 Required Work Shoes — yours",-Ep.shoes)+moneyRow("🥾 Required Work Shoes — Elijah’s",-P.shoes)+
     moneyRow("🛒 Groceries — yours",-Ep.groceries)+moneyRow("🛒 Groceries — Elijah’s",-P.groceries)+
     moneyRow("📺 Streaming — yours",-Ep.streaming)+moneyRow("📺 Streaming — Elijah’s",-P.streaming)+
     moneyRow("🎮 Entertainment — yours",-Ep.entertainment)+moneyRow("🎮 Entertainment — Elijah’s",-P.entertainment)+

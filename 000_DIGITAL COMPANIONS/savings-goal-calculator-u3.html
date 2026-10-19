@@ -406,8 +406,8 @@ function exploreSlide(){
   var ex=window._ex;
   ex.target=num("ex_target");ex.monthly=num("ex_monthly");ex.monthsElapsed=num("ex_months");ex.emergencyCost=num("ex_cost");
   var saved=Math.min(ex.target,ex.monthly*ex.monthsElapsed);
-  $("ex_used").max=saved;
-  ex.used=Math.min(num("ex_used"),saved);
+  $("ex_used").max=Math.min(saved,ex.emergencyCost);
+  ex.used=Math.min(num("ex_used"),saved,ex.emergencyCost);
   $("ex_used").value=ex.used;
   $("ex_targetVal").textContent=fmt0(ex.target);
   $("ex_monthlyVal").textContent=fmt0(ex.monthly);

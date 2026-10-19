@@ -215,7 +215,7 @@ footer{background:var(--midnight);color:#94A3B8;padding:26px 20px;font-size:12.5
 function $(id){return document.getElementById(id)}
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
+function show(id){document.querySelectorAll("main .screen").forEach(function(s){s.hidden=true});var t=$(id);t.hidden=false;window.scrollTo({top:0,behavior:REDUCED_MOTION?"auto":"smooth"});setTimeout(function(){var h=t.querySelector("h1,h2,h3")||t;if(!h.hasAttribute("tabindex"))h.setAttribute("tabindex","-1");h.focus({preventScroll:true})},0)}
 var REDUCED_MOTION=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var CHAR={Bianca:"#0369A1",Taylor:"#C2410C"};
 function coach(name,text){var c=CHAR[name]||"#003366";return '<div class="coach"><div class="avatar" style="background:'+c+'">'+esc(name[0])+'</div><div class="bubble"><div class="who" style="color:'+c+'">'+esc(name)+'</div>'+text+'</div></div>'}
@@ -236,10 +236,11 @@ var INFLUENCES={
     {cat:"Circumstances", text:"Taylor's living situation is stable right now, so there's less pressure to build a cushion immediately."}
   ]
 };
-var seenInfluences={bianca:0,taylor:0}, log=[];
+var seenInfluences={bianca:{},taylor:{}}, log=[];
+function seenCount(who){return Object.keys(seenInfluences[who]).length}
 
-function resetAll(){log=[];seenInfluences={bianca:0,taylor:0};show("s-intro")}
-function chooseStart(){log=[];seenInfluences={bianca:0,taylor:0};show("s-build");renderMoment()}
+function resetAll(){log=[];seenInfluences={bianca:{},taylor:{}};show("s-intro")}
+function chooseStart(){log=[];seenInfluences={bianca:{},taylor:{}};show("s-build");renderMoment()}
 
 /* ---------- The shared moment ---------- */
 function renderMoment(){
@@ -297,19 +298,19 @@ function toggleInfluence(who,idx){
   var wasOpen=elm.classList.contains("open");
   elm.classList.toggle("open");
   elm.setAttribute("aria-expanded",wasOpen?"false":"true");
-  if(!wasOpen){
-    seenInfluences[who]=Math.min(INFLUENCES[who].length,seenInfluences[who]+1);
+  if(!wasOpen && !seenInfluences[who][idx]){
+    seenInfluences[who][idx]=true;
     log.push({text:(who==="bianca"?"Bianca":"Taylor")+" — "+INFLUENCES[who][idx].cat+": "+INFLUENCES[who][idx].text});
   }
   updateInvestigateActions();
 }
 function updateInvestigateActions(){
   var who=window._investigating;
-  var allSeen=seenInfluences.bianca>=INFLUENCES.bianca.length&&seenInfluences.taylor>=INFLUENCES.taylor.length;
+  var allSeen=seenCount("bianca")>=INFLUENCES.bianca.length&&seenCount("taylor")>=INFLUENCES.taylor.length;
   var otherWho=who==="bianca"?"taylor":"bianca";
   var otherPerson=otherWho==="bianca"?"Bianca":"Taylor";
   var actions="";
-  if(seenInfluences[who]>=INFLUENCES[who].length&&seenInfluences[otherWho]<INFLUENCES[otherWho].length){
+  if(seenCount(who)>=INFLUENCES[who].length&&seenCount(otherWho)<INFLUENCES[otherWho].length){
     actions+='<button class="btn btn-secondary" onclick="renderInvestigate(\''+otherWho+'\')" type="button">🔎 Now investigate '+otherPerson+'</button>';
   }
   if(allSeen){
@@ -362,39 +363,15 @@ function showEnding(){
    '<div class="card soft"><h3>🎒 Take It With You</h3>'+
    '<p style="font-size:14px;margin-bottom:8px">Why can two reasonable people make opposite financial choices with the same amount of unplanned money? This isn\'t saved anywhere — copy or print it before you leave if you want to keep it.</p>'+
    '<textarea id="reflectionBox" rows="3" placeholder="Use your own, a sample, or a fictional answer..." aria-label="Reflection on influence and financial choices"></textarea></div>'+
-   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Revisit Mapping Your Money Influences on p. 49: Family & Home, Friends & Peers, Media & Social Media, and School & Community. Compare those categories with the fictional profiles, including the additional Circumstances information.</p></div>'+
+   '<div class="card soft"><h3>📖 Using the WISE Workbook?</h3><p style="font-size:14px">Return to Mapping Your Money Influences on p. 49: Family & Home, Friends & Peers, Media & Social Media, and School & Community. Use one observation from this investigation to revisit or strengthen your workbook map.</p></div>'+
    '<div class="action-row print-hide">'+
-    '<button class="btn btn-secondary" onclick="exploreThisPlan()" type="button">🔓 Map Your Own Influences</button>'+
     '<button class="btn btn-secondary" onclick="replayStory()" type="button">🔄 Try It Again</button>'+
     '<button class="btn btn-secondary" onclick="window.print()" type="button">🖨 Print Summary</button>'+
    '</div>'+
   '</div>';
 }
-function replayStory(){log=[];seenInfluences={bianca:0,taylor:0};chooseStart()}
+function replayStory(){log=[];seenInfluences={bianca:{},taylor:{}};chooseStart()}
 
-/* ---------- Map Your Own Influences (sandbox — personalize, never touches the story) ---------- */
-function exploreThisPlan(){
-  show("s-build");
-  var m=$("buildSteps");
-  m.innerHTML='<div class="stepfade" id="stepWrap">'+
-   '<div class="card accent"><h2>🔓 Map Your Own Influences</h2>'+
-    '<p style="font-size:14.5px;margin-top:6px">Think of a financial choice — yours, a sample, or a fictional one. Fill in what shaped it, the same way you investigated Bianca and Taylor\'s choices. Nothing here is saved — copy or print it before you leave if you want to keep it.</p>'+
-   '</div>'+
-   '<div class="card">'+
-    '<label class="fld" for="my_choice">The choice: <span class="hint">What was the choice, and what did you (or they) decide?</span></label>'+
-    '<textarea id="my_choice" rows="2" placeholder="e.g., Got an unexpected $50 and decided to..." aria-label="The financial choice"></textarea>'+
-    '<label class="fld" for="my_family">👪 Family & Home</label>'+
-    '<textarea id="my_family" rows="2" placeholder="What did you hear about money growing up that connects to this choice?" aria-label="Family and home influence"></textarea>'+
-    '<label class="fld" for="my_friends">🤝 Friends & Peers</label>'+
-    '<textarea id="my_friends" rows="2" placeholder="Did anyone around you shape this choice?" aria-label="Friends and peers influence"></textarea>'+
-    '<label class="fld" for="my_media">📱 Media & Social Media</label>'+
-    '<textarea id="my_media" rows="2" placeholder="Did anything you watched, read, or scrolled past shape this?" aria-label="Media and social media influence"></textarea>'+
-    '<label class="fld" for="my_circumstances">🌊 Circumstances</label>'+
-    '<textarea id="my_circumstances" rows="2" placeholder="What was going on in your life at the time?" aria-label="Circumstances influence"></textarea>'+
-   '</div>'+
-   '<button class="btn btn-accent btn-lg" onclick="showEnding()" type="button">Done →</button>'+
-  '</div>';
-}
 </script>
 </body>
 </html>
